@@ -1,0 +1,361 @@
+VERI TABANI KISITLARI
+
+run_id benzersiz olmalidir.
+
+Ayni run_id ve metric_key birden fazla kez kaydedilememelidir.
+
+Kategori agirliklari toplami 100 olmalidir.
+
+Normalize skor 0 ile 100 arasinda olmalidir.
+
+Kazanilan kategori puani kategori maksimum puanini gecemez.
+
+Toplam Endeks Skoru 0 ile 100 arasinda olmalidir.
+
+Gecersiz veri veri tabanina kesin skor olarak kaydedilememelidir.
+
+API UCLARI
+
+Web sitesi ve mobil uygulama Endeks Skoru verisini ortak API uzerinden alacaktir.
+
+Gerekli API uclari:
+
+GET /api/index-score/latest
+
+Son yayinlanmis Endeks Skorunu getirir.
+
+GET /api/index-score/history
+
+Tarihsel Endeks Skorlarini getirir.
+
+GET /api/index-score/{run_id}
+
+Belirli bir calismanin tum detaylarini getirir.
+
+GET /api/admin/index-score/{run_id}/metrics
+
+Yonetici icin tum ham metrikleri ve katkilarini getirir.
+
+GET /api/admin/index-score/config
+
+Aktif agirlik ve esik ayarlarini getirir.
+
+PUT /api/admin/index-score/config
+
+Yetkili yoneticinin agirliklari ve esikleri degistirmesini saglar.
+
+POST /api/admin/index-score/recalculate
+
+Belirli bir tarih veya veri surumu icin yeniden hesaplama yapar.
+
+POST /api/admin/index-score/publish
+
+Dogrulanmis Endeks Skorunu yayinlar.
+
+YONETICI PANELI
+
+Yonetici panelinde su bilgiler gosterilmelidir:
+
+Toplam Endeks Skoru.
+
+Piyasa rejimi.
+
+Veri guven orani.
+
+Kullanilabilir veri agirligi.
+
+Son hesaplama zamani.
+
+Kural surumu.
+
+Her kategorinin maksimum puani.
+
+Her kategorinin kazanilan puani.
+
+Her alt metrigin ham degeri.
+
+Her alt metrigin normalize puani.
+
+Her metrigin toplam skora katkisi.
+
+Kullanilan kaynak.
+
+Veri tazeligi.
+
+Eksik veriler.
+
+Dogrulama hatalari.
+
+Pozitif etkenler.
+
+Negatif etkenler.
+
+Risk uyarilari.
+
+Yeniden hesapla butonu.
+
+Yayinla butonu.
+
+Yayinlama engeli varsa nedeni.
+
+Agirlik degisikligi gecmisi.
+
+Yonetici, agirliklari kod degisikligi yapmadan panelden degistirebilmelidir.
+
+Ancak toplam agirlik 100 olmadan degisiklik kaydedilememelidir.
+
+RAPOR GORUNTUSU
+
+Mobil uygulama ve internet sitesinde su bilgiler gosterilecektir:
+
+Endeks Skoru.
+
+Piyasa rejimi.
+
+Veri guven orani.
+
+Son guncelleme zamani.
+
+7 kategori puani.
+
+En guclu 3 pozitif etken.
+
+En guclu 3 negatif etken.
+
+Varsa veri eksikligi uyarisi.
+
+Varsa teyitsiz piyasa hareketi uyarisi.
+
+Varsa jeopolitik risk uyarisi.
+
+Rapor sayfasindaki gauge sadece toplam skoru gostermeyecektir.
+
+Gauge altinda su bilgiler bulunmalidir:
+
+Skor: 71.5 / 100.
+
+Rejim: POZITIF.
+
+Veri Guveni: Yuzde 93.
+
+Hesaplama Saati: 09:38.
+
+Kural Surumu: INDEX-SCORE-V1.0.
+
+Kategori kartina tiklandiginda kategori icindeki alt metrikler acilmalidir.
+
+Kullaniciya ham teknik ayrintilarin tamami gosterilmek zorunda degildir.
+
+Yonetici panelinde tum ayrintilar bulunmalidir.
+
+ACIKLAMA MOTORU
+
+Sistem sadece puan gostermeyecek, puanin nedenini de olusturacaktir.
+
+Aciklama metni puanlara gore otomatik uretilmelidir.
+
+Ornek:
+
+"Endeks Skoru 71.5 ile pozitif bolgededir. XK100 ve BIST100 trendleri pozitif, piyasa genisligi destekleyicidir. VIOP tarafinda acik pozisyon artisi yukselisi teyit etmektedir. Buna karsilik USD/TRY ve CDS hareketi risk puanini sinirlamaktadir. Sistem tam pozisyon yerine kontrollu hisse agirligina izin vermektedir."
+
+Bu aciklama sayisal verilerden uretilmelidir.
+
+Yapay zeka kullanilsa bile aciklama, hesaplanmamis veya kaynakta bulunmayan bir gerekce ekleyemez.
+
+GERIYE DONUK TEST
+
+Endeks Skoru sistemi canliya alinmadan once gecmis verilerle test edilecektir.
+
+Asgari testler:
+
+En az 1 yillik geriye donuk hesaplama.
+
+Mumkunse 3 yillik geriye donuk hesaplama.
+
+Pozitif rejim sonrasi BIST100 performansi.
+
+Negatif rejim sonrasi BIST100 performansi.
+
+Pozitif rejim sonrasi XK100 performansi.
+
+Negatif rejim sonrasi XK100 performansi.
+
+Skor ile sonraki gun getirisi arasindaki iliski.
+
+Skor ile sonraki 5 gunluk getiri arasindaki iliski.
+
+Skor ile maksimum gun ici dusus arasindaki iliski.
+
+Her kategori puaninin tahmin katkisi.
+
+Test sirasinda gelecek tarihli veri kullanilmayacaktir.
+
+Bir gunun skoru hesaplanirken sadece o gunun veri kesim saatine kadar mevcut olan veriler kullanilacaktir.
+
+Sonradan aciklanan veri gecmis skora eklenmeyecektir.
+
+KURAL SURUMLEME
+
+Puan agirliklari veya esikler degistiginde eski raporlar yeni kurallarla otomatik degistirilmeyecektir.
+
+Her rapor kendi kural surumuyle saklanacaktir.
+
+Ornek:
+
+INDEX-SCORE-V1.0
+
+INDEX-SCORE-V1.1
+
+INDEX-SCORE-V2.0
+
+Kucuk esik degisikligi alt surum olarak kaydedilir.
+
+Kategori yapisi veya ana hesaplama mantigi degisirse ana surum artirilir.
+
+HATA VE UYARI KURALLARI
+
+Asagidaki durumlarda Endeks Skoru modulu yonetici uyarisi uretmelidir:
+
+BIST100 verisi eksikse.
+
+BIST30 verisi eksikse.
+
+XK100 verisi eksikse.
+
+XK100 bilesen listesi dogrulanamadiysa.
+
+VIOP verisi eksikse.
+
+CDS verisi guncel degilse.
+
+Kategori agirliklari 100 etmiyorsa.
+
+Bir normalize puan 0-100 disina cikiyorsa.
+
+Bir kategori kendi maksimum puanini asiyorsa.
+
+Veri guveni minimum esigin altindaysa.
+
+Skor onceki gune gore olagan disi degisiyorsa.
+
+Ayni veriyle farkli skor uretiliyorsa.
+
+Jeopolitik yapay zeka servisi calismiyorsa.
+
+Rapor saatine kadar hesaplama tamamlanamiyorsa.
+
+API sonucu mobil uygulamaya ulasmiyorsa.
+
+SKOR ANOMALI KONTROLU
+
+Toplam Endeks Skoru onceki tamamlanmis skora gore 25 puandan fazla degisirse otomatik anomali kontrolu yapilacaktir.
+
+Kategori skorlarindan biri tek calismada 70 puandan fazla normalize degisim gosterirse kaynak verisi kontrol edilir.
+
+Anomali dogrulanamiyorsa rapor otomatik yayinlanmaz.
+
+Yonetici panelinde:
+
+"SKOR ANOMALISI — DOGRULAMA GEREKIYOR"
+
+uyarisi gosterilir.
+
+TESTLER
+
+Asagidaki otomatik testler yazilmalidir:
+
+Kategori agirliklari toplami testi.
+
+Metrik agirliklari toplami testi.
+
+Eksik veri testi.
+
+Sifira bolme testi.
+
+Tekrarlanan veri testi.
+
+Ayni girdiden ayni sonuc testi.
+
+Puan alt ve ust sinir testi.
+
+VIOP fiyat-acik pozisyon senaryo testi.
+
+Kur ve CDS ani hareket testi.
+
+Jeopolitik servis kapali testi.
+
+API cevap testi.
+
+Veri tabani benzersizlik testi.
+
+Zamanlama testi.
+
+Rapor yayinlama engeli testi.
+
+CANLIYA ALMA KURALI
+
+Endeks Skoru modulu ilk gunden dogrudan musteri raporunda kesin karar olarak kullanilmayacaktir.
+
+Ilk asamada golge modunda calistirilabilir.
+
+Golge modunda:
+
+Skor hesaplanir.
+
+Yonetici panelinde gorulur.
+
+Rapor sonucu arsivlenir.
+
+Gercek piyasa sonuclariyla karsilastirilir.
+
+Hata ve agirlik sorunlari kontrol edilir.
+
+Sistem yeterli testten gectikten sonra musteri raporuna aktif olarak baglanir.
+
+TAMAMLANMA KRITERLERI
+
+Bu bolum tamamlanmis sayilmasi icin sadece sayfaya metin eklenmesi yeterli degildir.
+
+Asagidaki islemlerin tamamlanmasi gerekir:
+
+Endeks Skorlama Python modulu yazildi.
+
+7 kategori gercek verilerle hesaplanabiliyor.
+
+Kategori puanlari tam 100 ediyor.
+
+XK100 dogrudan Endeks Skoruna dahil edildi.
+
+Eksik veri kurali calisiyor.
+
+Veri guven orani hesaplaniyor.
+
+Veri tabani tablolari olusturuldu.
+
+API uclari olusturuldu.
+
+Yonetici paneli kategori detaylarini gosteriyor.
+
+Agirliklar yonetici panelinden degistirilebiliyor.
+
+Toplam 100 kontrolu yapiliyor.
+
+Zamanlayici VPS'te calisiyor.
+
+Loglar kaydediliyor.
+
+Hata uyarilari calisiyor.
+
+Ayni veriyle ayni skor uretiliyor.
+
+Geriye donuk test yapilabiliyor.
+
+Web sitesi skoru API'den aliyor.
+
+Mobil uygulama ayni skoru API'den aliyor.
+
+09:45 raporu Endeks Skorunu kullanabiliyor.
+
+Kimi bu maddelerin sadece gorunen metnini degil, calisan kodunu, veri tabani yapisini, API'sini, yonetici ayarlarini ve VPS zamanlayicisini hazirlayacaktir. müşteri sayfasına ve -XK100-
+Sistem Semasi
+GIZLI - SADECE YONETICI sayfasına bu mesajla ilgili eklenmesi gereken herşeyi ekle oluştur.

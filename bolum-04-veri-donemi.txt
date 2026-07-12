@@ -1,0 +1,25 @@
+KULLANILACAK VERI DONEMI
+
+Endeks Skoru sadece son 60 gunluk veriyle hesaplanmayacaktir.
+
+Trend, yuzdelik dilim, standart sapma ve tarihsel karsilastirma hesaplari icin en az 260 tamamlanmis islem gunu verisi tutulmalidir.
+
+Asgari veri kurallari:
+
+EMA5 icin en az 10 islem gunu.
+
+EMA20 icin en az 40 islem gunu.
+
+EMA50 icin en az 100 islem gunu.
+
+20 gunluk ortalama hacim icin en az 30 islem gunu.
+
+60 gunluk yuzdelik hesaplari icin en az 90 islem gunu.
+
+252 gunluk tarihsel yuzdelik hesaplari icin en az 260 islem gunu.
+
+Yeterli tarihsel veri yoksa ilgili metrik hesaplanmaz.
+
+Eksik metrik icin tahmini veya uydurma puan uretilmez.
+
+Tamamlanmamis gunluk mumlar uzun vadeli trend hesaplarina dahil edilmez.

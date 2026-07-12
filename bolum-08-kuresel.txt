@@ -1,0 +1,37 @@
+KURESEL PIYASALAR — 10 PUAN
+
+Alt puanlar:
+
+S&P 500 vadeli islemleri: 2 puan.
+
+Nasdaq vadeli islemleri: 2 puan.
+
+DAX vadeli islemleri: 1.5 puan.
+
+MSCI Gelisen Piyasalar: 1.5 puan.
+
+VIX: 1.5 puan.
+
+Brent petrol ve Dolar Endeksi ortak etkisi: 1.5 puan.
+
+Kuresel veriler sadece anlik yonle degerlendirilmeyecektir.
+
+Su veriler birlikte kullanilacaktir:
+
+Anlik degisim.
+
+Onceki kapanisa gore degisim.
+
+5 gunluk trend.
+
+20 gunluk trend.
+
+Son 60 gunluk yuzdelik seviyesi.
+
+VIX yukselisi genel olarak risk azaltici kabul edilir.
+
+Ancak VIX seviyesi ile VIX degisim hizi ayri ayri degerlendirilir.
+
+Brent petrolun hizli yukselisi Turkiye icin maliyet ve cari denge riski olusturabilecegi icin negatif etki yapabilir.
+
+Petrol dususu otomatik olarak tam pozitif puan uretemez; dususun sebebi kuresel talep daralmasiysa kuresel risk kategorisiyle birlikte degerlendirilir.

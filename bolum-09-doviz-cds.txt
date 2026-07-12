@@ -1,0 +1,77 @@
+DOVIZ, CDS VE FAIZ — 15 PUAN
+
+Alt puanlar:
+
+USD/TRY yonu ve degisim hizi: 4 puan.
+
+Turkiye 5 yillik CDS: 5 puan.
+
+Turkiye 2 ve 10 yillik tahvil faizleri: 3 puan.
+
+EUR/TRY ve Dolar Endeksi: 2 puan.
+
+Kur, CDS ve faiz uyumu: 1 puan.
+
+USD/TRY KURALI
+
+Sadece kurun yukselmesi veya dusmesi kullanilmayacaktir.
+
+Su olcumler yapilacaktir:
+
+1 gunluk degisim.
+
+5 gunluk degisim.
+
+20 gunluk volatilite.
+
+Hareketin son 252 gundeki yuzdelik seviyesi.
+
+Ani kur sicramasi.
+
+Kurun EMA20 ve EMA50 ile iliskisi.
+
+Kur artisi belirlenen tarihsel volatilitenin cok uzerindeyse risk puani daha hizli dusurulur.
+
+CDS KURALI
+
+CDS icin su veriler kullanilir:
+
+Mevcut CDS seviyesi.
+
+1 gunluk degisim.
+
+5 gunluk degisim.
+
+20 gunluk degisim.
+
+Son 1 yillik yuzdelik seviye.
+
+CDS dusuyorsa pozitif.
+
+CDS yukseliyorsa negatif.
+
+CDS seviyesi yuksek fakat dusus trendindeyse orta puan verilir.
+
+CDS seviyesi dusuk fakat hizli yukseliyorsa risk uyarisi uretilir.
+
+CDS verisi eksikse onceki gunun verisi yeni veri gibi kullanilmayacaktir.
+
+Onceki deger sadece "SON GUNCEL VERI" etiketiyle gosterilebilir.
+
+FAIZ KURALI
+
+Tahvil faizlerindeki hareket su sekilde degerlendirilir:
+
+Faiz seviyesi.
+
+Gunluk degisim.
+
+Getiri egrisi.
+
+2 yillik ve 10 yillik faiz farki.
+
+Ani faiz hareketi.
+
+Faiz, kur ve CDS ayni anda kotulesiyorsa risk etkisi tek tek puanlarin basit toplami yerine ek risk katsayisiyla guclendirilebilir.
+
+Bu ek risk katsayisi yonetici panelinden aktif veya pasif yapilabilir.

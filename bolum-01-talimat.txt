@@ -1,0 +1,17 @@
+ONEMLI UYGULAMA TALIMATI
+
+Bu bolum sadece XK100 Sistem Semasi sayfasinda aciklama metni olarak gosterilmeyecektir.
+
+Kimi, bu kurallari sadece sayfaya yazi olarak eklemeyecek; kurallarin tamamini VPS sunucusunda calisan gercek bir Endeks Skorlama Modulu olarak kodlayacaktir.
+
+Kimi'nin gorevi kodlari, veri tabani tablolarini, zamanlayicilari, API baglantilarini, yonetici paneli ayarlarini, log sistemini ve testleri hazirlamaktir.
+
+Otomasyonu Kimi'nin kendisi calistirmayacaktir.
+
+Otomasyonun asil calisma ortami kullanicinin VPS sunucusudur.
+
+VPS sunucusu her islem gunu veri toplama, dogrulama, skorlama, rapor hazirlama ve rapor yayinlama islemlerini otomatik olarak gerceklestirecektir.
+
+Web sitesi ve mobil uygulama, VPS tarafinda uretilen ayni Endeks Skoru verisini ortak API uzerinden okuyacaktir.
+
+Telegram ve WhatsApp bu asamada skorlama sistemine dahil edilmeyecek, sadece ileride kullanilmak uzere pasif entegrasyon alani olarak tutulacaktir.

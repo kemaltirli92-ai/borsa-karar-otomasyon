@@ -1,0 +1,113 @@
+JEOPOLITIK RISK — 5 PUAN
+
+Bu kategori diger kategorilerden farkli olarak haber ve metin analizi gerektirir.
+
+Ancak yapay zeka tek basina Endeks Skoru belirlemeyecektir.
+
+Jeopolitik kategori icin hibrit sistem kullanilacaktir.
+
+Birinci katman:
+
+Kural tabanli kaynak ve anahtar olay kontrolu.
+
+Ikinci katman:
+
+Metin siniflandirma veya buyuk dil modeliyle olay ozeti, etki yonu ve siddet tespiti.
+
+Ucuncu katman:
+
+Kodlanmis puanlama motorunun yapay zekadan gelen yapilandirilmis sonucu puana cevirmesi.
+
+Yapay zeka dogrudan "Endeks Skoru 72 olsun" seklinde karar veremez.
+
+Yapay zeka sadece su alanlari uretebilir:
+
+Olay basligi.
+
+Olay ozeti.
+
+Olumlu, olumsuz veya notr etki.
+
+Etki siddeti.
+
+Turkiye'ye dogrudan etki.
+
+BIST'e olasi etki.
+
+Etkilenen sektorler.
+
+Kaynak listesi.
+
+Model guven orani.
+
+Olayin devam eden etkisi olup olmadigi.
+
+Yapay zeka ciktisi JSON formatinda alinmalidir.
+
+Ornek alanlar:
+
+event_id
+
+headline
+
+summary
+
+sentiment
+
+severity
+
+turkey_relevance
+
+market_relevance
+
+affected_sectors
+
+source_urls
+
+model_confidence
+
+event_timestamp
+
+Yapay zeka cevabi dogrudan veri tabanina kesin gercek olarak kaydedilmez.
+
+Kaynak linki bulunmayan veya sistemdeki haber verisiyle eslesmeyen model sonucu kullanilmaz.
+
+Model guveni 0.70'in altindaysa olay otomatik olarak kesin puana cevrilmez.
+
+Dusuk guvenli olay "YONETICI KONTROLU" etiketi alir.
+
+YAPAY ZEKA ZORUNLU MU?
+
+Endeks Skoru hesaplama sisteminin ana bolumu icin yapay zeka zorunlu degildir.
+
+BIST100, BIST30, XK100, VIOP, hacim, doviz, CDS, faiz ve kuresel piyasa puanlari tamamen Python kodu ve matematiksel kurallarla hesaplanabilir.
+
+Bu bolumlerde yapay zeka kullanilmasi gereksizdir ve ayni veriyle farkli sonuc uretilmesine neden olabilir.
+
+Yapay zeka sadece serbest metinlerin anlasilmasinda kullanilabilir:
+
+Jeopolitik haber siniflandirma.
+
+Haber ozetleme.
+
+Haberin hangi sektorleri etkiledigini belirleme.
+
+Birden fazla haberi ayni olay altinda birlestirme.
+
+Olumlu, olumsuz ve notr haber tonu cikarma.
+
+Yapay zeka servisi calismazsa sistem tamamen durmayacaktir.
+
+Bu durumda:
+
+Sayisal kategoriler normal sekilde hesaplanir.
+
+Jeopolitik kategori kural tabanli sistemle hesaplanir.
+
+Yapay zeka ile incelenemeyen haberler "AI ANALIZI YOK" etiketi alir.
+
+Genel veri guven orani dusurulur.
+
+Yonetici panelinde uyari gosterilir.
+
+Yapay zeka olmadan da Endeks Skoru uretilmeye devam edilir.

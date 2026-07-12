@@ -1,0 +1,277 @@
+PUAN NORMALIZASYON KURALI
+
+Her alt metrik once 0 ile 100 arasinda normalize edilir.
+
+Kategori puani su formulle hesaplanir:
+
+Kategori Kazanilan Puani = Kategori Maksimum Puani x Kategori Normalize Skoru / 100
+
+Ornek:
+
+VIOP normalize skoru 80 ise:
+
+15 x 80 / 100 = 12 puan.
+
+Kategori icindeki metrikler kendi agirliklariyla hesaplanir.
+
+Bir kategori icindeki agirliklarin toplami yuzde 100 olmak zorundadir.
+
+Ana kategori maksimum puanlarinin toplami da tam 100 olmak zorundadir.
+
+Yonetici panelinde bir kategori agirligi degistirilirse sistem toplam puani kontrol eder.
+
+Toplam 100 degilse ayar kaydedilemez.
+
+Eksik veya fazla puan bulunursa yoneticiye su uyari gosterilir:
+
+"KATEGORI AGIRLIKLARI TOPLAMI 100 OLMALIDIR."
+
+EKSIK VERI KURALI
+
+Eksik veri icin sifir puan yazilmayacaktir.
+
+Sifir puan ile veri bulunmamasi farkli durumlar olarak saklanacaktir.
+
+Eksik veri varsa ilgili metrik NULL olarak kaydedilir.
+
+Toplam Endeks Skoru su formulle hesaplanir:
+
+Endeks Skoru = Kazanilan Toplam Puan / Kullanilabilir Toplam Agirlik x 100
+
+Ornek:
+
+100 puanlik sistemin 90 puanlik verisi mevcut.
+
+Sistem mevcut verilerden 63 puan kazandi.
+
+Endeks Skoru:
+
+63 / 90 x 100 = 70.
+
+Ancak raporda veri guveni yuzde 90 olarak gosterilir.
+
+Kullanilabilir agirlik yuzde 80'in altindaysa normal Endeks Skoru kesin sonuc olarak yayinlanmaz.
+
+Rapor su uyariyla yayinlanir:
+
+"VERI GUVENI YETERSIZ — ENDEKS SKORU SINIRLI VERIYLE HESAPLANDI."
+
+Kullanilabilir agirlik yuzde 65'in altindaysa sistem yeni hisse onerisi uretmez.
+
+Bu durumda:
+
+"NAKITTE KAL / VERI BEKLE" sonucu uretilir.
+
+VERI GUVEN ORANI
+
+Endeks Skoru ile birlikte ayri bir Veri Guven Orani hesaplanacaktir.
+
+Veri Guven Orani su unsurlardan olusur:
+
+Mevcut veri agirligi.
+
+Veri tazeligi.
+
+Kaynak dogrulamasi.
+
+Kaynaklar arasi uyum.
+
+Eksik veri orani.
+
+Yapay zeka siniflandirma guveni.
+
+Anormal veri sayisi.
+
+Veri Guven Orani 0 ile 100 arasinda gosterilir.
+
+Ornek rapor:
+
+Endeks Skoru: 71.5
+
+Piyasa Rejimi: POZITIF
+
+Veri Guveni: Yuzde 93
+
+Kullanilabilir Veri Agirligi: Yuzde 100
+
+Son Hesaplama: 09:38
+
+Kurallar Surumu: INDEX-SCORE-V1.0
+
+ENDEKS SKORU REJIM ARALIKLARI
+
+80.00-100.00:
+
+GUCLU POZITIF
+
+Genel piyasa kosullari destekleyici.
+
+Yuksek hisse agirligina izin verilebilir.
+
+Ancak nihai portfoy orani Hisse Skorlama ve Portfoy Dagilimi bolumunde belirlenir.
+
+65.00-79.99:
+
+POZITIF
+
+Piyasa genel olarak destekleyici.
+
+Secici hisse alimina izin verilir.
+
+Portfoyde belirli oranda nakit korunur.
+
+50.00-64.99:
+
+ORTA / NOTR-POZITIF
+
+Piyasa karisik veya sinirli olumlu.
+
+Sadece yuksek skorlu hisseler degerlendirilir.
+
+Hisse sayisi ve toplam pozisyon orani sinirlanir.
+
+35.00-49.99:
+
+TEMKINLI / NOTR-NEGATIF
+
+Yeni pozisyon esigi yukseltilir.
+
+Dusuk guvenli hisseler elenir.
+
+Nakit orani artirilir.
+
+0.00-34.99:
+
+NEGATIF
+
+Yeni pozisyon acma ciddi sekilde sinirlanir.
+
+Gerekirse "NAKITTE KAL" karari uretilir.
+
+Sadece cok yuksek hisse skoru, yuksek veri guveni ve endeksten belirgin pozitif ayrisma varsa sinirli istisna uygulanabilir.
+
+PIYASA REJIMI BAGLANTISI
+
+Endeks Skoru tek basina portfoy karari vermeyecektir.
+
+Asagidaki veriler birlikte kullanilacaktir:
+
+Toplam Endeks Skoru.
+
+BIST100 alt skoru.
+
+BIST30 alt skoru.
+
+XK100 alt skoru.
+
+VIOP skoru.
+
+Veri guven orani.
+
+Hisse skorlari.
+
+Hisselerin endekse gore goreceli gucu.
+
+Uc ana endeksin yonu.
+
+REJIM KURALLARI
+
+BIST100, BIST30 ve XK100 ayni anda negatifse:
+
+Yeni hisse secim esigi yukseltilir.
+
+Toplam hisse agirligi dusurulur.
+
+Nakit payi artirilir.
+
+Endeks Skoru 35'in altindaysa "NAKITTE KAL" varsayilan karar olur.
+
+BIST100 pozitif, XK100 negatifse:
+
+Genel piyasa pozitif olsa bile XK100 hisseleri icin risk katsayisi uygulanir.
+
+Hisse skorlarindan otomatik kesinti yapilmaz.
+
+Bunun yerine Hisse Skoru bolumundeki "Piyasa Uyum Katsayisi" dusurulur.
+
+XK100 pozitif, BIST100 negatifse:
+
+XK100'un goreceli gucu pozitif olarak kaydedilir.
+
+Ancak genel piyasa riski nedeniyle toplam portfoy agirligi sinirli tutulur.
+
+BIST30 pozitif, piyasa genisligi negatifse:
+
+Yukselisin az sayida buyuk sirket tarafindan tasindigi kabul edilir.
+
+Genel piyasa pozitif olarak isaretlenmez.
+
+"Dar Katilimli Yukselis" etiketi uretilir.
+
+Endeksler pozitif, VIOP ve hacim negatifse:
+
+"TEYITSIZ YUKSELIS" etiketi uretilir.
+
+Endeksler negatif, hacim dusuk ve VIOP notrse:
+
+"ZAYIF SATIS / KARARSIZLIK" etiketi uretilir.
+
+Endeks, VIOP, hacim ve kuresel kategoriler ayni anda pozitifse:
+
+"GENIS TABANLI POZITIF REJIM" etiketi uretilir.
+
+POZISYON FILTRESI
+
+Endeks Skoru nihai portfoy oranini dogrudan belirlemeyecek, Portfoy Dagilimi bolumune maksimum risk limiti gonderecektir.
+
+80-100 Endeks Skoru:
+
+Azami hisse agirligi yuzde 100'e kadar cikabilir.
+
+65-79.99 Endeks Skoru:
+
+Azami hisse agirligi yuzde 85.
+
+50-64.99 Endeks Skoru:
+
+Azami hisse agirligi yuzde 65.
+
+35-49.99 Endeks Skoru:
+
+Azami hisse agirligi yuzde 40.
+
+0-34.99 Endeks Skoru:
+
+Azami hisse agirligi yuzde 20.
+
+Bu oranlar kesin portfoy dagilimi degildir.
+
+Nihai portfoy orani su verilerle belirlenecektir:
+
+Favori hisse sayisi.
+
+Favori hisselerin skorlari.
+
+Favori hisselerin guven oranlari.
+
+Endeks skoru.
+
+Veri guven orani.
+
+Hisselerin sektor yogunlugu.
+
+Toplam risk limiti.
+
+AYNI GIRDIDEN AYNI SONUC KURALI
+
+Sayisal Endeks Skoru deterministik olmalidir.
+
+Ayni veri, ayni kural surumu ve ayni ayarlarla sistem tekrar calistirildiginda ayni sonuc uretilmelidir.
+
+Yapay zeka ciktisi degisse bile sayisal kategorilerin puanlari degismemelidir.
+
+Jeopolitik analizde kullanilan model cevabi, model surumu ve istem surumu kaydedilmelidir.
+
+Bir rapor tekrar uretildiginde onceki raporun uzerine yazilmayacaktir.
+
+Yeni rapor surumu olusturulacaktir.

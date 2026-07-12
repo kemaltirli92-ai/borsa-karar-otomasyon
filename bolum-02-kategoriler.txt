@@ -1,0 +1,161 @@
+MEVCUT PUANLAMA HATASININ DUZELTILMESI
+
+Eski tabloda kategori puanlari su sekildedir:
+
+BIST100: 20
+
+BIST30: 17
+
+VIOP: 15
+
+Hacim: 8
+
+Kuresel: 8
+
+Doviz/CDS: 7
+
+Jeopolitik: 3
+
+Bu puanlarin toplami 100 degil, 78'dir.
+
+Bu nedenle mevcut tablo dogrudan kullanilmayacaktir.
+
+Endeks Skoru asagidaki 7 ana kategoriyle ve toplam tam 100 puan olacak sekilde hesaplanacaktir.
+
+YENI ENDEKS SKORU KATEGORILERI
+
+Kategori: Endeks Yonu ve Piyasa Yapisi
+
+Maksimum puan: 30
+
+Alt veriler:
+
+BIST100
+
+BIST30
+
+XK100
+
+Endeks trendleri
+
+Endeks momentumlari
+
+Piyasa genisligi
+
+Endekslerin birbirine gore goreceli gucu
+
+Kategori: VIOP
+
+Maksimum puan: 15
+
+Alt veriler:
+
+BIST30 vadeli kontrati
+
+Vadeli fiyat yonu
+
+Spot-vadeli fiyat farki
+
+Acik pozisyon degisimi
+
+Vadeli islem hacmi
+
+Fiyat ve acik pozisyon uyumu
+
+Kategori: Hacim ve Piyasa Genisligi
+
+Maksimum puan: 15
+
+Alt veriler:
+
+BIST toplam islem hacmi
+
+XK100 toplam islem hacmi
+
+Yukselen ve dusen hisse sayisi
+
+Yukselen ve dusen hisselerin hacimleri
+
+Hacimli yukselen hisse orani
+
+Hacimli dusen hisse orani
+
+Kategori: Kuresel Piyasalar
+
+Maksimum puan: 10
+
+Alt veriler:
+
+S&P 500 vadeli islemleri
+
+Nasdaq vadeli islemleri
+
+DAX vadeli islemleri
+
+MSCI Gelisen Piyasalar
+
+VIX korku endeksi
+
+Dolar endeksi
+
+Brent petrol
+
+Kategori: Doviz, CDS ve Faiz
+
+Maksimum puan: 15
+
+Alt veriler:
+
+USD/TRY
+
+EUR/TRY
+
+Turkiye 5 yillik CDS
+
+Turkiye 2 yillik tahvil faizi
+
+Turkiye 10 yillik tahvil faizi
+
+Dolar endeksi
+
+Kur ve faiz hareketinin yonu ve hizi
+
+Kategori: Sektor Rotasyonu
+
+Maksimum puan: 10
+
+Alt veriler:
+
+BIST sektor endeksleri
+
+XK100 hisselerinin sektor dagilimi
+
+Gunluk sektor performanslari
+
+Haftalik sektor performanslari
+
+Defansif sektorlerin durumu
+
+Buyume odakli sektorlerin durumu
+
+XK100 ile uyumlu sektorlerin goreceli gucu
+
+Kategori: Jeopolitik Risk
+
+Maksimum puan: 5
+
+Alt veriler:
+
+Turkiye'yi dogrudan etkileyen gelismeler
+
+Bolgesel savas ve gerilimler
+
+Yaptirim ve ambargo kararlari
+
+Enerji ve ticaret yollariyla ilgili riskler
+
+Savunma sanayisini etkileyen gelismeler
+
+Kuresel risk istahini etkileyen siyasi gelismeler
+
+TOPLAM ENDEKS SKORU: 100 PUAN

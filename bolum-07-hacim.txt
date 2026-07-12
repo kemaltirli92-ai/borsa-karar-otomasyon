@@ -1,0 +1,37 @@
+HACIM VE PIYASA GENISLIGI — 15 PUAN
+
+Bu kategori asagidaki alt puanlardan olusur:
+
+BIST toplam hacminin 20 gunluk ortalamaya orani: 4 puan.
+
+XK100 toplam hacminin 20 gunluk ortalamaya orani: 4 puan.
+
+Yukselen hacim / dusen hacim orani: 3 puan.
+
+Hacimli yukselen hisse orani: 2 puan.
+
+Piyasaya katilim genisligi: 2 puan.
+
+HACIM UYUM KURALI
+
+Endeks yukseliyor ve hacim 20 gunluk ortalamanin uzerindeyse:
+
+Pozitif hacim teyidi.
+
+Endeks yukseliyor fakat hacim dusuyorsa:
+
+Zayif veya teyitsiz yukselis.
+
+Endeks dusuyor ve hacim yukseliyorsa:
+
+Guclu satis baskisi.
+
+Endeks dusuyor fakat hacim dusuyorsa:
+
+Zayif satis veya kararsiz piyasa.
+
+Hacim artisi tek basina pozitif sayilmayacaktir.
+
+Fiyat yonu ile hacim yonu birlikte hesaplanacaktir.
+
+Tek bir buyuk hissenin toplam hacmi bozmasini engellemek icin hisse bazli hacim katkilarinda ust sinir uygulanacaktir.

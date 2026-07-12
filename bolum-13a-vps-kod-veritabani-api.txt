@@ -1,0 +1,299 @@
+VPS UYGULAMA MIMARISI
+
+Endeks Skorlama Modulu VPS uzerinde Python tabanli servis olarak calistirilacaktir.
+
+Onerilen ana bilesenler:
+
+Python.
+
+Pandas.
+
+NumPy.
+
+SQLAlchemy.
+
+HTTP istemcisi.
+
+Zamanlayici.
+
+API servisi.
+
+Veri tabani.
+
+Log sistemi.
+
+Test sistemi.
+
+Zamanlayici icin asagidaki yontemlerden biri kullanilabilir:
+
+Systemd timer.
+
+Cron.
+
+Uygulama ici gorev zamanlayici.
+
+Kuyruk sistemi kullaniliyorsa Celery ve Redis benzeri gorev yapisi.
+
+Sadece sabit saate bagli bir cron yeterli kabul edilmeyecektir.
+
+Endeks Skorlama gorevi, Veri Toplama gorevi basariyla tamamlandiktan sonra calismalidir.
+
+Gorev bagimliligi:
+
+Veri Toplama tamamlandi.
+
+Veri Dogrulama tamamlandi.
+
+Endeks Skorlama basladi.
+
+Endeks Skorlama dogrulandi.
+
+Hisse Skorlama basladi.
+
+Portfoy Dagilimi olusturuldu.
+
+Rapor yayinlandi.
+
+Sistem durumlari:
+
+WAITING_DATA
+
+COLLECTING_DATA
+
+VALIDATING_DATA
+
+SCORING
+
+VALIDATING_SCORE
+
+READY
+
+PUBLISHED
+
+FAILED
+
+Endeks Skoru gorevi yanlislikla iki kez tetiklenirse ayni calisma iki kez kaydedilmemelidir.
+
+Her gun ve her rapor surumu icin benzersiz calisma kimligi uretilmelidir.
+
+ORNEK CALISMA KIMLIGI
+
+2026-07-12-INDEX-R1
+
+Ayni gun tekrar hesaplama yapilirsa:
+
+2026-07-12-INDEX-R2
+
+KOD DOSYALARI
+
+Endeks Skorlama modulu mantiksal olarak ayri dosyalara bolunmelidir.
+
+Ornek dosya yapisi:
+
+app/services/index_scoring/collector_adapter.py
+
+app/services/index_scoring/normalizer.py
+
+app/services/index_scoring/index_direction.py
+
+app/services/index_scoring/viop_score.py
+
+app/services/index_scoring/volume_breadth.py
+
+app/services/index_scoring/global_markets.py
+
+app/services/index_scoring/fx_cds_rates.py
+
+app/services/index_scoring/sector_rotation.py
+
+app/services/index_scoring/geopolitical.py
+
+app/services/index_scoring/confidence.py
+
+app/services/index_scoring/engine.py
+
+app/services/index_scoring/validator.py
+
+app/services/index_scoring/explainer.py
+
+app/tasks/run_index_scoring.py
+
+Dosya isimleri mevcut projenin mimarisine gore degistirilebilir.
+
+Ancak tum hesaplama mantigi tek buyuk dosyaya yigilmamalidir.
+
+VERI TABANI TABLOLARI
+
+index_score_runs
+
+Alanlar:
+
+id
+
+run_id
+
+report_date
+
+started_at
+
+completed_at
+
+data_cutoff_at
+
+total_score
+
+market_regime
+
+confidence_score
+
+available_weight
+
+status
+
+ruleset_version
+
+calculation_version
+
+created_at
+
+updated_at
+
+index_score_categories
+
+Alanlar:
+
+id
+
+run_id
+
+category_key
+
+category_name
+
+maximum_points
+
+normalized_score
+
+earned_points
+
+confidence_score
+
+available_weight
+
+status
+
+index_score_metrics
+
+Alanlar:
+
+id
+
+run_id
+
+category_key
+
+metric_key
+
+metric_name
+
+raw_value
+
+raw_unit
+
+normalized_score
+
+metric_weight
+
+earned_contribution
+
+source_name
+
+source_timestamp
+
+collected_at
+
+freshness_status
+
+validation_status
+
+index_score_explanations
+
+Alanlar:
+
+id
+
+run_id
+
+positive_drivers
+
+negative_drivers
+
+risk_warnings
+
+regime_labels
+
+summary_text
+
+index_score_config
+
+Alanlar:
+
+id
+
+ruleset_version
+
+is_active
+
+effective_from
+
+category_weights
+
+metric_weights
+
+score_thresholds
+
+minimum_data_confidence
+
+minimum_available_weight
+
+created_by
+
+created_at
+
+geopolitical_events
+
+Alanlar:
+
+id
+
+run_id
+
+event_id
+
+headline
+
+summary
+
+sentiment
+
+severity
+
+turkey_relevance
+
+market_relevance
+
+affected_sectors
+
+model_provider
+
+model_version
+
+prompt_version
+
+model_confidence
+
+source_list
+
+event_timestamp
+
+created_at

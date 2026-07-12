@@ -1,0 +1,29 @@
+SEKTOR ROTASYONU — 10 PUAN
+
+Alt puanlar:
+
+Pozitif sektor orani: 3 puan.
+
+XK100 agirlikli sektorlerin goreceli gucu: 4 puan.
+
+Defansif ve buyume sektorleri arasindaki denge: 2 puan.
+
+Sektor hareketinin genisligi ve devamligi: 1 puan.
+
+Sistem her sabah asagidaki sorulari sayisal olarak cevaplayacaktir:
+
+Kac sektor pozitif trendde?
+
+Kac sektor negatif trendde?
+
+XK100 hisselerinin yogun oldugu sektorler guclu mu?
+
+Yukselis sadece bir veya iki sektorde mi toplaniyor?
+
+Yukselis piyasaya yayiliyor mu?
+
+Onceki gunun lider sektorleri gucunu koruyor mu?
+
+Sektor rotasyonu kategorisi sadece bir gunluk degisime bakmayacaktir.
+
+1 gunluk, 5 gunluk ve 20 gunluk goreceli performans birlikte kullanilacaktir.

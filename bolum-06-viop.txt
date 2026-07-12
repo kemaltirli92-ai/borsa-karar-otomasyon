@@ -1,0 +1,51 @@
+VIOP — 15 PUAN
+
+VIOP kategorisi asagidaki alt puanlardan olusur:
+
+BIST30 vadeli fiyat yonu: 4 puan.
+
+Spot-vadeli fiyat farki: 3 puan.
+
+Acik pozisyon degisimi: 4 puan.
+
+Vadeli islem hacmi: 2 puan.
+
+Vade yapisi ve kontrat gecisi: 2 puan.
+
+FIYAT VE ACIK POZISYON KURALI
+
+Vadeli fiyat yukseliyor ve acik pozisyon artiyorsa:
+
+Guclu pozitif sinyal.
+
+Vadeli fiyat yukseliyor ve acik pozisyon azaliyorsa:
+
+Kisa pozisyon kapama veya zayif pozitif sinyal.
+
+Vadeli fiyat dusuyor ve acik pozisyon azaliyorsa:
+
+Pozisyon kapama veya orta negatif sinyal.
+
+Vadeli fiyat dusuyor ve acik pozisyon artiyorsa:
+
+Guclu negatif sinyal.
+
+Acik pozisyon verisi tek basina yon sinyali olarak kullanilmayacaktir.
+
+Fiyat, hacim ve acik pozisyon birlikte degerlendirilecektir.
+
+SPOT-VADELI FARKI KURALI
+
+Spot-vadeli farki su sekilde hesaplanir:
+
+Baz = Vadeli Fiyat - Spot Endeks Degeri
+
+Baz degeri son 60 islem gunundeki dagilimiyla karsilastirilir.
+
+Pozitif baz otomatik olarak kesin pozitif sinyal sayilmaz.
+
+Asiri pozitif baz asiri iyimserlik veya kalabalik pozisyon riski olarak isaretlenebilir.
+
+Asiri negatif baz ise korku veya yogun kisa pozisyon riskini gosterebilir.
+
+Kontrat vade sonuna yaklastikca baz dogal olarak degisecegi icin vade kalan gun sayisina gore duzeltme uygulanir.

@@ -1,0 +1,101 @@
+ENDEKS YONU VE PIYASA YAPISI — 30 PUAN
+
+Bu kategori uc ana endeks uzerinden hesaplanacaktir.
+
+BIST100: Maksimum 10 puan.
+
+BIST30: Maksimum 8 puan.
+
+XK100: Maksimum 12 puan.
+
+XK100, sistemin asil hisse havuzunu temsil ettigi icin BIST30'dan daha yuksek agirlik alacaktir.
+
+HER ENDEKS ICIN TREND SKORU
+
+Trend skoru 0 ile 100 arasinda uretilir.
+
+Trend puani su kurallarla hesaplanir:
+
+Kapanis EMA20'nin uzerindeyse: 30 puan.
+
+EMA5 EMA20'nin uzerindeyse: 20 puan.
+
+EMA20 EMA50'nin uzerindeyse: 25 puan.
+
+EMA20'nin son 5 islem gunundeki egimi pozitifse: 15 puan.
+
+Kapanis son 20 gunun orta seviyesinin uzerindeyse: 10 puan.
+
+Toplam trend skoru: 0-100.
+
+Tersi durumlarda ilgili puan verilmez.
+
+Trend puani negatif deger alamaz.
+
+MOMENTUM SKORU
+
+Momentum skoru su donemlerden hesaplanir:
+
+1 gunluk getiri: Yuzde 20 agirlik.
+
+5 gunluk getiri: Yuzde 35 agirlik.
+
+20 gunluk getiri: Yuzde 45 agirlik.
+
+Getiriler sabit bir olumlu veya olumsuz sinira gore degerlendirilmek yerine, endeksin kendi son 252 islem gunundeki dagilimina gore yuzdelik puana cevrilir.
+
+Ornek:
+
+5 gunluk getiri, son 252 gunluk 5 gunluk getirilerin yuzde 80'inden daha gucluyse, 5 gunluk momentum puani 80 olur.
+
+Bu yontem piyasanin dusuk ve yuksek volatilite donemlerine otomatik uyum saglar.
+
+PIYASA GENISLIGI SKORU
+
+Piyasa genisligi su verilerle hesaplanir:
+
+Yukselen hisse sayisi / toplam islem goren hisse sayisi.
+
+Dusmeyen hisse sayisi / toplam islem goren hisse sayisi.
+
+EMA20 uzerindeki hisse orani.
+
+EMA50 uzerindeki hisse orani.
+
+Yeni 20 gunluk zirve yapan hisse sayisi.
+
+Yeni 20 gunluk dip yapan hisse sayisi.
+
+XK100 icin piyasa genisligi sadece XK100 bilesenleri kullanilarak ayrica hesaplanir.
+
+KAPANIS KALITESI SKORU
+
+Kapanis kalitesi su formulle hesaplanir:
+
+Kapanis Kalitesi = (Kapanis - Gunluk En Dusuk) / (Gunluk En Yuksek - Gunluk En Dusuk)
+
+Sonuc 0 ile 1 arasinda olur.
+
+0'a yakin deger gunun dusuk seviyesine yakin kapanisi gosterir.
+
+1'e yakin deger gunun yuksek seviyesine yakin kapanisi gosterir.
+
+Gunluk en yuksek ve en dusuk fiyat ayniysa kapanis kalitesi 50 kabul edilir ve veri guveni dusurulur.
+
+XK100 GORECELI GUC KURALI
+
+XK100'un BIST100'e gore performansi ayrica hesaplanir.
+
+Goreceli guc su donemlerde olculur:
+
+1 gun.
+
+5 gun.
+
+20 gun.
+
+XK100, BIST100'den daha guclu hareket ediyorsa Endeks Yonu kategorisine pozitif katkida bulunur.
+
+BIST100 yukselirken XK100 dusuyorsa veya belirgin sekilde geride kaliyorsa XK100 hisseleri icin risk uyarisi olusur.
+
+BIST100 negatif, XK100 pozitifse sistem bunu Katilim Endeksi'ne ozel goreceli guc olarak kaydeder.

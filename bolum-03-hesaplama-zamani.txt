@@ -1,0 +1,43 @@
+HESAPLAMA ZAMANI
+
+Endeks Skoru veri toplama isleminin ilk asamasi tamamlandiktan hemen sonra 08:30'da hesaplanmayacaktir.
+
+Veri toplama ve sabah piyasa rejimi taramasi devam ettigi icin Endeks Skoru hesaplamasi asagidaki zaman planina gore yapilacaktir:
+
+08:00-08:45:
+
+KAP, haberler, onceki islem gunu fiyatlari, hacimler, endeks verileri, VIOP verileri ve makro veriler toplanir.
+
+08:45-09:00:
+
+Veriler temizlenir, kaynaklar dogrulanir, duplikasyonlar kaldirilir ve eksik veri kontrol edilir.
+
+09:00-09:30:
+
+Kuresel vadeli piyasalar, doviz, CDS, emtia, jeopolitik haberler ve sabah piyasa rejimi verileri guncellenir.
+
+09:30-09:38:
+
+Endeks Skoru hesaplama motoru calisir.
+
+09:38-09:40:
+
+Kategori sonuclari, veri guveni ve anormal sonuc kontrolleri yapilir.
+
+09:40:
+
+Normal veri kesim zamani uygulanir.
+
+09:40-09:45:
+
+Endeks Skoru, hisse skorlari ve portfoy dagilimi rapora islenir.
+
+09:45:
+
+Rapor web sisteminde yayinlanir ve mobil uygulama bildirimi gonderilir.
+
+09:40'tan sonra gelen kritik bir veri varsa sistem bu veriyi onem seviyesine gore degerlendirir.
+
+Kritik veri rapor sonucunu etkileyebilecek seviyedeyse ilgili kategori tekrar hesaplanir.
+
+Kritik olmayan veri bir sonraki rapor veya gun ici veri arsivi icin kaydedilir.
