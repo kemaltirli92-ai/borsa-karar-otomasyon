@@ -1,0 +1,1643 @@
+2. ENDEKS SKORLAMA — CALISAN SISTEM KURALLARI, HESAPLAMA MOTORU VE VPS UYGULAMA TALIMATI
+
+ONEMLI UYGULAMA TALIMATI
+
+Bu bolum sadece XK100 Sistem Semasi sayfasinda aciklama metni olarak gosterilmeyecektir.
+
+Kimi, bu kurallari sadece sayfaya yazi olarak eklemeyecek; kurallarin tamamini VPS sunucusunda calisan gercek bir Endeks Skorlama Modulu olarak kodlayacaktir.
+
+Kimi'nin gorevi kodlari, veri tabani tablolarini, zamanlayicilari, API baglantilarini, yonetici paneli ayarlarini, log sistemini ve testleri hazirlamaktir.
+
+Otomasyonu Kimi'nin kendisi calistirmayacaktir.
+
+Otomasyonun asil calisma ortami kullanicinin VPS sunucusudur.
+
+VPS sunucusu her islem gunu veri toplama, dogrulama, skorlama, rapor hazirlama ve rapor yayinlama islemlerini otomatik olarak gerceklestirecektir.
+
+Web sitesi ve mobil uygulama, VPS tarafinda uretilen ayni Endeks Skoru verisini ortak API uzerinden okuyacaktir.
+
+Telegram ve WhatsApp bu asamada skorlama sistemine dahil edilmeyecek, sadece ileride kullanilmak uzere pasif entegrasyon alani olarak tutulacaktir.
+
+MEVCUT PUANLAMA HATASININ DUZELTILMESI
+
+Eski tabloda kategori puanlari su sekildedir:
+
+BIST100: 20
+
+BIST30: 17
+
+VIOP: 15
+
+Hacim: 8
+
+Kuresel: 8
+
+Doviz/CDS: 7
+
+Jeopolitik: 3
+
+Bu puanlarin toplami 100 degil, 78'dir.
+
+Bu nedenle mevcut tablo dogrudan kullanilmayacaktir.
+
+Endeks Skoru asagidaki 7 ana kategoriyle ve toplam tam 100 puan olacak sekilde hesaplanacaktir.
+
+YENI ENDEKS SKORU KATEGORILERI
+
+Kategori: Endeks Yonu ve Piyasa Yapisi
+
+Maksimum puan: 30
+
+Alt veriler:
+
+BIST100
+
+BIST30
+
+XK100
+
+Endeks trendleri
+
+Endeks momentumlari
+
+Piyasa genisligi
+
+Endekslerin birbirine gore goreceli gucu
+
+Kategori: VIOP
+
+Maksimum puan: 15
+
+Alt veriler:
+
+BIST30 vadeli kontrati
+
+Vadeli fiyat yonu
+
+Spot-vadeli fiyat farki
+
+Acik pozisyon degisimi
+
+Vadeli islem hacmi
+
+Fiyat ve acik pozisyon uyumu
+
+Kategori: Hacim ve Piyasa Genisligi
+
+Maksimum puan: 15
+
+Alt veriler:
+
+BIST toplam islem hacmi
+
+XK100 toplam islem hacmi
+
+Yukselen ve dusen hisse sayisi
+
+Yukselen ve dusen hisselerin hacimleri
+
+Hacimli yukselen hisse orani
+
+Hacimli dusen hisse orani
+
+Kategori: Kuresel Piyasalar
+
+Maksimum puan: 10
+
+Alt veriler:
+
+S&P 500 vadeli islemleri
+
+Nasdaq vadeli islemleri
+
+DAX vadeli islemleri
+
+MSCI Gelisen Piyasalar
+
+VIX korku endeksi
+
+Dolar endeksi
+
+Brent petrol
+
+Kategori: Doviz, CDS ve Faiz
+
+Maksimum puan: 15
+
+Alt veriler:
+
+USD/TRY
+
+EUR/TRY
+
+Turkiye 5 yillik CDS
+
+Turkiye 2 yillik tahvil faizi
+
+Turkiye 10 yillik tahvil faizi
+
+Dolar endeksi
+
+Kur ve faiz hareketinin yonu ve hizi
+
+Kategori: Sektor Rotasyonu
+
+Maksimum puan: 10
+
+Alt veriler:
+
+BIST sektor endeksleri
+
+XK100 hisselerinin sektor dagilimi
+
+Gunluk sektor performanslari
+
+Haftalik sektor performanslari
+
+Defansif sektorlerin durumu
+
+Buyume odakli sektorlerin durumu
+
+XK100 ile uyumlu sektorlerin goreceli gucu
+
+Kategori: Jeopolitik Risk
+
+Maksimum puan: 5
+
+Alt veriler:
+
+Turkiye'yi dogrudan etkileyen gelismeler
+
+Bolgesel savas ve gerilimler
+
+Yaptirim ve ambargo kararlari
+
+Enerji ve ticaret yollariyla ilgili riskler
+
+Savunma sanayisini etkileyen gelismeler
+
+Kuresel risk istahini etkileyen siyasi gelismeler
+
+TOPLAM ENDEKS SKORU: 100 PUAN
+
+HESAPLAMA ZAMANI
+
+Endeks Skoru veri toplama isleminin ilk asamasi tamamlandiktan hemen sonra 08:30'da hesaplanmayacaktir.
+
+Veri toplama ve sabah piyasa rejimi taramasi devam ettigi icin Endeks Skoru hesaplamasi asagidaki zaman planina gore yapilacaktir:
+
+08:00-08:45:
+
+KAP, haberler, onceki islem gunu fiyatlari, hacimler, endeks verileri, VIOP verileri ve makro veriler toplanir.
+
+08:45-09:00:
+
+Veriler temizlenir, kaynaklar dogrulanir, duplikasyonlar kaldirilir ve eksik veri kontrol edilir.
+
+09:00-09:30:
+
+Kuresel vadeli piyasalar, doviz, CDS, emtia, jeopolitik haberler ve sabah piyasa rejimi verileri guncellenir.
+
+09:30-09:38:
+
+Endeks Skoru hesaplama motoru calisir.
+
+09:38-09:40:
+
+Kategori sonuclari, veri guveni ve anormal sonuc kontrolleri yapilir.
+
+09:40:
+
+Normal veri kesim zamani uygulanir.
+
+09:40-09:45:
+
+Endeks Skoru, hisse skorlari ve portfoy dagilimi rapora islenir.
+
+09:45:
+
+Rapor web sisteminde yayinlanir ve mobil uygulama bildirimi gonderilir.
+
+09:40'tan sonra gelen kritik bir veri varsa sistem bu veriyi onem seviyesine gore degerlendirir.
+
+Kritik veri rapor sonucunu etkileyebilecek seviyedeyse ilgili kategori tekrar hesaplanir.
+
+Kritik olmayan veri bir sonraki rapor veya gun ici veri arsivi icin kaydedilir.
+
+KULLANILACAK VERI DONEMI
+
+Endeks Skoru sadece son 60 gunluk veriyle hesaplanmayacaktir.
+
+Trend, yuzdelik dilim, standart sapma ve tarihsel karsilastirma hesaplari icin en az 260 tamamlanmis islem gunu verisi tutulmalidir.
+
+Asgari veri kurallari:
+
+EMA5 icin en az 10 islem gunu.
+
+EMA20 icin en az 40 islem gunu.
+
+EMA50 icin en az 100 islem gunu.
+
+20 gunluk ortalama hacim icin en az 30 islem gunu.
+
+60 gunluk yuzdelik hesaplari icin en az 90 islem gunu.
+
+252 gunluk tarihsel yuzdelik hesaplari icin en az 260 islem gunu.
+
+Yeterli tarihsel veri yoksa ilgili metrik hesaplanmaz.
+
+Eksik metrik icin tahmini veya uydurma puan uretilmez.
+
+Tamamlanmamis gunluk mumlar uzun vadeli trend hesaplarina dahil edilmez.
+
+ENDEKS YONU VE PIYASA YAPISI — 30 PUAN
+
+Bu kategori uc ana endeks uzerinden hesaplanacaktir.
+
+BIST100: Maksimum 10 puan.
+
+BIST30: Maksimum 8 puan.
+
+XK100: Maksimum 12 puan.
+
+XK100, sistemin asil hisse havuzunu temsil ettigi icin BIST30'dan daha yuksek agirlik alacaktir.
+
+HER ENDEKS ICIN TREND SKORU
+
+Trend skoru 0 ile 100 arasinda uretilir.
+
+Trend puani su kurallarla hesaplanir:
+
+Kapanis EMA20'nin uzerindeyse: 30 puan.
+
+EMA5 EMA20'nin uzerindeyse: 20 puan.
+
+EMA20 EMA50'nin uzerindeyse: 25 puan.
+
+EMA20'nin son 5 islem gunundeki egimi pozitifse: 15 puan.
+
+Kapanis son 20 gunun orta seviyesinin uzerindeyse: 10 puan.
+
+Toplam trend skoru: 0-100.
+
+Tersi durumlarda ilgili puan verilmez.
+
+Trend puani negatif deger alamaz.
+
+MOMENTUM SKORU
+
+Momentum skoru su donemlerden hesaplanir:
+
+1 gunluk getiri: Yuzde 20 agirlik.
+
+5 gunluk getiri: Yuzde 35 agirlik.
+
+20 gunluk getiri: Yuzde 45 agirlik.
+
+Getiriler sabit bir olumlu veya olumsuz sinira gore degerlendirilmek yerine, endeksin kendi son 252 islem gunundeki dagilimina gore yuzdelik puana cevrilir.
+
+Ornek:
+
+5 gunluk getiri, son 252 gunluk 5 gunluk getirilerin yuzde 80'inden daha gucluyse, 5 gunluk momentum puani 80 olur.
+
+Bu yontem piyasanin dusuk ve yuksek volatilite donemlerine otomatik uyum saglar.
+
+PIYASA GENISLIGI SKORU
+
+Piyasa genisligi su verilerle hesaplanir:
+
+Yukselen hisse sayisi / toplam islem goren hisse sayisi.
+
+Dusmeyen hisse sayisi / toplam islem goren hisse sayisi.
+
+EMA20 uzerindeki hisse orani.
+
+EMA50 uzerindeki hisse orani.
+
+Yeni 20 gunluk zirve yapan hisse sayisi.
+
+Yeni 20 gunluk dip yapan hisse sayisi.
+
+XK100 icin piyasa genisligi sadece XK100 bilesenleri kullanilarak ayrica hesaplanir.
+
+KAPANIS KALITESI SKORU
+
+Kapanis kalitesi su formulle hesaplanir:
+
+Kapanis Kalitesi = (Kapanis - Gunluk En Dusuk) / (Gunluk En Yuksek - Gunluk En Dusuk)
+
+Sonuc 0 ile 1 arasinda olur.
+
+0'a yakin deger gunun dusuk seviyesine yakin kapanisi gosterir.
+
+1'e yakin deger gunun yuksek seviyesine yakin kapanisi gosterir.
+
+Gunluk en yuksek ve en dusuk fiyat ayniysa kapanis kalitesi 50 kabul edilir ve veri guveni dusurulur.
+
+XK100 GORECELI GUC KURALI
+
+XK100'un BIST100'e gore performansi ayrica hesaplanir.
+
+Goreceli guc su donemlerde olculur:
+
+1 gun.
+
+5 gun.
+
+20 gun.
+
+XK100, BIST100'den daha guclu hareket ediyorsa Endeks Yonu kategorisine pozitif katkida bulunur.
+
+BIST100 yukselirken XK100 dusuyorsa veya belirgin sekilde geride kaliyorsa XK100 hisseleri icin risk uyarisi olusur.
+
+BIST100 negatif, XK100 pozitifse sistem bunu Katilim Endeksi'ne ozel goreceli guc olarak kaydeder.
+
+VIOP — 15 PUAN
+
+VIOP kategorisi asagidaki alt puanlardan olusur:
+
+BIST30 vadeli fiyat yonu: 4 puan.
+
+Spot-vadeli fiyat farki: 3 puan.
+
+Acik pozisyon degisimi: 4 puan.
+
+Vadeli islem hacmi: 2 puan.
+
+Vade yapisi ve kontrat gecisi: 2 puan.
+
+FIYAT VE ACIK POZISYON KURALI
+
+Vadeli fiyat yukseliyor ve acik pozisyon artiyorsa:
+
+Guclu pozitif sinyal.
+
+Vadeli fiyat yukseliyor ve acik pozisyon azaliyorsa:
+
+Kisa pozisyon kapama veya zayif pozitif sinyal.
+
+Vadeli fiyat dusuyor ve acik pozisyon azaliyorsa:
+
+Pozisyon kapama veya orta negatif sinyal.
+
+Vadeli fiyat dusuyor ve acik pozisyon artiyorsa:
+
+Guclu negatif sinyal.
+
+Acik pozisyon verisi tek basina yon sinyali olarak kullanilmayacaktir.
+
+Fiyat, hacim ve acik pozisyon birlikte degerlendirilecektir.
+
+SPOT-VADELI FARKI KURALI
+
+Spot-vadeli farki su sekilde hesaplanir:
+
+Baz = Vadeli Fiyat - Spot Endeks Degeri
+
+Baz degeri son 60 islem gunundeki dagilimiyla karsilastirilir.
+
+Pozitif baz otomatik olarak kesin pozitif sinyal sayilmaz.
+
+Asiri pozitif baz asiri iyimserlik veya kalabalik pozisyon riski olarak isaretlenebilir.
+
+Asiri negatif baz ise korku veya yogun kisa pozisyon riskini gosterebilir.
+
+Kontrat vade sonuna yaklastikca baz dogal olarak degisecegi icin vade kalan gun sayisina gore duzeltme uygulanir.
+
+HACIM VE PIYASA GENISLIGI — 15 PUAN
+
+Bu kategori asagidaki alt puanlardan olusur:
+
+BIST toplam hacminin 20 gunluk ortalamaya orani: 4 puan.
+
+XK100 toplam hacminin 20 gunluk ortalamaya orani: 4 puan.
+
+Yukselen hacim / dusen hacim orani: 3 puan.
+
+Hacimli yukselen hisse orani: 2 puan.
+
+Piyasaya katilim genisligi: 2 puan.
+
+HACIM UYUM KURALI
+
+Endeks yukseliyor ve hacim 20 gunluk ortalamanin uzerindeyse:
+
+Pozitif hacim teyidi.
+
+Endeks yukseliyor fakat hacim dusuyorsa:
+
+Zayif veya teyitsiz yukselis.
+
+Endeks dusuyor ve hacim yukseliyorsa:
+
+Guclu satis baskisi.
+
+Endeks dusuyor fakat hacim dusuyorsa:
+
+Zayif satis veya kararsiz piyasa.
+
+Hacim artisi tek basina pozitif sayilmayacaktir.
+
+Fiyat yonu ile hacim yonu birlikte hesaplanacaktir.
+
+Tek bir buyuk hissenin toplam hacmi bozmasini engellemek icin hisse bazli hacim katkilarinda ust sinir uygulanacaktir.
+
+KURESEL PIYASALAR — 10 PUAN
+
+Alt puanlar:
+
+S&P 500 vadeli islemleri: 2 puan.
+
+Nasdaq vadeli islemleri: 2 puan.
+
+DAX vadeli islemleri: 1.5 puan.
+
+MSCI Gelisen Piyasalar: 1.5 puan.
+
+VIX: 1.5 puan.
+
+Brent petrol ve Dolar Endeksi ortak etkisi: 1.5 puan.
+
+Kuresel veriler sadece anlik yonle degerlendirilmeyecektir.
+
+Su veriler birlikte kullanilacaktir:
+
+Anlik degisim.
+
+Onceki kapanisa gore degisim.
+
+5 gunluk trend.
+
+20 gunluk trend.
+
+Son 60 gunluk yuzdelik seviyesi.
+
+VIX yukselisi genel olarak risk azaltici kabul edilir.
+
+Ancak VIX seviyesi ile VIX degisim hizi ayri ayri degerlendirilir.
+
+Brent petrolun hizli yukselisi Turkiye icin maliyet ve cari denge riski olusturabilecegi icin negatif etki yapabilir.
+
+Petrol dususu otomatik olarak tam pozitif puan uretemez; dususun sebebi kuresel talep daralmasiysa kuresel risk kategorisiyle birlikte degerlendirilir.
+
+DOVIZ, CDS VE FAIZ — 15 PUAN
+
+Alt puanlar:
+
+USD/TRY yonu ve degisim hizi: 4 puan.
+
+Turkiye 5 yillik CDS: 5 puan.
+
+Turkiye 2 ve 10 yillik tahvil faizleri: 3 puan.
+
+EUR/TRY ve Dolar Endeksi: 2 puan.
+
+Kur, CDS ve faiz uyumu: 1 puan.
+
+USD/TRY KURALI
+
+Sadece kurun yukselmesi veya dusmesi kullanilmayacaktir.
+
+Su olcumler yapilacaktir:
+
+1 gunluk degisim.
+
+5 gunluk degisim.
+
+20 gunluk volatilite.
+
+Hareketin son 252 gundeki yuzdelik seviyesi.
+
+Ani kur sicramasi.
+
+Kurun EMA20 ve EMA50 ile iliskisi.
+
+Kur artisi belirlenen tarihsel volatilitenin cok uzerindeyse risk puani daha hizli dusurulur.
+
+CDS KURALI
+
+CDS icin su veriler kullanilir:
+
+Mevcut CDS seviyesi.
+
+1 gunluk degisim.
+
+5 gunluk degisim.
+
+20 gunluk degisim.
+
+Son 1 yillik yuzdelik seviye.
+
+CDS dusuyorsa pozitif.
+
+CDS yukseliyorsa negatif.
+
+CDS seviyesi yuksek fakat dusus trendindeyse orta puan verilir.
+
+CDS seviyesi dusuk fakat hizli yukseliyorsa risk uyarisi uretilir.
+
+CDS verisi eksikse onceki gunun verisi yeni veri gibi kullanilmayacaktir.
+
+Onceki deger sadece "SON GUNCEL VERI" etiketiyle gosterilebilir.
+
+FAIZ KURALI
+
+Tahvil faizlerindeki hareket su sekilde degerlendirilir:
+
+Faiz seviyesi.
+
+Gunluk degisim.
+
+Getiri egrisi.
+
+2 yillik ve 10 yillik faiz farki.
+
+Ani faiz hareketi.
+
+Faiz, kur ve CDS ayni anda kotulesiyorsa risk etkisi tek tek puanlarin basit toplami yerine ek risk katsayisiyla guclendirilebilir.
+
+Bu ek risk katsayisi yonetici panelinden aktif veya pasif yapilabilir.
+
+SEKTOR ROTASYONU — 10 PUAN
+
+Alt puanlar:
+
+Pozitif sektor orani: 3 puan.
+
+XK100 agirlikli sektorlerin goreceli gucu: 4 puan.
+
+Defansif ve buyume sektorleri arasindaki denge: 2 puan.
+
+Sektor hareketinin genisligi ve devamligi: 1 puan.
+
+Sistem her sabah asagidaki sorulari sayisal olarak cevaplayacaktir:
+
+Kac sektor pozitif trendde?
+
+Kac sektor negatif trendde?
+
+XK100 hisselerinin yogun oldugu sektorler guclu mu?
+
+Yukselis sadece bir veya iki sektorde mi toplaniyor?
+
+Yukselis piyasaya yayiliyor mu?
+
+Onceki gunun lider sektorleri gucunu koruyor mu?
+
+Sektor rotasyonu kategorisi sadece bir gunluk degisime bakmayacaktir.
+
+1 gunluk, 5 gunluk ve 20 gunluk goreceli performans birlikte kullanilacaktir.
+
+JEOPOLITIK RISK — 5 PUAN
+
+Bu kategori diger kategorilerden farkli olarak haber ve metin analizi gerektirir.
+
+Ancak yapay zeka tek basina Endeks Skoru belirlemeyecektir.
+
+Jeopolitik kategori icin hibrit sistem kullanilacaktir.
+
+Birinci katman:
+
+Kural tabanli kaynak ve anahtar olay kontrolu.
+
+Ikinci katman:
+
+Metin siniflandirma veya buyuk dil modeliyle olay ozeti, etki yonu ve siddet tespiti.
+
+Ucuncu katman:
+
+Kodlanmis puanlama motorunun yapay zekadan gelen yapilandirilmis sonucu puana cevirmesi.
+
+Yapay zeka dogrudan "Endeks Skoru 72 olsun" seklinde karar veremez.
+
+Yapay zeka sadece su alanlari uretebilir:
+
+Olay basligi.
+
+Olay ozeti.
+
+Olumlu, olumsuz veya notr etki.
+
+Etki siddeti.
+
+Turkiye'ye dogrudan etki.
+
+BIST'e olasi etki.
+
+Etkilenen sektorler.
+
+Kaynak listesi.
+
+Model guven orani.
+
+Olayin devam eden etkisi olup olmadigi.
+
+Yapay zeka ciktisi JSON formatinda alinmalidir.
+
+Ornek alanlar:
+
+event_id
+
+headline
+
+summary
+
+sentiment
+
+severity
+
+turkey_relevance
+
+market_relevance
+
+affected_sectors
+
+source_urls
+
+model_confidence
+
+event_timestamp
+
+Yapay zeka cevabi dogrudan veri tabanina kesin gercek olarak kaydedilmez.
+
+Kaynak linki bulunmayan veya sistemdeki haber verisiyle eslesmeyen model sonucu kullanilmaz.
+
+Model guveni 0.70'in altindaysa olay otomatik olarak kesin puana cevrilmez.
+
+Dusuk guvenli olay "YONETICI KONTROLU" etiketi alir.
+
+YAPAY ZEKA ZORUNLU MU?
+
+Endeks Skoru hesaplama sisteminin ana bolumu icin yapay zeka zorunlu degildir.
+
+BIST100, BIST30, XK100, VIOP, hacim, doviz, CDS, faiz ve kuresel piyasa puanlari tamamen Python kodu ve matematiksel kurallarla hesaplanabilir.
+
+Bu bolumlerde yapay zeka kullanilmasi gereksizdir ve ayni veriyle farkli sonuc uretilmesine neden olabilir.
+
+Yapay zeka sadece serbest metinlerin anlasilmasinda kullanilabilir:
+
+Jeopolitik haber siniflandirma.
+
+Haber ozetleme.
+
+Haberin hangi sektorleri etkiledigini belirleme.
+
+Birden fazla haberi ayni olay altinda birlestirme.
+
+Olumlu, olumsuz ve notr haber tonu cikarma.
+
+Yapay zeka servisi calismazsa sistem tamamen durmayacaktir.
+
+Bu durumda:
+
+Sayisal kategoriler normal sekilde hesaplanir.
+
+Jeopolitik kategori kural tabanli sistemle hesaplanir.
+
+Yapay zeka ile incelenemeyen haberler "AI ANALIZI YOK" etiketi alir.
+
+Genel veri guven orani dusurulur.
+
+Yonetici panelinde uyari gosterilir.
+
+Yapay zeka olmadan da Endeks Skoru uretilmeye devam edilir.
+
+PUAN NORMALIZASYON KURALI
+
+Her alt metrik once 0 ile 100 arasinda normalize edilir.
+
+Kategori puani su formulle hesaplanir:
+
+Kategori Kazanilan Puani = Kategori Maksimum Puani x Kategori Normalize Skoru / 100
+
+Ornek:
+
+VIOP normalize skoru 80 ise:
+
+15 x 80 / 100 = 12 puan.
+
+Kategori icindeki metrikler kendi agirliklariyla hesaplanir.
+
+Bir kategori icindeki agirliklarin toplami yuzde 100 olmak zorundadir.
+
+Ana kategori maksimum puanlarinin toplami da tam 100 olmak zorundadir.
+
+Yonetici panelinde bir kategori agirligi degistirilirse sistem toplam puani kontrol eder.
+
+Toplam 100 degilse ayar kaydedilemez.
+
+Eksik veya fazla puan bulunursa yoneticiye su uyari gosterilir:
+
+"KATEGORI AGIRLIKLARI TOPLAMI 100 OLMALIDIR."
+
+EKSIK VERI KURALI
+
+Eksik veri icin sifir puan yazilmayacaktir.
+
+Sifir puan ile veri bulunmamasi farkli durumlar olarak saklanacaktir.
+
+Eksik veri varsa ilgili metrik NULL olarak kaydedilir.
+
+Toplam Endeks Skoru su formulle hesaplanir:
+
+Endeks Skoru = Kazanilan Toplam Puan / Kullanilabilir Toplam Agirlik x 100
+
+Ornek:
+
+100 puanlik sistemin 90 puanlik verisi mevcut.
+
+Sistem mevcut verilerden 63 puan kazandi.
+
+Endeks Skoru:
+
+63 / 90 x 100 = 70.
+
+Ancak raporda veri guveni yuzde 90 olarak gosterilir.
+
+Kullanilabilir agirlik yuzde 80'in altindaysa normal Endeks Skoru kesin sonuc olarak yayinlanmaz.
+
+Rapor su uyariyla yayinlanir:
+
+"VERI GUVENI YETERSIZ — ENDEKS SKORU SINIRLI VERIYLE HESAPLANDI."
+
+Kullanilabilir agirlik yuzde 65'in altindaysa sistem yeni hisse onerisi uretmez.
+
+Bu durumda:
+
+"NAKITTE KAL / VERI BEKLE" sonucu uretilir.
+
+VERI GUVEN ORANI
+
+Endeks Skoru ile birlikte ayri bir Veri Guven Orani hesaplanacaktir.
+
+Veri Guven Orani su unsurlardan olusur:
+
+Mevcut veri agirligi.
+
+Veri tazeligi.
+
+Kaynak dogrulamasi.
+
+Kaynaklar arasi uyum.
+
+Eksik veri orani.
+
+Yapay zeka siniflandirma guveni.
+
+Anormal veri sayisi.
+
+Veri Guven Orani 0 ile 100 arasinda gosterilir.
+
+Ornek rapor:
+
+Endeks Skoru: 71.5
+
+Piyasa Rejimi: POZITIF
+
+Veri Guveni: Yuzde 93
+
+Kullanilabilir Veri Agirligi: Yuzde 100
+
+Son Hesaplama: 09:38
+
+Kurallar Surumu: INDEX-SCORE-V1.0
+
+ENDEKS SKORU REJIM ARALIKLARI
+
+80.00-100.00:
+
+GUCLU POZITIF
+
+Genel piyasa kosullari destekleyici.
+
+Yuksek hisse agirligina izin verilebilir.
+
+Ancak nihai portfoy orani Hisse Skorlama ve Portfoy Dagilimi bolumunde belirlenir.
+
+65.00-79.99:
+
+POZITIF
+
+Piyasa genel olarak destekleyici.
+
+Secici hisse alimina izin verilir.
+
+Portfoyde belirli oranda nakit korunur.
+
+50.00-64.99:
+
+ORTA / NOTR-POZITIF
+
+Piyasa karisik veya sinirli olumlu.
+
+Sadece yuksek skorlu hisseler degerlendirilir.
+
+Hisse sayisi ve toplam pozisyon orani sinirlanir.
+
+35.00-49.99:
+
+TEMKINLI / NOTR-NEGATIF
+
+Yeni pozisyon esigi yukseltilir.
+
+Dusuk guvenli hisseler elenir.
+
+Nakit orani artirilir.
+
+0.00-34.99:
+
+NEGATIF
+
+Yeni pozisyon acma ciddi sekilde sinirlanir.
+
+Gerekirse "NAKITTE KAL" karari uretilir.
+
+Sadece cok yuksek hisse skoru, yuksek veri guveni ve endeksten belirgin pozitif ayrisma varsa sinirli istisna uygulanabilir.
+
+PIYASA REJIMI BAGLANTISI
+
+Endeks Skoru tek basina portfoy karari vermeyecektir.
+
+Asagidaki veriler birlikte kullanilacaktir:
+
+Toplam Endeks Skoru.
+
+BIST100 alt skoru.
+
+BIST30 alt skoru.
+
+XK100 alt skoru.
+
+VIOP skoru.
+
+Veri guven orani.
+
+Hisse skorlari.
+
+Hisselerin endekse gore goreceli gucu.
+
+Uc ana endeksin yonu.
+
+REJIM KURALLARI
+
+BIST100, BIST30 ve XK100 ayni anda negatifse:
+
+Yeni hisse secim esigi yukseltilir.
+
+Toplam hisse agirligi dusurulur.
+
+Nakit payi artirilir.
+
+Endeks Skoru 35'in altindaysa "NAKITTE KAL" varsayilan karar olur.
+
+BIST100 pozitif, XK100 negatifse:
+
+Genel piyasa pozitif olsa bile XK100 hisseleri icin risk katsayisi uygulanir.
+
+Hisse skorlarindan otomatik kesinti yapilmaz.
+
+Bunun yerine Hisse Skoru bolumundeki "Piyasa Uyum Katsayisi" dusurulur.
+
+XK100 pozitif, BIST100 negatifse:
+
+XK100'un goreceli gucu pozitif olarak kaydedilir.
+
+Ancak genel piyasa riski nedeniyle toplam portfoy agirligi sinirli tutulur.
+
+BIST30 pozitif, piyasa genisligi negatifse:
+
+Yukselisin az sayida buyuk sirket tarafindan tasindigi kabul edilir.
+
+Genel piyasa pozitif olarak isaretlenmez.
+
+"Dar Katilimli Yukselis" etiketi uretilir.
+
+Endeksler pozitif, VIOP ve hacim negatifse:
+
+"TEYITSIZ YUKSELIS" etiketi uretilir.
+
+Endeksler negatif, hacim dusuk ve VIOP notrse:
+
+"ZAYIF SATIS / KARARSIZLIK" etiketi uretilir.
+
+Endeks, VIOP, hacim ve kuresel kategoriler ayni anda pozitifse:
+
+"GENIS TABANLI POZITIF REJIM" etiketi uretilir.
+
+POZISYON FILTRESI
+
+Endeks Skoru nihai portfoy oranini dogrudan belirlemeyecek, Portfoy Dagilimi bolumune maksimum risk limiti gonderecektir.
+
+80-100 Endeks Skoru:
+
+Azami hisse agirligi yuzde 100'e kadar cikabilir.
+
+65-79.99 Endeks Skoru:
+
+Azami hisse agirligi yuzde 85.
+
+50-64.99 Endeks Skoru:
+
+Azami hisse agirligi yuzde 65.
+
+35-49.99 Endeks Skoru:
+
+Azami hisse agirligi yuzde 40.
+
+0-34.99 Endeks Skoru:
+
+Azami hisse agirligi yuzde 20.
+
+Bu oranlar kesin portfoy dagilimi degildir.
+
+Nihai portfoy orani su verilerle belirlenecektir:
+
+Favori hisse sayisi.
+
+Favori hisselerin skorlari.
+
+Favori hisselerin guven oranlari.
+
+Endeks skoru.
+
+Veri guven orani.
+
+Hisselerin sektor yogunlugu.
+
+Toplam risk limiti.
+
+AYNI GIRDIDEN AYNI SONUC KURALI
+
+Sayisal Endeks Skoru deterministik olmalidir.
+
+Ayni veri, ayni kural surumu ve ayni ayarlarla sistem tekrar calistirildiginda ayni sonuc uretilmelidir.
+
+Yapay zeka ciktisi degisse bile sayisal kategorilerin puanlari degismemelidir.
+
+Jeopolitik analizde kullanilan model cevabi, model surumu ve istem surumu kaydedilmelidir.
+
+Bir rapor tekrar uretildiginde onceki raporun uzerine yazilmayacaktir.
+
+Yeni rapor surumu olusturulacaktir.
+
+VPS UYGULAMA MIMARISI
+
+Endeks Skorlama Modulu VPS uzerinde Python tabanli servis olarak calistirilacaktir.
+
+Onerilen ana bilesenler:
+
+Python.
+
+Pandas.
+
+NumPy.
+
+SQLAlchemy.
+
+HTTP istemcisi.
+
+Zamanlayici.
+
+API servisi.
+
+Veri tabani.
+
+Log sistemi.
+
+Test sistemi.
+
+Zamanlayici icin asagidaki yontemlerden biri kullanilabilir:
+
+Systemd timer.
+
+Cron.
+
+Uygulama ici gorev zamanlayici.
+
+Kuyruk sistemi kullaniliyorsa Celery ve Redis benzeri gorev yapisi.
+
+Sadece sabit saate bagli bir cron yeterli kabul edilmeyecektir.
+
+Endeks Skorlama gorevi, Veri Toplama gorevi basariyla tamamlandiktan sonra calismalidir.
+
+Gorev bagimliligi:
+
+Veri Toplama tamamlandi.
+
+Veri Dogrulama tamamlandi.
+
+Endeks Skorlama basladi.
+
+Endeks Skorlama dogrulandi.
+
+Hisse Skorlama basladi.
+
+Portfoy Dagilimi olusturuldu.
+
+Rapor yayinlandi.
+
+Sistem durumlari:
+
+WAITING_DATA
+
+COLLECTING_DATA
+
+VALIDATING_DATA
+
+SCORING
+
+VALIDATING_SCORE
+
+READY
+
+PUBLISHED
+
+FAILED
+
+Endeks Skoru gorevi yanlislikla iki kez tetiklenirse ayni calisma iki kez kaydedilmemelidir.
+
+Her gun ve her rapor surumu icin benzersiz calisma kimligi uretilmelidir.
+
+ORNEK CALISMA KIMLIGI
+
+2026-07-12-INDEX-R1
+
+Ayni gun tekrar hesaplama yapilirsa:
+
+2026-07-12-INDEX-R2
+
+KOD DOSYALARI
+
+Endeks Skorlama modulu mantiksal olarak ayri dosyalara bolunmelidir.
+
+Ornek dosya yapisi:
+
+app/services/index_scoring/collector_adapter.py
+
+app/services/index_scoring/normalizer.py
+
+app/services/index_scoring/index_direction.py
+
+app/services/index_scoring/viop_score.py
+
+app/services/index_scoring/volume_breadth.py
+
+app/services/index_scoring/global_markets.py
+
+app/services/index_scoring/fx_cds_rates.py
+
+app/services/index_scoring/sector_rotation.py
+
+app/services/index_scoring/geopolitical.py
+
+app/services/index_scoring/confidence.py
+
+app/services/index_scoring/engine.py
+
+app/services/index_scoring/validator.py
+
+app/services/index_scoring/explainer.py
+
+app/tasks/run_index_scoring.py
+
+Dosya isimleri mevcut projenin mimarisine gore degistirilebilir.
+
+Ancak tum hesaplama mantigi tek buyuk dosyaya yigilmamalidir.
+
+VERI TABANI TABLOLARI
+
+index_score_runs
+
+Alanlar:
+
+id
+
+run_id
+
+report_date
+
+started_at
+
+completed_at
+
+data_cutoff_at
+
+total_score
+
+market_regime
+
+confidence_score
+
+available_weight
+
+status
+
+ruleset_version
+
+calculation_version
+
+created_at
+
+updated_at
+
+index_score_categories
+
+Alanlar:
+
+id
+
+run_id
+
+category_key
+
+category_name
+
+maximum_points
+
+normalized_score
+
+earned_points
+
+confidence_score
+
+available_weight
+
+status
+
+index_score_metrics
+
+Alanlar:
+
+id
+
+run_id
+
+category_key
+
+metric_key
+
+metric_name
+
+raw_value
+
+raw_unit
+
+normalized_score
+
+metric_weight
+
+earned_contribution
+
+source_name
+
+source_timestamp
+
+collected_at
+
+freshness_status
+
+validation_status
+
+index_score_explanations
+
+Alanlar:
+
+id
+
+run_id
+
+positive_drivers
+
+negative_drivers
+
+risk_warnings
+
+regime_labels
+
+summary_text
+
+index_score_config
+
+Alanlar:
+
+id
+
+ruleset_version
+
+is_active
+
+effective_from
+
+category_weights
+
+metric_weights
+
+score_thresholds
+
+minimum_data_confidence
+
+minimum_available_weight
+
+created_by
+
+created_at
+
+geopolitical_events
+
+Alanlar:
+
+id
+
+run_id
+
+event_id
+
+headline
+
+summary
+
+sentiment
+
+severity
+
+turkey_relevance
+
+market_relevance
+
+affected_sectors
+
+model_provider
+
+model_version
+
+prompt_version
+
+model_confidence
+
+source_list
+
+event_timestamp
+
+created_at
+
+VERI TABANI KISITLARI
+
+run_id benzersiz olmalidir.
+
+Ayni run_id ve metric_key birden fazla kez kaydedilememelidir.
+
+Kategori agirliklari toplami 100 olmalidir.
+
+Normalize skor 0 ile 100 arasinda olmalidir.
+
+Kazanilan kategori puani kategori maksimum puanini gecemez.
+
+Toplam Endeks Skoru 0 ile 100 arasinda olmalidir.
+
+Gecersiz veri veri tabanina kesin skor olarak kaydedilememelidir.
+
+API UCLARI
+
+Web sitesi ve mobil uygulama Endeks Skoru verisini ortak API uzerinden alacaktir.
+
+Gerekli API uclari:
+
+GET /api/index-score/latest
+
+Son yayinlanmis Endeks Skorunu getirir.
+
+GET /api/index-score/history
+
+Tarihsel Endeks Skorlarini getirir.
+
+GET /api/index-score/{run_id}
+
+Belirli bir calismanin tum detaylarini getirir.
+
+GET /api/admin/index-score/{run_id}/metrics
+
+Yonetici icin tum ham metrikleri ve katkilarini getirir.
+
+GET /api/admin/index-score/config
+
+Aktif agirlik ve esik ayarlarini getirir.
+
+PUT /api/admin/index-score/config
+
+Yetkili yoneticinin agirliklari ve esikleri degistirmesini saglar.
+
+POST /api/admin/index-score/recalculate
+
+Belirli bir tarih veya veri surumu icin yeniden hesaplama yapar.
+
+POST /api/admin/index-score/publish
+
+Dogrulanmis Endeks Skorunu yayinlar.
+
+YONETICI PANELI
+
+Yonetici panelinde su bilgiler gosterilmelidir:
+
+Toplam Endeks Skoru.
+
+Piyasa rejimi.
+
+Veri guven orani.
+
+Kullanilabilir veri agirligi.
+
+Son hesaplama zamani.
+
+Kural surumu.
+
+Her kategorinin maksimum puani.
+
+Her kategorinin kazanilan puani.
+
+Her alt metrigin ham degeri.
+
+Her alt metrigin normalize puani.
+
+Her metrigin toplam skora katkisi.
+
+Kullanilan kaynak.
+
+Veri tazeligi.
+
+Eksik veriler.
+
+Dogrulama hatalari.
+
+Pozitif etkenler.
+
+Negatif etkenler.
+
+Risk uyarilari.
+
+Yeniden hesapla butonu.
+
+Yayinla butonu.
+
+Yayinlama engeli varsa nedeni.
+
+Agirlik degisikligi gecmisi.
+
+Yonetici, agirliklari kod degisikligi yapmadan panelden degistirebilmelidir.
+
+Ancak toplam agirlik 100 olmadan degisiklik kaydedilememelidir.
+
+RAPOR GORUNTUSU
+
+Mobil uygulama ve internet sitesinde su bilgiler gosterilecektir:
+
+Endeks Skoru.
+
+Piyasa rejimi.
+
+Veri guven orani.
+
+Son guncelleme zamani.
+
+7 kategori puani.
+
+En guclu 3 pozitif etken.
+
+En guclu 3 negatif etken.
+
+Varsa veri eksikligi uyarisi.
+
+Varsa teyitsiz piyasa hareketi uyarisi.
+
+Varsa jeopolitik risk uyarisi.
+
+Rapor sayfasindaki gauge sadece toplam skoru gostermeyecektir.
+
+Gauge altinda su bilgiler bulunmalidir:
+
+Skor: 71.5 / 100.
+
+Rejim: POZITIF.
+
+Veri Guveni: Yuzde 93.
+
+Hesaplama Saati: 09:38.
+
+Kural Surumu: INDEX-SCORE-V1.0.
+
+Kategori kartina tiklandiginda kategori icindeki alt metrikler acilmalidir.
+
+Kullaniciya ham teknik ayrintilarin tamami gosterilmek zorunda degildir.
+
+Yonetici panelinde tum ayrintilar bulunmalidir.
+
+ACIKLAMA MOTORU
+
+Sistem sadece puan gostermeyecek, puanin nedenini de olusturacaktir.
+
+Aciklama metni puanlara gore otomatik uretilmelidir.
+
+Ornek:
+
+"Endeks Skoru 71.5 ile pozitif bolgededir. XK100 ve BIST100 trendleri pozitif, piyasa genisligi destekleyicidir. VIOP tarafinda acik pozisyon artisi yukselisi teyit etmektedir. Buna karsilik USD/TRY ve CDS hareketi risk puanini sinirlamaktadir. Sistem tam pozisyon yerine kontrollu hisse agirligina izin vermektedir."
+
+Bu aciklama sayisal verilerden uretilmelidir.
+
+Yapay zeka kullanilsa bile aciklama, hesaplanmamis veya kaynakta bulunmayan bir gerekce ekleyemez.
+
+GERIYE DONUK TEST
+
+Endeks Skoru sistemi canliya alinmadan once gecmis verilerle test edilecektir.
+
+Asgari testler:
+
+En az 1 yillik geriye donuk hesaplama.
+
+Mumkunse 3 yillik geriye donuk hesaplama.
+
+Pozitif rejim sonrasi BIST100 performansi.
+
+Negatif rejim sonrasi BIST100 performansi.
+
+Pozitif rejim sonrasi XK100 performansi.
+
+Negatif rejim sonrasi XK100 performansi.
+
+Skor ile sonraki gun getirisi arasindaki iliski.
+
+Skor ile sonraki 5 gunluk getiri arasindaki iliski.
+
+Skor ile maksimum gun ici dusus arasindaki iliski.
+
+Her kategori puaninin tahmin katkisi.
+
+Test sirasinda gelecek tarihli veri kullanilmayacaktir.
+
+Bir gunun skoru hesaplanirken sadece o gunun veri kesim saatine kadar mevcut olan veriler kullanilacaktir.
+
+Sonradan aciklanan veri gecmis skora eklenmeyecektir.
+
+KURAL SURUMLEME
+
+Puan agirliklari veya esikler degistiginde eski raporlar yeni kurallarla otomatik degistirilmeyecektir.
+
+Her rapor kendi kural surumuyle saklanacaktir.
+
+Ornek:
+
+INDEX-SCORE-V1.0
+
+INDEX-SCORE-V1.1
+
+INDEX-SCORE-V2.0
+
+Kucuk esik degisikligi alt surum olarak kaydedilir.
+
+Kategori yapisi veya ana hesaplama mantigi degisirse ana surum artirilir.
+
+HATA VE UYARI KURALLARI
+
+Asagidaki durumlarda Endeks Skoru modulu yonetici uyarisi uretmelidir:
+
+BIST100 verisi eksikse.
+
+BIST30 verisi eksikse.
+
+XK100 verisi eksikse.
+
+XK100 bilesen listesi dogrulanamadiysa.
+
+VIOP verisi eksikse.
+
+CDS verisi guncel degilse.
+
+Kategori agirliklari 100 etmiyorsa.
+
+Bir normalize puan 0-100 disina cikiyorsa.
+
+Bir kategori kendi maksimum puanini asiyorsa.
+
+Veri guveni minimum esigin altindaysa.
+
+Skor onceki gune gore olagan disi degisiyorsa.
+
+Ayni veriyle farkli skor uretiliyorsa.
+
+Jeopolitik yapay zeka servisi calismiyorsa.
+
+Rapor saatine kadar hesaplama tamamlanamiyorsa.
+
+API sonucu mobil uygulamaya ulasmiyorsa.
+
+SKOR ANOMALI KONTROLU
+
+Toplam Endeks Skoru onceki tamamlanmis skora gore 25 puandan fazla degisirse otomatik anomali kontrolu yapilacaktir.
+
+Kategori skorlarindan biri tek calismada 70 puandan fazla normalize degisim gosterirse kaynak verisi kontrol edilir.
+
+Anomali dogrulanamiyorsa rapor otomatik yayinlanmaz.
+
+Yonetici panelinde:
+
+"SKOR ANOMALISI — DOGRULAMA GEREKIYOR"
+
+uyarisi gosterilir.
+
+TESTLER
+
+Asagidaki otomatik testler yazilmalidir:
+
+Kategori agirliklari toplami testi.
+
+Metrik agirliklari toplami testi.
+
+Eksik veri testi.
+
+Sifira bolme testi.
+
+Tekrarlanan veri testi.
+
+Ayni girdiden ayni sonuc testi.
+
+Puan alt ve ust sinir testi.
+
+VIOP fiyat-acik pozisyon senaryo testi.
+
+Kur ve CDS ani hareket testi.
+
+Jeopolitik servis kapali testi.
+
+API cevap testi.
+
+Veri tabani benzersizlik testi.
+
+Zamanlama testi.
+
+Rapor yayinlama engeli testi.
+
+CANLIYA ALMA KURALI
+
+Endeks Skoru modulu ilk gunden dogrudan musteri raporunda kesin karar olarak kullanilmayacaktir.
+
+Ilk asamada golge modunda calistirilabilir.
+
+Golge modunda:
+
+Skor hesaplanir.
+
+Yonetici panelinde gorulur.
+
+Rapor sonucu arsivlenir.
+
+Gercek piyasa sonuclariyla karsilastirilir.
+
+Hata ve agirlik sorunlari kontrol edilir.
+
+Sistem yeterli testten gectikten sonra musteri raporuna aktif olarak baglanir.
+
+TAMAMLANMA KRITERLERI
+
+Bu bolum tamamlanmis sayilmasi icin sadece sayfaya metin eklenmesi yeterli degildir.
+
+Asagidaki islemlerin tamamlanmasi gerekir:
+
+Endeks Skorlama Python modulu yazildi.
+
+7 kategori gercek verilerle hesaplanabiliyor.
+
+Kategori puanlari tam 100 ediyor.
+
+XK100 dogrudan Endeks Skoruna dahil edildi.
+
+Eksik veri kurali calisiyor.
+
+Veri guven orani hesaplaniyor.
+
+Veri tabani tablolari olusturuldu.
+
+API uclari olusturuldu.
+
+Yonetici paneli kategori detaylarini gosteriyor.
+
+Agirliklar yonetici panelinden degistirilebiliyor.
+
+Toplam 100 kontrolu yapiliyor.
+
+Zamanlayici VPS'te calisiyor.
+
+Loglar kaydediliyor.
+
+Hata uyarilari calisiyor.
+
+Ayni veriyle ayni skor uretiliyor.
+
+Geriye donuk test yapilabiliyor.
+
+Web sitesi skoru API'den aliyor.
+
+Mobil uygulama ayni skoru API'den aliyor.
+
+09:45 raporu Endeks Skorunu kullanabiliyor.
+
+Kimi bu maddelerin sadece gorunen metnini degil, calisan kodunu, veri tabani yapisini, API'sini, yonetici ayarlarini ve VPS zamanlayicisini hazirlayacaktir. müşteri sayfasına ve -XK100-
+Sistem Semasi
+GIZLI - SADECE YONETICI sayfasına bu mesajla ilgili eklenmesi gereken herşeyi ekle oluştur.
