@@ -1,0 +1,852 @@
+<!DOCTYPE html><html lang="tr"><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>XK100 - Borsa Asistanim</title>
+<link rel="icon" type="image/png" href="favicon-xk100.png"/>
+<link rel="apple-touch-icon" href="favicon-xk100.png"/>
+<meta name="theme-color" content="#0d1526"/>
+<meta name="apple-mobile-web-app-title" content="Borsa Asistanim"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#080c14;padding:12px;color:#e2e8f0}
+.w{max-width:800px;margin:0 auto}
+
+/* Header - logo solda, bilgiler sagda */
+.tophead{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px 16px;flex-wrap:wrap;animation:fadeInUp .5s ease both;position:relative}
+.tophead .th-logo img{display:block;max-height:110px;max-width:300px;width:auto;object-fit:contain}
+.tophead .th-title{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;white-space:nowrap;background:#080c14;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:6px 12px;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.tophead .th-title .tt-big{font-size:34px;font-weight:800;color:#fff;letter-spacing:2px;line-height:1.1;background:linear-gradient(135deg,#60a5fa,#22d3ee);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tophead .th-title .tt-small{font-size:11px;color:#94a3b8;margin-top:4px;letter-spacing:.5px;white-space:nowrap}
+.tophead .th-info{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.tophead .th-info span{font-size:13px;color:#94a3b8;background:#131b2e;border:1px solid rgba(255,255,255,.06);padding:6px 16px;border-radius:24px}
+.tophead .th-info .y{color:#22c55e;font-weight:700;border-color:rgba(34,197,94,.25);background:rgba(34,197,94,.07)}
+.tophead .th-info .rv{font-size:11px;color:#64748b;background:#0a0f1d;border-color:rgba(255,255,255,.05);letter-spacing:.5px}
+@media(max-width:600px){
+  .tophead{flex-direction:column;align-items:center;padding:16px 12px}
+  .tophead .th-title{position:static;transform:none}
+  .tophead .th-logo img{max-width:min(92vw,400px);max-height:130px}
+  .tophead .th-title .tt-big{font-size:32px}
+  .tophead .th-info{align-items:center}
+  .tophead .th-info span{font-size:12px;padding:5px 12px}
+}
+
+/* Card */
+.cd{background:#131b2e;border-radius:16px;padding:20px;margin-bottom:14px;border:1px solid rgba(255,255,255,.04);animation:fadeInUp .6s ease both;position:relative;overflow:hidden}
+.cd::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.lbl{display:inline-block;background:#0f172a;color:#64748b;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:10px;border:1px solid #1e293b}
+.cd h2{font-size:15px;color:#f8fafc;margin-bottom:12px;font-weight:600}
+.cd h3{font-size:13px;color:#94a3b8;margin:14px 0 8px;font-weight:600;letter-spacing:.5px}
+
+/* Canvas container */
+.cc{position:relative;background:#0a0f1d;border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,.04)}
+.cv{width:100%;display:block;border-radius:8px}
+
+/* Tooltip */
+.tp{position:absolute;background:rgba(15,23,42,.95);border:1px solid #334155;border-radius:10px;padding:12px;font-size:11px;color:#e2e8f0;pointer-events:none;opacity:0;transition:opacity .2s;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,.6);backdrop-filter:blur(8px);min-width:160px}
+.tp.show{opacity:1}
+.tp-t{font-size:14px;font-weight:700;margin-bottom:6px;color:#fff}
+.tp-r{display:flex;justify-content:space-between;gap:16px;margin:3px 0;color:#94a3b8;font-size:11px}
+.tp-r span{color:#e2e8f0;font-weight:500}
+
+/* Legend */
+.lg{display:flex;gap:16px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.lg i{display:flex;align-items:center;gap:5px;font-size:10px;color:#64748b}
+.lg d{width:10px;height:10px;border-radius:2px;display:inline-block}
+
+/* Gauge */
+.gw{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center}
+.gu{position:relative;width:200px;height:110px;flex-shrink:0}
+.gu svg{width:100%;height:100%}
+.gv{position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center}
+.gv .b{font-size:26px;font-weight:700;color:#fff}
+.gv .s{font-size:11px;color:#94a3b8}
+.gks{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;flex:1;min-width:180px}
+.gk{background:#0a0f1d;border-radius:8px;padding:8px 12px;font-size:11px;display:flex;justify-content:space-between}
+.gk .a{color:#64748b}
+.gk .v{color:#fff;font-weight:600}
+
+/* News compact */
+.nws{display:flex;flex-direction:column;gap:8px}
+.nw{display:flex;align-items:flex-start;gap:10px;background:#0a0f1d;border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,.04);text-decoration:none;transition:.2s}
+.nw:hover{border-color:rgba(255,255,255,.1)}
+.nl{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+.nt{flex:1;min-width:0}
+.nb{font-size:12px;color:#e2e8f0;font-weight:600;line-height:1.3;margin-bottom:3px}
+.nm{display:flex;gap:10px;font-size:10px;color:#64748b}
+.nm .ns{color:#3b82f6}
+
+/* Kategori karti (tiklanabilir - Bolum 13 rapor gorunumu) */
+.kat-card{background:#0a0f1d;border:1px solid rgba(255,255,255,.05);border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color .2s;user-select:none;align-self:start}
+.kat-card:hover{border-color:rgba(56,189,248,.4)}
+.kat-card.acik{border-color:rgba(34,197,94,.5)}
+.kat-head{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:11px}
+.kat-head .a{color:#94a3b8}
+.kat-head .v{color:#22c55e;font-weight:700}
+.kat-head .ok{color:#475569;font-size:9px;transition:transform .25s;margin-left:6px}
+.kat-card.acik .ok{transform:rotate(180deg)}
+.kat-det{max-height:0;overflow:hidden;transition:max-height .35s ease;background:#060a14}
+.kat-card.acik .kat-det{max-height:340px}
+.kat-satir{padding:5px 12px;border-top:1px solid rgba(255,255,255,.04);font-size:10px;color:#94a3b8}
+.kat-satir .ust{display:flex;justify-content:space-between;margin-bottom:3px}
+.kat-satir .ust b{color:#cbd5e1;font-weight:600}
+.kat-bar{height:3px;background:#1e293b;border-radius:2px;overflow:hidden}
+.kat-bar i{display:block;height:100%;border-radius:2px}
+.kat-not{padding:5px 12px;font-size:9px;color:#475569;border-top:1px solid rgba(255,255,255,.04);line-height:1.5}
+
+/* Aciklama motoru ozeti (Bolum 13) */
+.ozet-kutu{margin-top:10px;background:#060a14;border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:10px 12px;font-size:11px;color:#cbd5e1;line-height:1.7}
+.ozet-kutu .oz-bas{color:#22c55e;font-weight:700;font-size:10px;letter-spacing:.5px;margin-bottom:4px}
+.ozet-etiket{display:inline-block;background:#0f2a1a;color:#22c55e;border-radius:4px;padding:1px 6px;font-size:9px;margin:2px 3px 0 0}
+
+/* Responsive */
+@media(max-width:600px){
+  .gk,.gks{grid-template-columns:1fr}
+  .gu{width:160px;height:90px}
+}
+</style>
+<script src="https://www.kimi.com/sdk-seed.js" defer=""></script></head>
+<body>
+<div class="w">
+
+<!-- ===== LOGO SOLDA + XK100 ORTADA + BILGILER SAGDA ===== -->
+<div class="tophead">
+<div class="th-logo"><img src="logo-aiborsam2.png" alt="aiborsam"/></div>
+<div class="th-title">
+<div class="tt-big">-XK100-</div>
+<div class="tt-small">BIST Katilim 100 Endeksi</div>
+</div>
+<div class="th-info">
+<span>09.07.2026 Persembe</span>
+<span>09:45</span>
+<span class="y">Endeks: 71.5 POZITIF</span><span class="rv">Rapor: 2026-07-09-INDEX-R1</span>
+</div>
+</div>
+
+<!-- ===== GAUGE ===== -->
+<div class="cd" style="animation-delay:.05s;padding:16px">
+<div class="gw" style="justify-content:center"><div class="gu" style="width:280px;height:140px;position:relative"><canvas id="gauge" width="560" height="280" style="width:280px;height:140px;display:block"></canvas></div></div>
+<div class="gks" style="max-width:440px;margin:10px auto 0">
+<div class="gk" style="grid-column:1/-1;background:transparent;padding:2px 2px 0"><span class="a" style="font-size:10px;color:#475569">Alt metrikler icin kategoriye tiklayin (Bolum 13 rapor gorunumu)</span><span class="v"></span></div>
+
+<div class="kat-card" onclick="katToggle(this)">
+<div class="kat-head"><span class="a">Endeks Yonu ve Piyasa Yapisi</span><span><span class="v">22.0/30</span><span class="ok">▼</span></span></div>
+<div class="kat-det">
+<div class="kat-satir"><div class="ust"><b>BIST100 birlesik skor</b><span>7.3/10</span></div><div class="kat-bar"><i style="width:73%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>BIST30 birlesik skor</b><span>5.9/8</span></div><div class="kat-bar"><i style="width:74%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>XK100 birlesik skor</b><span>8.8/12</span></div><div class="kat-bar"><i style="width:73%;background:#22c55e"></i></div></div>
+<div class="kat-not">Trend %30 + Momentum %35 + Kapanis kalitesi %20 + Genislik %15 · goreceli guc etiketi: yok</div>
+</div></div>
+
+<div class="kat-card" onclick="katToggle(this)">
+<div class="kat-head"><span class="a">VIOP</span><span><span class="v">11.0/15</span><span class="ok">▼</span></span></div>
+<div class="kat-det">
+<div class="kat-satir"><div class="ust"><b>Fiyat yonu (fiyat+acik pozisyon)</b><span>3.0/4</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Spot-vadeli farki (baz)</b><span>2.0/3</span></div><div class="kat-bar"><i style="width:67%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Acik pozisyon degisimi</b><span>3.0/4</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Vadeli islem hacmi</b><span>1.5/2</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Vade yapisi (contango/backwardation)</b><span>1.5/2</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-not">Durum: GUCLU_POZITIF · baz 60g yuzdelik bandi: saglikli · vade duzeltmeli baz kullanilir</div>
+</div></div>
+
+<div class="kat-card" onclick="katToggle(this)">
+<div class="kat-head"><span class="a">Hacim ve Piyasa Genisligi</span><span><span class="v">11.0/15</span><span class="ok">▼</span></span></div>
+<div class="kat-det">
+<div class="kat-satir"><div class="ust"><b>BIST toplam hacim</b><span>3.0/4</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>XK100 toplam hacim</b><span>3.0/4</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Yukselen/dusen hacim dengesi</b><span>2.0/3</span></div><div class="kat-bar"><i style="width:67%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Hacimli yukselen hisse orani</b><span>1.5/2</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Katilim genisligi</b><span>1.5/2</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-not">Uyum: POZITIF_HACIM_TEYIDI · tek hisse hacim ust siniri %10 (kirpma uygulandi)</div>
+</div></div>
+
+<div class="kat-card" onclick="katToggle(this)">
+<div class="kat-head"><span class="a">Kuresel Piyasalar</span><span><span class="v">7.0/10</span><span class="ok">▼</span></span></div>
+<div class="kat-det">
+<div class="kat-satir"><div class="ust"><b>S&amp;P 500 vadeli</b><span>1.5/2</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Nasdaq vadeli</b><span>1.5/2</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>DAX vadeli</b><span>1.0/1.5</span></div><div class="kat-bar"><i style="width:67%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>MSCI Gelisen Piyasalar</b><span>1.0/1.5</span></div><div class="kat-bar"><i style="width:67%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>VIX korku endeksi</b><span>1.0/1.5</span></div><div class="kat-bar"><i style="width:67%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Brent + Dolar endeksi</b><span>1.0/1.5</span></div><div class="kat-bar"><i style="width:67%;background:#22c55e"></i></div></div>
+<div class="kat-not">5 boyut: anlik %20 + onceki kapanis %15 + 5g %20 + 20g %25 + 60g yuzdelik %20 · VIX: seviye %60 + hiz %40</div>
+</div></div>
+
+<div class="kat-card" onclick="katToggle(this)">
+<div class="kat-head"><span class="a">Doviz, CDS ve Faiz</span><span><span class="v">10.5/15</span><span class="ok">▼</span></span></div>
+<div class="kat-det">
+<div class="kat-satir"><div class="ust"><b>USD/TRY (6 olcum)</b><span>3.0/4</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Turkiye 5y CDS (5 olcum)</b><span>4.0/5</span></div><div class="kat-bar"><i style="width:80%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Tahvil faizleri (5 olcum)</b><span>2.0/3</span></div><div class="kat-bar"><i style="width:67%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>EUR/TRY + Dolar endeksi</b><span>1.0/2</span></div><div class="kat-bar"><i style="width:50%;background:#f59e0b"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Kur-CDS-faiz uyumu</b><span>0.5/1</span></div><div class="kat-bar"><i style="width:50%;background:#f59e0b"></i></div></div>
+<div class="kat-not">Ek risk katsayisi (x1.15): PASIF · CDS verisi: SON GUNCEL VERI degil (taze)</div>
+</div></div>
+
+<div class="kat-card" onclick="katToggle(this)">
+<div class="kat-head"><span class="a">Sektor Rotasyonu</span><span><span class="v">7.0/10</span><span class="ok">▼</span></span></div>
+<div class="kat-det">
+<div class="kat-satir"><div class="ust"><b>Pozitif sektor orani</b><span>2.0/3</span></div><div class="kat-bar"><i style="width:67%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>XK100 agirlikli goreceli guc</b><span>3.0/4</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Defansif/buyume dengesi</b><span>1.5/2</span></div><div class="kat-bar"><i style="width:75%;background:#22c55e"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Genislik/devamlilik</b><span>0.5/1</span></div><div class="kat-bar"><i style="width:50%;background:#f59e0b"></i></div></div>
+<div class="kat-not">Donem agirliklari: 1g %25 + 5g %35 + 20g %40 · denge bandi 0.35-0.75: DENGELI</div>
+</div></div>
+
+<div class="kat-card" onclick="katToggle(this)">
+<div class="kat-head"><span class="a">Jeopolitik Risk</span><span><span class="v">3.0/5</span><span class="ok">▼</span></span></div>
+<div class="kat-det">
+<div class="kat-satir"><div class="ust"><b>Baz puan (risk yok)</b><span>2.5/5</span></div><div class="kat-bar"><i style="width:50%;background:#f59e0b"></i></div></div>
+<div class="kat-satir"><div class="ust"><b>Olay risk katkisi (dogrulanmis)</b><span>+0.5</span></div><div class="kat-bar"><i style="width:60%;background:#22c55e"></i></div></div>
+<div class="kat-not">Hibrit mod: AI dogrulamali 2 olay kullanildi · model_confidence &gt;= 0.70 · yonetici kontrolunde olay yok · kaynak eslesmesi dogrulandi</div>
+</div></div>
+
+<div class="gk" style="border-top:1px solid #334155;margin-top:2px;grid-column:1/-1"><span class="a" style="font-weight:800;color:#e2e8f0">TOPLAM (yeni 7 kategori = tam 100)</span><span class="v" style="font-weight:800;color:#22c55e">71.5/100</span></div>
+<div class="gk" style="border-top:1px solid #1e293b;margin-top:4px;padding-top:6px;grid-column:1/-1">
+<span class="a" style="font-size:11px;color:#94a3b8;line-height:1.8">
+Piyasa Rejimi: <b style="color:#22c55e">POZITIF</b> · Veri Guveni: <b style="color:#38bdf8">Yuzde 93</b> · Kullanilabilir Veri Agirligi: <b style="color:#38bdf8">Yuzde 100</b><br/>
+Son Hesaplama: <b style="color:#e2e8f0">09:38</b> · Yayin: <b style="color:#e2e8f0">09:45</b> · Kurallar Surumu: <b style="color:#e2e8f0">INDEX-SCORE-V1.0</b> · Azami Hisse Agirligi: <b style="color:#e2e8f0">%85</b><br/>
+Veri Penceresi: <b style="color:#e2e8f0">1 yil (252+ islem gunu)</b> · Anomali Kontrolu: <b style="color:#22c55e">Temiz</b> · Durum: <b style="color:#22c55e">CANLI (PUBLISHED)</b>
+</span><span class="v"></span></div>
+
+<div class="ozet-kutu" style="grid-column:1/-1">
+<div class="oz-bas">ACIKLAMA MOTORU OZETI (sayisal verilerden otomatik)</div>
+Endeks Skoru 71.5 ile POZITIF bolgededir. Endeks Yonu ve Piyasa Yapisi, VIOP ve Hacim ve Piyasa Genisligi tarafinda guclu sinyaller skoru desteklemektedir. Buna karsilik Doviz, CDS ve Faiz tarafindaki zayiflik risk puanini sinirlamaktadir. Piyasa etiketi: GENIS TABANLI POZITIF REJIM. Sistem bu rejimde azami yuzde 85 hisse agirligina izin vermektedir.
+<div style="margin-top:4px">
+<span class="ozet-etiket">+ Endeks Yonu</span><span class="ozet-etiket">+ VIOP</span><span class="ozet-etiket">+ Hacim-Genislik</span>
+<span class="ozet-etiket" style="background:#2a1a0f;color:#f59e0b">- Doviz-CDS-Faiz</span>
+</div>
+<div style="font-size:9px;color:#475569;margin-top:5px">Kural: Hesaplanmamis veya kaynakta bulunmayan gerekce eklenemez · Rapor: 2026-07-09-INDEX-R1 · Anomali kontrolu: temiz (onceki skor 70.0, degisim +1.5)</div>
+</div>
+</div>
+</div>
+
+<!-- ===== BOLUM 1: FAVORI ===== -->
+<div class="cd" style="animation-delay:.1s">
+<span class="lbl">BOLUM 1/5</span>
+<h2>Favori Hisseler + 100 Hisse Ozeti</h2>
+<div class="cc" id="cb1"><h3 style="margin-top:0">FAVORI HISELER | 09.07.2026 | Endeks:71.5 | 3 HISSE</h3><canvas class="cv" id="c1" width="750" height="280"></canvas><div class="tp" id="tt1"><div class="tp-t" id="tf1"></div><div id="tb1"></div></div></div>
+</div>
+
+<!-- ===== BOLUM 2: ASELS ===== -->
+<div class="cd" style="animation-delay:.15s">
+<span class="lbl">BOLUM 2/5</span>
+<h2>ASELS | Skor: 87.4 | Guven: %81</h2>
+
+<!-- Mum Grafik -->
+<div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">ASELS MUM GRAFİĞİ | Son 60 Gun | Bollinger Bantlari + Hacim Profili (POC)</h3><canvas class="cv" id="mumASELS" width="750" height="260"></canvas></div>
+
+<!-- Hacim Grafik -->
+<div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">TEKNİK GÖSTERGELER | RSI - MACD - StochRSI - CCI - ATR - OBV - Hacim</h3><canvas class="cv" id="hacASELS" width="750" height="560"></canvas></div>
+
+<!-- Skor -->
+<div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">ASELS | Skor: 87.4 | Yuzdelik</h3><canvas class="cv" id="c2" width="750" height="240"></canvas><div class="tp" id="tt2"><div class="tp-t" id="tf2"></div><div id="tb2"></div></div></div>
+<div class="lg"><i><d style="background:#3b82f6"></d>Teknik</i><i><d style="background:#f59e0b"></d>Haber</i><i><d style="background:#22c55e"></d>Para</i><i><d style="background:#ef4444"></d>Makro</i><i><d style="background:#8b5cf6"></d>Islem</i><i><d style="background:#06b6d4"></d>Guven</i></div>
+
+<!-- Seviye Haritasi - Dikey Bar (Resimdeki gibi) -->
+<h3>ASELS SEVIYE HARITASI | Direncler ve Destekler</h3>
+<div class="cc" style="margin-bottom:10px"><canvas class="cv" id="sevASELS" width="750" height="300"></canvas><div class="tp" id="tsA"><div class="tp-t" id="tfA"></div><div id="tbA"></div></div></div>
+<div class="lg"><i><d style="background:#ef4444"></d>Direnc Fiyat</i><i><d style="background:#fca5a5"></d>Direnc Guc</i><i><d style="background:#22c55e"></d>Destek Fiyat</i><i><d style="background:#86efac"></d>Destek Guc</i></div>
+
+<!-- Haberler -->
+<h3>ASELS Son Haberler</h3>
+<div class="nws">
+<a class="nw" href="https://www.kap.org.tr/tr/Bildirim/990271" target="_blank"><div class="nl" style="background:#1e3a5f">KAP</div><div class="nt"><div class="nb">ASELSAN&#39;dan 58,5 Milyon Dolarlik Yeni Sozlesme</div><div class="nm"><span class="ns">kap.org.tr</span><span>2 saat once</span></div></div></a>
+<a class="nw" href="https://www.bloomberght.com/haber/aselsan-2025-hedeflerini-acikladi" target="_blank"><div class="nl" style="background:#3c1053">BHT</div><div class="nt"><div class="nb">ASELSAN 2025 Hedeflerini Acikladi: %25 Buyume</div><div class="nm"><span class="ns">bloomberght.com</span><span>5 saat once</span></div></div></a>
+<a class="nw" href="https://tr.investing.com/news/stock-market-news/aseelsan-hedef-fiyat-yukseltildi-93" target="_blank"><div class="nl" style="background:#0d2f1f">INV</div><div class="nt"><div class="nb">JP Morgan ASELS Hedef Fiyatini 93 TL&#39;ye Yukseltti</div><div class="nm"><span class="ns">investing.com</span><span>8 saat once</span></div></div></a>
+</div>
+</div>
+
+<!-- ===== BOLUM 3: TUPRS ===== -->
+<div class="cd" style="animation-delay:.2s">
+<span class="lbl">BOLUM 3/5</span>
+<h2>TUPRS | Skor: 84.2 | Guven: %76</h2>
+
+<div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">TUPRS MUM GRAFİĞİ | Son 60 Gun | Bollinger Bantlari + Hacim Profili (POC)</h3><canvas class="cv" id="mumTUPRS" width="750" height="260"></canvas></div>
+<div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">TEKNİK GÖSTERGELER | RSI - MACD - StochRSI - CCI - ATR - OBV - Hacim</h3><canvas class="cv" id="hacTUPRS" width="750" height="560"></canvas></div>
+
+<div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">TUPRS | Skor: 84.2 | Yuzdelik</h3><canvas class="cv" id="c3" width="750" height="240"></canvas><div class="tp" id="tt3"><div class="tp-t" id="tf3"></div><div id="tb3"></div></div></div>
+<div class="lg"><i><d style="background:#3b82f6"></d>Teknik</i><i><d style="background:#f59e0b"></d>Haber</i><i><d style="background:#22c55e"></d>Para</i><i><d style="background:#ef4444"></d>Makro</i><i><d style="background:#8b5cf6"></d>Islem</i><i><d style="background:#06b6d4"></d>Guven</i></div>
+
+<h3>TUPRS SEVIYE HARITASI | Direncler ve Destekler</h3>
+<div class="cc" style="margin-bottom:10px"><canvas class="cv" id="sevTUPRS" width="750" height="300"></canvas><div class="tp" id="tsT"><div class="tp-t" id="tfT"></div><div id="tbT"></div></div></div>
+<div class="lg"><i><d style="background:#ef4444"></d>Direnc Fiyat</i><i><d style="background:#fca5a5"></d>Direnc Guc</i><i><d style="background:#22c55e"></d>Destek Fiyat</i><i><d style="background:#86efac"></d>Destek Guc</i></div>
+
+<h3>TUPRS Son Haberler</h3>
+<div class="nws">
+<a class="nw" href="https://www.kap.org.tr/tr/Bildirim/990245" target="_blank"><div class="nl" style="background:#1e3a5f">KAP</div><div class="nt"><div class="nb">Tupras Rafineri Kapasite Artirim Yatirimi Basladi</div><div class="nm"><span class="ns">kap.org.tr</span><span>3 saat once</span></div></div></a>
+<a class="nw" href="https://www.bloomberght.com/haber/brent-petrol-78-dolar-seviyesinde" target="_blank"><div class="nl" style="background:#3c1053">BHT</div><div class="nt"><div class="nb">Brent Petrol 78 Dolar: Tupras Marjlari Guclu</div><div class="nm"><span class="ns">bloomberght.com</span><span>6 saat once</span></div></div></a>
+<a class="nw" href="https://tr.investing.com/news/commodities/petrol-fiyatlari-onumuzdeki-hafta-icin-tahminler-yukseldi" target="_blank"><div class="nl" style="background:#0d2f1f">INV</div><div class="nt"><div class="nb">Goldman Sachs: Tupras Hedef Fiyat 175 TL</div><div class="nm"><span class="ns">investing.com</span><span>10 saat once</span></div></div></a>
+</div>
+</div>
+
+<!-- ===== BOLUM 4: ALFAS ===== -->
+<div class="cd" style="animation-delay:.25s">
+<span class="lbl">BOLUM 4/5</span>
+<h2>ALFAS | Skor: 82.8 | Guven: %72</h2>
+
+<div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">ALFAS MUM GRAFİĞİ | Son 60 Gun | Bollinger Bantlari + Hacim Profili (POC)</h3><canvas class="cv" id="mumALFAS" width="750" height="260"></canvas></div>
+<div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">TEKNİK GÖSTERGELER | RSI - MACD - StochRSI - CCI - ATR - OBV - Hacim</h3><canvas class="cv" id="hacALFAS" width="750" height="560"></canvas></div>
+
+<div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">ALFAS | Skor: 82.8 | Yuzdelik</h3><canvas class="cv" id="c4" width="750" height="240"></canvas><div class="tp" id="tt4"><div class="tp-t" id="tf4"></div><div id="tb4"></div></div></div>
+<div class="lg"><i><d style="background:#3b82f6"></d>Teknik</i><i><d style="background:#f59e0b"></d>Haber</i><i><d style="background:#22c55e"></d>Para</i><i><d style="background:#ef4444"></d>Makro</i><i><d style="background:#8b5cf6"></d>Islem</i><i><d style="background:#06b6d4"></d>Guven</i></div>
+
+<h3>ALFAS SEVIYE HARITASI | Direncler ve Destekler</h3>
+<div class="cc" style="margin-bottom:10px"><canvas class="cv" id="sevALFAS" width="750" height="300"></canvas><div class="tp" id="tsL"><div class="tp-t" id="tfL"></div><div id="tbL"></div></div></div>
+<div class="lg"><i><d style="background:#ef4444"></d>Direnc Fiyat</i><i><d style="background:#fca5a5"></d>Direnc Guc</i><i><d style="background:#22c55e"></d>Destek Fiyat</i><i><d style="background:#86efac"></d>Destek Guc</i></div>
+
+<h3>ALFAS Son Haberler</h3>
+<div class="nws">
+<a class="nw" href="https://www.kap.org.tr/tr/Bildirim/990198" target="_blank"><div class="nl" style="background:#1e3a5f">KAP</div><div class="nt"><div class="nb">Alfa Solar Yeni Uretim Hatti Devreye Girdi: 500 MW</div><div class="nm"><span class="ns">kap.org.tr</span><span>4 saat once</span></div></div></a>
+<a class="nw" href="https://www.bloomberght.com/haber/yenilenebilir-enerji-tesvikleri-artirildi" target="_blank"><div class="nl" style="background:#3c1053">BHT</div><div class="nt"><div class="nb">Yenilenebilir Enerji Tesvikleri Artirildi</div><div class="nm"><span class="ns">bloomberght.com</span><span>7 saat once</span></div></div></a>
+<a class="nw" href="https://tr.investing.com/news/stock-market-news/alfa-solar-hedef-fiyat-65tl" target="_blank"><div class="nl" style="background:#0d2f1f">INV</div><div class="nt"><div class="nb">Is Yatirim ALFAS Hedef Fiyat: 65 TL (&#39;AL&#39;)</div><div class="nm"><span class="ns">investing.com</span><span>12 saat once</span></div></div></a>
+</div>
+</div>
+
+<!-- ===== BOLUM 5: PORTFOY ===== -->
+<div class="cd" style="animation-delay:.3s">
+<span class="lbl">BOLUM 5/5</span>
+<h2>Portfoy Dagilimi (Pasta Grafik)</h2>
+<div class="cc"><h3 style="margin-top:0">PORTFOY DAGILIMI | 3 HISSE %75 Sermaye</h3><canvas class="cv" id="c8" width="750" height="250"></canvas><div class="tp" id="tt8"><div class="tp-t" id="tf8"></div><div id="tb8"></div></div></div>
+<div class="lg"><i><d style="background:#3b82f6"></d>ASELS %30</i><i><d style="background:#f59e0b"></d>TUPRS %25</i><i><d style="background:#22c55e"></d>ALFAS %20</i><i><d style="background:#64748b"></d>NAKIT %25</i></div>
+</div>
+
+</div>
+
+<!-- ========================================================= -->
+<!-- CANVAS ENGINE                                             -->
+<!-- ========================================================= -->
+<script>
+const $=id=>document.getElementById(id);
+
+// ===== MUM GRAFİĞİ (Candlestick) =====
+// ===== HACIM PROFILI + BOLLINGER yardimci =====
+function volProfile(data,buckets){
+  const hi=Math.max(...data.map(d=>d.h)),lo=Math.min(...data.map(d=>d.l));
+  const step=(hi-lo)/buckets;const b=Array(buckets).fill(0);
+  data.forEach(d=>{let i=Math.floor((d.c-lo)/step);if(i>=buckets)i=buckets-1;if(i<0)i=0;b[i]+=d.v});
+  let poc=0;for(let i=1;i<buckets;i++)if(b[i]>b[poc])poc=i;
+  return{b,lo,hi,step,poc};
+}
+function bollinger(cl,n,mult){
+  const out=[];for(let i=0;i<cl.length;i++){
+    if(i<n-1){out.push(null);continue}
+    let s=0;for(let j=i-n+1;j<=i;j++)s+=cl[j];const mid=s/n;
+    let v=0;for(let j=i-n+1;j<=i;j++)v+=(cl[j]-mid)**2;const sd=Math.sqrt(v/n);
+    out.push({mid,up:mid+mult*sd,lo:mid-mult*sd});
+  }return out;
+}
+function drawMum(id,data,title){
+  const c=$(id),ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const r=c.getBoundingClientRect();c.width=r.width*dpr;c.height=r.height*dpr;ctx.scale(dpr,dpr);
+  const W=r.width,H=r.height,padL=50,padR=62,padT=15,padB=25;
+  const cw=W-padL-padR,ch=H-padT-padB;
+  const barW=Math.max(2,Math.min(10,(cw/data.length)*.55));
+  const prices=data.flatMap(d=>[d.h,d.l]);const maxP=Math.max(...prices)*1.02;const minP=Math.min(...prices)*.98;
+  const range=maxP-minP;
+  const bb=bollinger(data.map(d=>d.c),20,2);
+  const vp=volProfile(data,26);
+  const maxVB=Math.max(...vp.b);
+  let prog=0;
+  function py(p){return padT+(1-(p-minP)/range)*ch}
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // Grid
+    ctx.strokeStyle='rgba(255,255,255,.04)';ctx.lineWidth=1;
+    for(let i=0;i<=5;i++){const y=padT+(ch/5)*i;ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke();}
+    // Y labels
+    ctx.fillStyle='rgba(255,255,255,.3)';ctx.font='9px Segoe UI';ctx.textAlign='right';
+    for(let i=0;i<=5;i++){const p=minP+(range/5)*(5-i);ctx.fillText(p.toFixed(1),padL-6,padT+(ch/5)*i+3)}
+    const count=Math.floor(data.length*prog);
+    // Hacim profili (sag taraf) + POC
+    const px0=W-padR+6,pxMax=padR-14;
+    for(let i=0;i<vp.b.length;i++){
+      const price=vp.lo+vp.step*(i+.5);
+      if(price<minP||price>maxP)continue;
+      const y=py(price);const bw=(vp.b[i]/maxVB)*pxMax*prog;
+      ctx.fillStyle=i===vp.poc?'rgba(234,179,8,.75)':'rgba(96,165,250,.18)';
+      ctx.fillRect(px0,y-ch/vp.b.length/2,bw,Math.max(2,ch/vp.b.length*.9));
+    }
+    // POC cizgisi
+    const pocPrice=vp.lo+vp.step*(vp.poc+.5);
+    if(pocPrice>=minP&&pocPrice<=maxP){
+      ctx.strokeStyle='rgba(234,179,8,.6)';ctx.setLineDash([4,4]);ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(padL,py(pocPrice));ctx.lineTo(W-padR,py(pocPrice));ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='#eab308';ctx.font='bold 8px Segoe UI';ctx.textAlign='left';
+      ctx.fillText('POC '+pocPrice.toFixed(1),padL+4,py(pocPrice)-3);
+    }
+    // Bollinger bantlari
+    if(prog>0){
+      const lines=[['up','rgba(96,165,250,.55)'],['lo','rgba(96,165,250,.55)'],['mid','rgba(255,255,255,.18)']];
+      lines.forEach(([k,col],li)=>{
+        ctx.strokeStyle=col;ctx.lineWidth=1;ctx.setLineDash(k==='mid'?[2,3]:[5,3]);
+        ctx.beginPath();let started=false;
+        for(let i=0;i<count;i++){if(!bb[i])continue;const x=padL+(cw/data.length)*(i+.5);const y=py(bb[i][k]);
+          if(!started){ctx.moveTo(x,y);started=true}else ctx.lineTo(x,y)}
+        ctx.stroke();ctx.setLineDash([]);
+      });
+    }
+    // Candles
+    for(let i=0;i<count;i++){
+      const d=data[i];const x=padL+(cw/data.length)*(i+.5);
+      const isUp=d.c>=d.o;const col=isUp?'#22c55e':'#ef4444';
+      const bodyTop=py(Math.max(d.o,d.c));const bodyH=Math.max(1,Math.abs(py(d.o)-py(d.c)));
+      ctx.strokeStyle=col;ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(x,py(d.h));ctx.lineTo(x,py(d.l));ctx.stroke();
+      ctx.fillStyle=col;
+      ctx.fillRect(x-barW/2,bodyTop,barW,bodyH);
+      if(isUp){ctx.strokeStyle='rgba(255,255,255,.2)';ctx.lineWidth=.5;ctx.strokeRect(x-barW/2,bodyTop,barW,bodyH)}
+    }
+    // Legend
+    ctx.font='8px Segoe UI';ctx.textAlign='left';
+    ctx.fillStyle='rgba(96,165,250,.9)';ctx.fillText('- - Bollinger (20,2)',padL+4,padT+8);
+    // X labels
+    ctx.fillStyle='rgba(255,255,255,.25)';ctx.font='8px Segoe UI';ctx.textAlign='center';
+    for(let i=0;i<data.length;i+=Math.ceil(data.length/6)){
+      ctx.fillText(data[i].t,padL+(cw/data.length)*(i+.5),H-6);
+    }
+  }
+  function anim(){if(prog<1){prog+=.03;if(prog>1)prog=1;draw();requestAnimationFrame(anim)}else draw()}
+  new IntersectionObserver(e=>{if(e[0].isIntersecting){prog=0;anim()}}).observe(c);
+}
+
+// ===== GOSTERGE HESAPLARI =====
+function emaArr(arr,n){const k=2/(n+1);const out=[];let prev=null;for(let i=0;i<arr.length;i++){const v=arr[i];if(v==null){out.push(null);continue}prev=prev==null?v:v*k+prev*(1-k);out.push(prev)}return out}
+function rsiCalc(cl,n){const out=Array(cl.length).fill(null);let g=0,l=0;for(let i=1;i<cl.length;i++){const d=cl[i]-cl[i-1];const G=Math.max(d,0),L=Math.max(-d,0);if(i<n){g+=G;l+=L}else if(i===n){g+=G;l+=L;const ag=g/n,al=l/n;out[i]=al===0?100:100-100/(1+ag/al)}else{g=(g*(n-1)+G)/n;l=(l*(n-1)+L)/n;out[i]=l===0?100:100-100/(1+g/l)}}return out}
+function atrCalc(data,n){const out=Array(data.length).fill(null);let sum=0,prev=null;for(let i=0;i<data.length;i++){const d=data[i];const pc=i>0?data[i-1].c:d.c;const tr=Math.max(d.h-d.l,Math.abs(d.h-pc),Math.abs(d.l-pc));if(i<n){sum+=tr;if(i===n-1){prev=sum/n;out[i]=prev}}else{prev=(prev*(n-1)+tr)/n;out[i]=prev}}return out}
+function cciCalc(data,n){const tp=data.map(d=>(d.h+d.l+d.c)/3);const out=Array(data.length).fill(null);for(let i=n-1;i<tp.length;i++){let s=0;for(let j=i-n+1;j<=i;j++)s+=tp[j];const ma=s/n;let md=0;for(let j=i-n+1;j<=i;j++)md+=Math.abs(tp[j]-ma);md/=n;out[i]=md===0?0:(tp[i]-ma)/(0.015*md)}return out}
+function stochRsiCalc(rsi,n){const out=Array(rsi.length).fill(null);for(let i=0;i<rsi.length;i++){if(i<n||rsi[i]==null)continue;let mn=1e9,mx=-1e9,ok=true;for(let j=i-n+1;j<=i;j++){if(rsi[j]==null){ok=false;break}mn=Math.min(mn,rsi[j]);mx=Math.max(mx,rsi[j])}if(ok)out[i]=mx===mn?50:(rsi[i]-mn)/(mx-mn)*100}return out}
+function obvCalc(data){const out=[0];for(let i=1;i<data.length;i++){const d=data[i],p=data[i-1];out[i]=out[i-1]+(d.c>p.c?d.v:d.c<p.c?-d.v:0)}return out}
+
+// ===== TEKNIK GOSTERGELER PANELI (7 panel) =====
+function drawTeknik(id,data){
+  const c=$(id),ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const r=c.getBoundingClientRect();c.width=r.width*dpr;c.height=r.height*dpr;ctx.scale(dpr,dpr);
+  const W=r.width,H=r.height,padL=44,padR=14,padT=4,padB=14;
+  const cw=W-padL-padR;const N=data.length;
+  const cl=data.map(d=>d.c);
+  const x=i=>padL+cw*(i+.5)/N;
+  // Hesaplar
+  const rsi=rsiCalc(cl,14);
+  const e12=emaArr(cl,12),e26=emaArr(cl,26);
+  const macd=cl.map((_,i)=>e12[i]!=null&&e26[i]!=null?e12[i]-e26[i]:null);
+  const sig=emaArr(macd,9);
+  const hist=macd.map((v,i)=>v!=null&&sig[i]!=null?v-sig[i]:null);
+  const sK=stochRsiCalc(rsi,14);
+  const sD=emaArr(sK.map(v=>v),3);
+  const cci=cciCalc(data,20);
+  const atr=atrCalc(data,14);
+  const obv=obvCalc(data);
+  const maxV=Math.max(...data.map(d=>d.v))*1.1;
+  const panels=[
+    {ad:'HACIM | Fiyat Yukselisi + Hacim Artisi = Dogrulama',col:'#64748b',tip:'vol'},
+    {ad:'OBV | Denge Hacmi - Hacimle Fiyat Uyumu',col:'#06b6d4',tip:'obv'},
+    {ad:'RSI (14) | >70 Asiri Alim / <30 Asiri Satim',col:'#f59e0b',tip:'rsi'},
+    {ad:'MACD (12,26,9) | Cizgi-Sinyal Kesisimi',col:'#3b82f6',tip:'macd'},
+    {ad:'Stochastic RSI | Hizli Momentum Degisimleri',col:'#8b5cf6',tip:'srsi'},
+    {ad:'CCI (20) | +100 Ustu Guclu / -100 Alti Zayif',col:'#22c55e',tip:'cci'},
+    {ad:'ATR (14) | Volatilite Olcusu',col:'#ef4444',tip:'atr'}
+  ];
+  const ph=(H-padT-padB)/panels.length;
+  let prog=0;
+  function rng(arr){const vs=arr.filter(v=>v!=null&&isFinite(v));return[Math.min(...vs),Math.max(...vs)]}
+  function poly(arr,col,yTop,yBot,mn,mx,count,w,dash){
+    ctx.strokeStyle=col;ctx.lineWidth=w||1.3;ctx.setLineDash(dash||[]);ctx.beginPath();let st=false;
+    for(let i=0;i<count;i++){const v=arr[i];if(v==null||!isFinite(v))continue;const yy=yBot-(v-mn)/(mx-mn)*(yBot-yTop);
+      if(!st){ctx.moveTo(x(i),yy);st=true}else ctx.lineTo(x(i),yy)}
+    ctx.stroke();ctx.setLineDash([]);
+  }
+  function hline(v,yTop,yBot,mn,mx,col,label){
+    if(v<mn||v>mx)return;const y=yBot-(v-mn)/(mx-mn)*(yBot-yTop);
+    ctx.strokeStyle=col;ctx.setLineDash([4,4]);ctx.lineWidth=.8;
+    ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke();ctx.setLineDash([]);
+    if(label){ctx.fillStyle=col;ctx.font='7px Segoe UI';ctx.textAlign='left';ctx.fillText(label,padL+2,y-2)}
+  }
+  function lastVal(arr,count){for(let i=count-1;i>=0;i--){if(arr[i]!=null&&isFinite(arr[i]))return arr[i]}return null}
+  function fmt(v){if(v==null)return'-';const a=Math.abs(v);if(a>=1e6)return(v/1e6).toFixed(1)+'M';if(a>=1e3)return(v/1e3).toFixed(1)+'K';return v.toFixed(1)}
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const count=Math.max(2,Math.floor(N*prog));
+    panels.forEach((p,pi)=>{
+      const top=padT+ph*pi,yTop=top+15,yBot=top+ph-4;
+      // ayirici
+      ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(0,top+.5);ctx.lineTo(W,top+.5);ctx.stroke();
+      // baslik + son deger
+      ctx.fillStyle=p.col;ctx.font='bold 9px Segoe UI';ctx.textAlign='left';
+      ctx.fillText(p.ad,padL-40,top+10);
+      let lv=null,mn,mx;
+      if(p.tip==='vol'){
+        for(let i=0;i<count;i++){const d=data[i];const bh=(d.v/maxV)*(yBot-yTop);
+          ctx.fillStyle=d.c>=d.o?'rgba(34,197,94,.45)':'rgba(239,68,68,.45)';
+          ctx.fillRect(x(i)-Math.max(1,cw/N*.28),yBot-bh,Math.max(2,cw/N*.55),bh)}
+        lv=data[count-1].v;
+      }else if(p.tip==='obv'){
+        [mn,mx]=rng(obv);if(mn===mx){mn-=1;mx+=1}
+        poly(obv,p.col,yTop,yBot,mn,mx,count,1.4);
+        lv=lastVal(obv,count);
+      }else if(p.tip==='rsi'){
+        mn=0;mx=100;
+        ctx.fillStyle='rgba(239,68,68,.06)';ctx.fillRect(padL,yTop,cw,(100-70)/100*(yBot-yTop));
+        ctx.fillStyle='rgba(34,197,94,.06)';ctx.fillRect(padL,yBot-30/100*(yBot-yTop),cw,30/100*(yBot-yTop));
+        hline(70,yTop,yBot,mn,mx,'rgba(239,68,68,.5)','70');
+        hline(30,yTop,yBot,mn,mx,'rgba(34,197,94,.5)','30');
+        poly(rsi,p.col,yTop,yBot,mn,mx,count,1.4);
+        lv=lastVal(rsi,count);
+      }else if(p.tip==='macd'){
+        [mn,mx]=rng(macd.concat(sig,hist));const ab=Math.max(Math.abs(mn),Math.abs(mx));mn=-ab;mx=ab;
+        hline(0,yTop,yBot,mn,mx,'rgba(255,255,255,.25)');
+        const bw=Math.max(2,cw/N*.55);
+        for(let i=0;i<count;i++){const v=hist[i];if(v==null)continue;const y0=yBot-(0-mn)/(mx-mn)*(yBot-yTop);
+          const yv=yBot-(v-mn)/(mx-mn)*(yBot-yTop);
+          ctx.fillStyle=v>=0?'rgba(34,197,94,.5)':'rgba(239,68,68,.5)';
+          ctx.fillRect(x(i)-bw/2,Math.min(y0,yv),bw,Math.max(1,Math.abs(yv-y0)))}
+        poly(macd,'#3b82f6',yTop,yBot,mn,mx,count,1.3);
+        poly(sig,'#f59e0b',yTop,yBot,mn,mx,count,1.3);
+        lv=lastVal(macd,count);
+      }else if(p.tip==='srsi'){
+        mn=0;mx=100;
+        hline(80,yTop,yBot,mn,mx,'rgba(239,68,68,.5)','80');
+        hline(20,yTop,yBot,mn,mx,'rgba(34,197,94,.5)','20');
+        poly(sK,p.col,yTop,yBot,mn,mx,count,1.3);
+        poly(sD,'rgba(255,255,255,.55)',yTop,yBot,mn,mx,count,1.1);
+        lv=lastVal(sK,count);
+      }else if(p.tip==='cci'){
+        [mn,mx]=rng(cci);mn=Math.min(mn,-110);mx=Math.max(mx,110);
+        hline(100,yTop,yBot,mn,mx,'rgba(34,197,94,.5)','+100');
+        hline(-100,yTop,yBot,mn,mx,'rgba(239,68,68,.5)','-100');
+        hline(0,yTop,yBot,mn,mx,'rgba(255,255,255,.2)');
+        poly(cci,p.col,yTop,yBot,mn,mx,count,1.4);
+        lv=lastVal(cci,count);
+      }else if(p.tip==='atr'){
+        [mn,mx]=rng(atr);mn=0;if(mx===0)mx=1;
+        poly(atr,p.col,yTop,yBot,mn,mx,count,1.4);
+        ctx.fillStyle='rgba(239,68,68,.08)';
+        ctx.beginPath();let st=false;
+        for(let i=0;i<count;i++){if(atr[i]==null)continue;const yy=yBot-(atr[i]-mn)/(mx-mn)*(yBot-yTop);
+          if(!st){ctx.moveTo(x(i),yBot);ctx.lineTo(x(i),yy);st=true}else ctx.lineTo(x(i),yy)}
+        if(st){ctx.lineTo(x(count-1),yBot);ctx.closePath();ctx.fill()}
+        lv=lastVal(atr,count);
+      }
+      // son deger etiketi
+      ctx.fillStyle='rgba(255,255,255,.65)';ctx.font='bold 9px Segoe UI';ctx.textAlign='right';
+      ctx.fillText(fmt(lv),W-padR,top+10);
+    });
+    // X ekseni
+    ctx.fillStyle='rgba(255,255,255,.2)';ctx.font='8px Segoe UI';ctx.textAlign='center';
+    for(let i=0;i<N;i+=Math.ceil(N/6))ctx.fillText(data[i].t,x(i),H-3);
+  }
+  function anim(){if(prog<1){prog+=.04;if(prog>1)prog=1;draw();requestAnimationFrame(anim)}else draw()}
+  new IntersectionObserver(e=>{if(e[0].isIntersecting){prog=0;anim()}}).observe(c);
+}
+
+// ===== FAVORI HISSeler (yatay bar) =====
+function drawFav(id,cb,tt,tf,tb,data){
+  const c=$(id),ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const r=c.getBoundingClientRect();c.width=r.width*dpr;c.height=r.height*dpr;ctx.scale(dpr,dpr);
+  const W=r.width,H=r.height,padL=65,padR=25,padT=8,padB=8;
+  const cw=W-padL-padR,ch=H-padT-padB;const gap=ch/data.length;const bh=gap*.55;
+  let prog=0,hover=-1;
+  function skorCol(v){if(v>=82)return'#22c55e';if(v>=75)return'#eab308';return'#ef4444';}
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    data.forEach((d,i)=>{
+      const y=padT+gap*i+(gap-bh)/2;const bw=cw*(d.val/100)*prog;
+      const col=skorCol(d.val);
+      ctx.fillStyle=col;ctx.font='bold 11px Segoe UI';ctx.textAlign='right';ctx.textBaseline='middle';
+      ctx.fillText(d.name,padL-10,y+bh/2);
+      ctx.fillStyle='#0f172a';ctx.fillRect(padL,y,cw,bh);
+      if(bw>1){ctx.fillStyle=col;ctx.fillRect(padL,y,bw,bh);
+        if(prog>.8){ctx.globalAlpha=(prog-.8)/.2;ctx.fillStyle='#fff';ctx.font='bold 10px Segoe UI';ctx.textAlign='right';
+          ctx.fillText(d.val.toFixed(1),padL+bw-6,y+bh/2);ctx.globalAlpha=1}}
+    });
+  }
+  c.addEventListener('mousemove',e=>{const rc=c.getBoundingClientRect();const mx=(e.clientX-rc.left),my=(e.clientY-rc.top);
+    let nh=-1;if(mx>padL&&mx<W-padR){const idx=Math.floor((my-padT)/gap);if(idx>=0&&idx<data.length)nh=idx}
+    if(nh!==hover){hover=nh;draw();const t=$(tt),f=$(tf),b=$(tb);
+      if(hover>=0){const hd=data[hover];f.textContent=hd.name+' '+hd.val;$(tt).classList.add('show');
+        const cbr=$(cb).getBoundingClientRect();t.style.left=(e.clientX-cbr.left+10)+'px';t.style.top=(e.clientY-cbr.top-20)+'px'}
+      else t.classList.remove('show')}});
+  c.addEventListener('mouseleave',()=>{hover=-1;$(tt).classList.remove('show');draw()});
+  function anim(){if(prog<1){prog+=.025;if(prog>1)prog=1;draw();requestAnimationFrame(anim)}else draw()}
+  new IntersectionObserver(e=>{if(e[0].isIntersecting){prog=0;anim()}}).observe(c);
+}
+
+// ===== KATEGORI KARTI AC/KAPA (Bolum 13) =====
+function katToggle(el){el.classList.toggle('acik')}
+
+// ===== SKOR BAR (dikey 6 kategori) =====
+function drawSkor(id,cb,tt,tf,tb,data){
+  const c=$(id),ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const r=c.getBoundingClientRect();c.width=r.width*dpr;c.height=r.height*dpr;ctx.scale(dpr,dpr);
+  const W=r.width,H=r.height,padL=30,padR=10,padT=10,padB=30;
+  const cw=W-padL-padR,ch=H-padT-padB;const step=cw/data.length;const barW=step*.5;
+  let prog=0,hover=-1;
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='rgba(255,255,255,.03)';ctx.lineWidth=1;
+    for(let i=0;i<=4;i++){const y=padT+(ch/4)*i;ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke()}
+    ctx.fillStyle='rgba(255,255,255,.25)';ctx.font='9px Segoe UI';ctx.textAlign='right';
+    for(let i=0;i<=4;i++){ctx.fillText((100-i*25).toString(),padL-6,padT+(ch/4)*i+3)}
+    data.forEach((d,i)=>{
+      const cx=padL+step*i+step/2;const bh=ch*(d.val/100)*prog;const by=padT+ch-bh;
+      const isH=i===hover;
+      if(isH){ctx.save();ctx.shadowColor=d.col;ctx.shadowBlur=15}
+      ctx.fillStyle=d.col;
+      ctx.fillRect(cx-barW/2,by,barW,bh);
+      if(isH)ctx.restore();
+      ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='9px Segoe UI';ctx.textAlign='center';
+      ctx.fillText(d.ad,padL+step*i+step/2,H-18);
+      ctx.fillStyle='rgba(255,255,255,.3)';ctx.font='8px Segoe UI';
+      ctx.fillText(d.pct+'%',padL+step*i+step/2,H-8);
+      if(prog>.7&&bh>18){ctx.globalAlpha=(prog-.7)/.3;ctx.fillStyle='#fff';ctx.font='bold 10px Segoe UI';
+        ctx.fillText(d.pct,cx,by-6);ctx.globalAlpha=1}
+    });
+  }
+  c.addEventListener('mousemove',e=>{const rc=c.getBoundingClientRect();const mx=(e.clientX-rc.left);
+    let nh=-1;if(mx>padL){const idx=Math.floor((mx-padL)/step);if(idx>=0&&idx<data.length)nh=idx}
+    if(nh!==hover){hover=nh;draw();const t=$(tt),f=$(tf);
+      if(hover>=0){const hd=data[hover];f.textContent=hd.ad+' %'+hd.pct;$(tt).classList.add('show');
+        const cbr=$(cb).getBoundingClientRect();t.style.left=(e.clientX-cbr.left+10)+'px';t.style.top=(e.clientY-cbr.top-30)+'px'}
+      else $(tt).classList.remove('show')}});
+  c.addEventListener('mouseleave',()=>{hover=-1;$(tt).classList.remove('show');draw()});
+  function anim(){if(prog<1){prog+=.03;if(prog>1)prog=1;draw();requestAnimationFrame(anim)}else draw()}
+  new IntersectionObserver(e=>{if(e[0].isIntersecting){prog=0;anim()}}).observe(c);
+}
+
+// ===== SEVIYE HARITASI - Dikey Bar (Resimdeki gibi) =====
+function drawSeviyeDikey(id,cb,tt,tf,tb,data){
+  const c=$(id),ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const r=c.getBoundingClientRect();c.width=r.width*dpr;c.height=r.height*dpr;ctx.scale(dpr,dpr);
+  const W=r.width,H=r.height,padL=45,padR=15,padT=15,padB=45;
+  const cw=W-padL-padR,ch=H-padT-padB;
+  const n=data.length;const step=cw/n;const barW=step*.35;const gucW=step*.2;
+  const fiyatlar=data.map(d=>d.fiyat);const maxF=Math.max(...fiyatlar)*1.08;const minF=Math.min(...fiyatlar)*.92;
+  const range=maxF-minF;
+  let prog=0,hover=-1;
+  function fy(f){return padT+(1-(f-minF)/range)*ch}
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // Grid
+    ctx.strokeStyle='rgba(255,255,255,.04)';ctx.lineWidth=1;
+    for(let i=0;i<=5;i++){const y=padT+(ch/5)*i;ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke()}
+    // Y labels
+    ctx.fillStyle='rgba(255,255,255,.3)';ctx.font='9px Segoe UI';ctx.textAlign='right';
+    for(let i=0;i<=5;i++){const v=minF+(range/5)*(5-i);ctx.fillText(v.toFixed(1),padL-6,padT+(ch/5)*i+3)}
+
+    data.forEach((d,i)=>{
+      const cx=padL+step*i+step/2;
+      const barTop=fy(d.fiyat);const barH=fy(minF)-barTop;
+      const curH=barH*prog;const curTop=fy(minF)-curH;
+      const isH=i===hover;
+      const fiyatCol=d.isR?'#ef4444':'#22c55e';
+      const gucCol=d.isR?'#fca5a5':'#86efac';
+
+      // Gucc bar (background thin bar)
+      const gucH=(ch*(d.guc/10)*.5)*prog;
+      ctx.fillStyle=gucCol;
+      ctx.fillRect(cx+gucW/2+2,fy(minF)-gucH,gucW,gucH);
+
+      // Ana fiyat bar
+      if(isH){ctx.save();ctx.shadowColor=fiyatCol;ctx.shadowBlur=18}
+      ctx.fillStyle=fiyatCol;
+      ctx.fillRect(cx-barW/2,curTop,barW,curH);
+      if(isH)ctx.restore();
+
+      // Ustte fiyat degeri
+      if(prog>.7){ctx.globalAlpha=(prog-.7)/.3;ctx.fillStyle='#fff';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+        ctx.fillText(d.fiyat.toFixed(2),cx,curTop-10);ctx.globalAlpha=1}
+
+      // X etiket
+      ctx.fillStyle=fiyatCol;ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+      ctx.fillText(d.etiket,cx,H-28);
+      ctx.fillStyle='rgba(255,255,255,.35)';ctx.font='8px Segoe UI';
+      ctx.fillText('Guc:'+d.guc,cx,H-14);
+    });
+  }
+
+  c.addEventListener('mousemove',e=>{
+    const rc=c.getBoundingClientRect();const mx=(e.clientX-rc.left);
+    let nh=-1;if(mx>padL){const idx=Math.floor((mx-padL)/step);if(idx>=0&&idx<data.length)nh=idx}
+    if(nh!==hover){hover=nh;draw();const t=$(tt),f=$(tf),b=$(tb);
+      if(hover>=0){
+        const hd=data[hover];const hcol=hd.isR?'#ef4444':'#22c55e';
+        f.innerHTML='<span style="color:'+hcol+'">'+hd.etiket+': '+hd.fiyat.toFixed(2)+' TL</span>';
+        const extra=hd.isR?'<div class="tp-r">Gorulme: <span>%'+hd.gor+'</span></div><div class="tp-r">Kirilma: <span>%'+hd.kir+'</span></div>':'<div class="tp-r">Gorulme: <span>%'+hd.gor+'</span></div><div class="tp-r">Tutunma: <span>%'+hd.tut+'</span></div>';
+        b.innerHTML='<div class="tp-r">Guc: <span>'+hd.guc+'/10</span></div>'+extra+'<div class="tp-r">Tip: <span>'+(hd.isR?'DIRENC':'DESTEK')+'</span></div>';
+        t.classList.add('show');const cbr=$(cb).getBoundingClientRect();t.style.left=(e.clientX-cbr.left+10)+'px';t.style.top=(e.clientY-cbr.top-80)+'px'}
+      else t.classList.remove('show')}});
+  c.addEventListener('mouseleave',()=>{hover=-1;$(tt).classList.remove('show');draw()});
+  function anim(){if(prog<1){prog+=.025;if(prog>1)prog=1;draw();requestAnimationFrame(anim)}else draw()}
+  new IntersectionObserver(e=>{if(e[0].isIntersecting){prog=0;anim()}}).observe(c);
+}
+
+// ===== PORTFOY PASTA =====
+function drawPasta(id,cb,tt,tf,tb,data){
+  const c=$(id),ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const r=c.getBoundingClientRect();c.width=r.width*dpr;c.height=r.height*dpr;ctx.scale(dpr,dpr);
+  const W=r.width,H=r.height;const cx=W/2,cy=H/2;const rad=Math.min(W,H)*.32;const thick=22;
+  let prog=0,hover=-1;
+  const total=data.reduce((s,d)=>s+d.val,0);
+  let sa=-Math.PI/2;
+  const slices=data.map(d=>{const a=(d.val/total)*Math.PI*2;const s={...d,start:sa,end:sa+a};sa+=a;return s});
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.beginPath();ctx.arc(cx,cy,rad,0,Math.PI*2);ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=thick;ctx.stroke();
+    slices.forEach((s,i)=>{
+      const ce=s.start+(s.end-s.start)*prog;
+      const isH=i===hover;ctx.beginPath();ctx.arc(cx,cy,isH?rad+4:rad,s.start-.005,ce+.005);
+      ctx.strokeStyle=s.col;ctx.lineWidth=isH?thick+5:thick;
+      if(isH){ctx.save();ctx.shadowColor=s.col;ctx.shadowBlur=20}ctx.stroke();if(isH)ctx.restore();
+    });
+    if(prog>.8){ctx.globalAlpha=(prog-.8)/.2;ctx.fillStyle='#94a3b8';ctx.font='10px Segoe UI';ctx.textAlign='center';
+      ctx.fillText('3 HISSE',cx,cy-6);ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';
+      ctx.fillText('%75',cx,cy+14);ctx.globalAlpha=1}
+    // Etiketler
+    slices.forEach((s,i)=>{
+      const ma=(s.start+s.end)/2;const lx=cx+Math.cos(ma)*(rad+45);const ly=cy+Math.sin(ma)*(rad+45);
+      ctx.fillStyle=s.col;ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+      ctx.fillText(s.name+' %'+s.val,lx,ly);
+    });
+  }
+  c.addEventListener('mousemove',e=>{const rc=c.getBoundingClientRect();
+    const mx=(e.clientX-rc.left)-cx;const my=(e.clientY-rc.top)-cy;const dist=Math.sqrt(mx*mx+my*my);
+    let nh=-1;if(dist>rad-thick-10&&dist<rad+thick+15){const a=Math.atan2(my,mx);
+      slices.forEach((s,i)=>{let sa2=s.start,ea2=s.end;if(sa2<-Math.PI/2)sa2+=Math.PI*2;if(ea2<-Math.PI/2)ea2+=Math.PI*2;let a2=a;if(a2<-Math.PI/2)a2+=Math.PI*2;if(a2>=sa2&&a2<ea2)nh=i})}
+    if(nh!==hover){hover=nh;draw();const t=$(tt);
+      if(hover>=0){const hd=data[hover];$(tf).textContent=hd.name+' %'+hd.val;$(tb).innerHTML='<div class="tp-r">Oran: <span>%'+hd.val+'</span></div>';t.classList.add('show');const cbr=$(cb).getBoundingClientRect();t.style.left=(e.clientX-cbr.left+10)+'px';t.style.top=(e.clientY-cbr.top-20)+'px'}
+      else t.classList.remove('show')}});
+  c.addEventListener('mouseleave',()=>{hover=-1;$(tt).classList.remove('show');draw()});
+  function anim(){if(prog<1){prog+=.02;if(prog>1)prog=1;draw();requestAnimationFrame(anim)}else draw()}
+  new IntersectionObserver(e=>{if(e[0].isIntersecting){prog=0;anim()}}).observe(c);
+}
+
+// ===== GAUGE =====
+function drawGauge(){
+  const c=$('gauge'),ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const r=c.getBoundingClientRect();c.width=r.width*dpr;c.height=r.height*dpr;ctx.scale(dpr,dpr);
+  const W=r.width,H=r.height;const cx=W/2,cy=H-20;const rad=Math.min(W,H)*.7;
+  const val=71.5;const prog=val/100;let animP=0;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.beginPath();ctx.arc(cx,cy,rad,Math.PI,0);ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=18;ctx.lineCap='round';ctx.stroke();
+    // 5 REJIM ZONU (B12 rejim tablosuyla birebir):
+    // 0-35 NEGATIF | 35-50 TEMKINLI | 50-65 ORTA | 65-80 POZITIF | 80-100 GUCLU POZITIF
+    const zones=[
+      {a:0,b:.35,col:'#ef4444'},
+      {a:.35,b:.50,col:'#f97316'},
+      {a:.50,b:.65,col:'#eab308'},
+      {a:.65,b:.80,col:'#22c55e'},
+      {a:.80,b:1.0,col:'#16a34a'}
+    ];
+    zones.forEach(z=>{
+      if(animP>z.a){
+        const e=Math.min(animP,z.b);
+        ctx.beginPath();ctx.arc(cx,cy,rad,Math.PI+Math.PI*z.a,Math.PI+Math.PI*e);
+        ctx.strokeStyle=z.col;ctx.lineWidth=18;ctx.lineCap='butt';ctx.stroke();
+      }
+    });
+    const na=Math.PI+Math.PI*prog*animP;const nx=cx+Math.cos(na)*(rad-10);const ny=cy+Math.sin(na)*(rad-10);
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx,ny);ctx.strokeStyle='#fff';ctx.lineWidth=2.5;ctx.stroke();
+    ctx.beginPath();ctx.arc(cx,cy,6,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+    ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fillStyle='#080c14';ctx.fill();
+    ctx.fillStyle='#fff';ctx.font='bold 26px Segoe UI';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText((val*animP).toFixed(1),cx,cy-16);
+    ctx.fillStyle='#94a3b8';ctx.font='11px Segoe UI';
+    ctx.fillText('POZITIF',cx,cy+6);
+    ctx.fillStyle='rgba(255,255,255,.25)';ctx.font='9px Segoe UI';
+    ctx.fillText('0',cx-rad+8,cy+12);ctx.fillText('100',cx+rad-10,cy+12);
+  }
+  function anim(){if(animP<1){animP+=.02;if(animP>1)animP=1;draw();requestAnimationFrame(anim)}else draw()}
+  new IntersectionObserver(e=>{if(e[0].isIntersecting){animP=0;anim()}}).observe(c);
+}
+
+// ===== DEMO MUM VERILERI =====
+function mumData(base,volBase){
+  const data=[];let p=base;
+  for(let i=0;i<60;i++){
+    const ch=(Math.random()-.45)*p*.04;
+    const o=p;const c=p+ch;const h=Math.max(o,c)+Math.random()*p*.02;const l=Math.min(o,c)-Math.random()*p*.02;
+    const v=volBase*(.5+Math.random());
+    const day=(i%30+1)+(i<30?'.06':'.07');
+    data.push({o,c,h,l,v,t:day});
+    p=c;
+  }
+  return data;
+}
+
+// ===== DATA =====
+const favData=[
+  {name:'ASELS',val:87.4},{name:'TUPRS',val:84.2},{name:'ALFAS',val:82.8},
+  {name:'ENJSA',val:79.5},{name:'BIMAS',val:77.8},{name:'EREGL',val:76.5},
+  {name:'KRDMD',val:75.2},{name:'PETKM',val:74.0},{name:'SARKY',val:73.5},{name:'LOGO',val:72.8}
+];
+
+const aselsSkor=[{ad:'Teknik',pct:'88',val:88,col:'#3b82f6'},{ad:'Haber',pct:'73',val:73,col:'#f59e0b'},{ad:'Para',pct:'79',val:79,col:'#22c55e'},{ad:'Makro',pct:'89',val:89,col:'#ef4444'},{ad:'Islem',pct:'92',val:92,col:'#8b5cf6'},{ad:'Guven',pct:'81',val:81,col:'#06b6d4'}];
+const tuprsSkor=[{ad:'Teknik',pct:'85',val:85,col:'#3b82f6'},{ad:'Haber',pct:'81',val:81,col:'#f59e0b'},{ad:'Para',pct:'74',val:74,col:'#22c55e'},{ad:'Makro',pct:'97',val:97,col:'#ef4444'},{ad:'Islem',pct:'85',val:85,col:'#8b5cf6'},{ad:'Guven',pct:'76',val:76,col:'#06b6d4'}];
+const alfasSkor=[{ad:'Teknik',pct:'83',val:83,col:'#3b82f6'},{ad:'Haber',pct:'65',val:65,col:'#f59e0b'},{ad:'Para',pct:'83',val:83,col:'#22c55e'},{ad:'Makro',pct:'64',val:64,col:'#ef4444'},{ad:'Islem',pct:'80',val:80,col:'#8b5cf6'},{ad:'Guven',pct:'72',val:72,col:'#06b6d4'}];
+
+const aselsSev=[
+  {etiket:'R1',fiyat:78.5,guc:7,gor:58,kir:41,isR:true},{etiket:'R2',fiyat:80.0,guc:8,gor:45,kir:32,isR:true},{etiket:'R3',fiyat:83.5,guc:6,gor:30,kir:19,isR:true},
+  {etiket:'S1',fiyat:76.8,guc:7,gor:35,tut:64,isR:false},{etiket:'S2',fiyat:75.0,guc:8,gor:25,tut:71,isR:false},{etiket:'S3',fiyat:73.5,guc:6,gor:18,tut:58,isR:false}
+];
+const tuprsSev=[
+  {etiket:'R1',fiyat:158,guc:7,gor:52,kir:38,isR:true},{etiket:'R2',fiyat:164,guc:6,gor:36,kir:24,isR:true},{etiket:'R3',fiyat:172,guc:5,gor:22,kir:14,isR:true},
+  {etiket:'S1',fiyat:152.5,guc:7,gor:32,tut:61,isR:false},{etiket:'S2',fiyat:148,guc:8,gor:26,tut:68,isR:false},{etiket:'S3',fiyat:146,guc:6,gor:20,tut:55,isR:false}
+];
+const alfasSev=[
+  {etiket:'R1',fiyat:51,guc:6,gor:55,kir:42,isR:true},{etiket:'R2',fiyat:54,guc:7,gor:38,kir:28,isR:true},{etiket:'R3',fiyat:58,guc:5,gor:24,kir:16,isR:true},
+  {etiket:'S1',fiyat:48.8,guc:7,gor:30,tut:62,isR:false},{etiket:'S2',fiyat:47.5,guc:7,gor:22,tut:65,isR:false},{etiket:'S3',fiyat:46.5,guc:6,gor:16,tut:58,isR:false}
+];
+
+const portData=[{name:'ASELS',val:30,col:'#3b82f6'},{name:'TUPRS',val:25,col:'#f59e0b'},{name:'ALFAS',val:20,col:'#22c55e'},{name:'NAKIT',val:25,col:'#64748b'}];
+
+// ===== INIT =====
+window.addEventListener('load',()=>{
+  // Gauge
+  setTimeout(drawGauge,100);
+
+  // Favori
+  setTimeout(()=>drawFav('c1','cb1','tt1','tf1','tb1',favData),100);
+
+  // ASELS
+  const dA=mumData(72,2500000);
+  setTimeout(()=>drawMum('mumASELS',dA,'ASELS'),150);
+  setTimeout(()=>drawTeknik('hacASELS',dA),200);
+  setTimeout(()=>drawSkor('c2','cb2','tt2','tf2','tb2',aselsSkor),250);
+  setTimeout(()=>drawSeviyeDikey('sevASELS','cb2','tsA','tfA','tbA',aselsSev),300);
+
+  // TUPRS
+  const dT=mumData(150,1800000);
+  setTimeout(()=>drawMum('mumTUPRS',dT,'TUPRS'),350);
+  setTimeout(()=>drawTeknik('hacTUPRS',dT),400);
+  setTimeout(()=>drawSkor('c3','cb3','tt3','tf3','tb3',tuprsSkor),450);
+  setTimeout(()=>drawSeviyeDikey('sevTUPRS','cb3','tsT','tfT','tbT',tuprsSev),500);
+
+  // ALFAS
+  const dL=mumData(48,1200000);
+  setTimeout(()=>drawMum('mumALFAS',dL,'ALFAS'),550);
+  setTimeout(()=>drawTeknik('hacALFAS',dL),600);
+  setTimeout(()=>drawSkor('c4','cb4','tt4','tf4','tb4',alfasSkor),650);
+  setTimeout(()=>drawSeviyeDikey('sevALFAS','cb4','tsL','tfL','tbL',alfasSev),700);
+
+  // Portfoy
+  setTimeout(()=>drawPasta('c8','cb8','tt8','tf8','tb8',portData),800);
+});
+</script>
+
+
+</body></html>

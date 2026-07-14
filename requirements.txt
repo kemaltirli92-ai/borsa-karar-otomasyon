@@ -1,0 +1,6 @@
+# XK100 Borsa Karar Otomasyonu
+# Uygulama kodu Python standart kutuphanesi (stdlib) ile calisir — dis bagimlilik YOK.
+# Asagidakiler yalnizca test ve gelistirme icindir.
+
+pytest==9.1.1
+python-dotenv==1.2.2

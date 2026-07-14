@@ -1,0 +1,14 @@
+[Unit]
+Description=XK100 Endeks Skorlama Servisi
+After=network.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/borsa-karar-otomasyon
+ExecStart=/usr/bin/python3 -m app.tasks.run_index_scoring
+Environment=TZ=Europe/Istanbul
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

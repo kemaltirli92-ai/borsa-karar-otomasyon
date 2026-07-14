@@ -1,0 +1,16 @@
+[Unit]
+Description=XK100 API Servisi (port 8099)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/borsa-karar-otomasyon
+ExecStart=/usr/bin/python3 -m app.api.routes
+Environment=TZ=Europe/Istanbul
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=XK100 Endeks Skorlama Zamanlayici (islem gunleri 08:00 TSi)
+
+[Timer]
+OnCalendar=Mon..Fri 08:00:00 Europe/Istanbul
+Persistent=true
+Unit=xk100-index-scoring.service
+
+[Install]
+WantedBy=timers.target

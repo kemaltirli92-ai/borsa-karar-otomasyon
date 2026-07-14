@@ -1,0 +1,3 @@
+# XK100 cron guvenlik agi (systemd timer calismazsa yedek)
+# TSi 09:30 — hesaplama tamamlanmadiysa guvenlik agi tetikler
+30 9 * * 1-5 cd /opt/borsa-karar-otomasyon && /usr/bin/python3 -m app.tasks.run_index_scoring --safety-net >> logs/cron.log 2>&1

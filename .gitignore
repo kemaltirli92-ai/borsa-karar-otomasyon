@@ -1,0 +1,9 @@
+# Asla repoya eklenmemesi gerekenler
+.env
+*.db
+*.sqlite
+__pycache__/
+*.pyc
+.pytest_cache/
+logs/
+yedekler/
