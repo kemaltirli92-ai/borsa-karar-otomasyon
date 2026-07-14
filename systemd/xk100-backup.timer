@@ -1,0 +1,10 @@
+[Unit]
+Description=XK100 Gunluk Yedekleme Zamanlayici (her gun 23:30 Europe/Istanbul)
+
+[Timer]
+OnCalendar=*-*-* 23:30:00
+Persistent=true
+Unit=xk100-backup.service
+
+[Install]
+WantedBy=timers.target

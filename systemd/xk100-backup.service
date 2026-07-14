@@ -1,0 +1,13 @@
+[Unit]
+Description=XK100 Gunluk Yedekleme Servisi (BLOK 21 - 23:30 TSi)
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/borsa-karar-otomasyon
+ExecStart=/usr/bin/python3 -m app.ops.backup_run
+Environment=TZ=Europe/Istanbul
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
