@@ -1,0 +1,14 @@
+[Unit]
+Description=XK100 Hisse Tarama Servisi (BLOK 14 - sabah taramasi 08:00 TSi)
+After=network.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/borsa-karar-otomasyon
+ExecStart=/usr/bin/python3 -m app.services.stock_scanning.orchestration.run_scan
+Environment=TZ=Europe/Istanbul
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

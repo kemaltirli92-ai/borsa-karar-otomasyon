@@ -1,0 +1,10 @@
+[Unit]
+Description=XK100 Hisse Tarama Zamanlayici (islem gunleri 08:00 Europe/Istanbul)
+
+[Timer]
+OnCalendar=Mon..Fri 08:00:00 Europe/Istanbul
+Persistent=true
+Unit=xk100-hisse-tarama.service
+
+[Install]
+WantedBy=timers.target
