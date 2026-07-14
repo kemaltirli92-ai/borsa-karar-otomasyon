@@ -1182,6 +1182,390 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 <div class="note-blue" style="margin:10px 0 0"><b>Not:</b> Bu kart serisindeki her dosya adi GitHub reposunda mevcuttur; her test sayisi terminal ciktisindan alinmistir. Durum etiketleri: PLANLANDI → KODLANDI → TEST_EDILIYOR → <b>TEST_GECTI</b> (simdilik burada) → VPS_KURULDU → CANLI. Son iki asama VPS'te gercek kurulum + ilk basarili tarama sonrasi guncellenecektir.</div>
 </div>
 
+<!-- BOLUM 3 - BLOK 17 KARTI -->
+<div class="card" style="border:1px solid rgba(139,92,246,.5);background:#0d0616">
+<h3><span class="dot" style="background:#a78bfa"></span>BLOK 17/22 TAMAMLANDI — YONETICI SISTEM SEMASI SAYFASI (docs.html OZET + C1-C13) <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Bu gizli sayfa (docs.html) sistemin <b>yonetici dokuman merkezidir</b>: BOLUM 3 OZET kutusu + C1-C13 kural kartlari + blok teslim kartlari burada toplanir. Kural: her blok tesliminde sayfa guncellenir (devamli guncelleme kurali); musteri sayfasinda metin detay gosterilmez, tum aciklama bu sayfadadir. Sayfa yalnizca direkt link ile erisilir.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>telegram-sender/docs.html (bu sayfanin kendisi)</td></tr>
+<tr><td style="font-weight:700">Gercek tablo veya artefakt</td><td>Sayfa icindeki OZET kutusu tablosu + C1-C13 kart tablolari (veri tablosu degil, dokuman artefakti)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td><b>tests/blok17 dizini repoda YOK</b> — durust not: bu blogun dogrulamasi sayfa dogrulama betikleriyle (manuel/script) yapildi; ayri pytest dizini olusturulmadi. Sayfa butunlugu blok18-22 testlerinin sayfa kontrolleri ve blok23 testleriyle kilitlenir.</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td>Ayri blok17 testi yok; blok18-22 sayfa testlerinin tamami geciyor (her biri 100/100, 2026-07-15) — bu kart blok23 ile birlikte regresyona alinir</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — sayfa canli dokuman olarak kullaniliyor; blok18-22 regresyonunda sayfa testleri geciyor</td></tr>
+</tbody></table>
+</div>
+
+<!-- BOLUM 3 - BLOK 18 KARTI -->
+<div class="card" style="border:1px solid rgba(59,130,246,.4);background:#0a1128">
+<h3><span class="dot" style="background:#3b82f6"></span>BLOK 18/22 TAMAMLANDI — MUSTERI ANA SAYFASI (index.html) <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Musteri ana sayfasi: <b>XK100 Tarama Durumu karti</b> (8 alan: tarama durumu, taranan/tam/kismi/basarisiz sayilari, ortalama veri guveni, son guncelleme, scan_run_id) + <b>100 Hisse Ozeti tablosu</b> (17 sutun, 8 filtre, 3 siralama, sayfa bazli listeleme) + mobil tasma duzeni. DEMO rozet/bantlari zorunlu: sahte canli gorunum YOK. API cevaplari zarf dogrulamasindan gecmeden ekrana basilmaz; hata maskelenir.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>telegram-sender/index.html</td></tr>
+<tr><td style="font-weight:700">Gercek tablo veya artefakt</td><td>stk-table (100 hisse ozeti) — GET /api/xk100/scan/latest + GET /api/xk100/stocks?page=&amp;page_size= uzerinden dolar; ilk tarama yoksa HENUZ CALISMA YOK karti gosterilir</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok18/test_index_page.py (TAM 100 test)</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.43s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — sayfa API'ye bagli; ilk gercek sabah taramasi VPS'te kosulunca CANLI yazilir</td></tr>
+</tbody></table>
+</div>
+
+<!-- BOLUM 3 - BLOK 19 KARTI -->
+<div class="card" style="border:1px solid rgba(245,158,11,.4);background:#1a1204">
+<h3><span class="dot" style="background:#f59e0b"></span>BLOK 19/22 TAMAMLANDI — HISSE DETAY PANELI + HAM GRAFIKLER <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Tabloda bir hisseye tiklayinca <b>stk-detail paneli</b> acilir: 8 bolum (1 Sirket, 2 Fiyat Ozeti, 3 Tarama, 4 KAP, 5 Haber, 6 Kurumsal Islemler, 7 Tedbirler, 8 Ham Grafikler). Ham grafikler: sd-candles (mum) + sd-volume (hacim) canvas'lari; 6 aralik butonu (30/60/90/180/260/MAKSIMUM); HAM / DUZELTILMIS secimi — duzeltilmis seri henuz uretilmedigi icin DUZELTILMIS butonu DISABLED durur (sahte doldurma yok).</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>telegram-sender/index.html (stk-detail bolumu + sdOpen(sym) fonksiyonu)</td></tr>
+<tr><td style="font-weight:700">Gercek tablo veya artefakt</td><td>GET /api/stocks/{symbol} + /scan/latest + /kap + /news + /corporate-actions + /restrictions + /prices?range=30|60|90|180|260|max</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok19/ (TAM 100 test)</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.14s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — panel API'ye bagli; duzeltilmis fiyat serisi uretilince sd-btn-adj aktif olur</td></tr>
+</tbody></table>
+</div>
+
+<!-- BOLUM 3 - BLOK 20 KARTI -->
+<div class="card" style="border:1px solid rgba(236,72,153,.4);background:#16060f">
+<h3><span class="dot" style="background:#ec4899"></span>BLOK 20/22 TAMAMLANDI — MOBIL ENTEGRASYON (PWA + API SOZLESMESI) <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Mobil hazirlik katmani: <b>PWA manifest + service worker</b> (ana sayfa telefon ana ekranina eklenir, eski onbellek varsa offline-banner acilir), musteri <b>API sozlesmesi</b> (tek dosyada tum uclar + zarf + hata maskesi), dahili <b>olay bus</b> (events.py — 3 dahili olay; musteri bildirimi uretmez). Native mobil uygulama yazilmadi: sozlesme hazir, uygulama bekliyor (<b>HAZIR_BEKLIYOR</b>).</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>telegram-sender/manifest.webmanifest · telegram-sender/sw.js · docs/api-contract.json · app/services/stock_scanning/events.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo veya artefakt</td><td>docs/api-contract.json (musteri API sozlesmesi artefakti) + manifest.webmanifest (PWA artefakti)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok20/ (TAM 100 test)</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.45s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — native mobil uygulama: HAZIR_BEKLIYOR (sozlesme hazir, uygulama yazilmadi; b20-footer'da da boyle yazar)</td></tr>
+</tbody></table>
+</div>
+
+<!-- BOLUM 3 - BLOK 21 KARTI -->
+<div class="card" style="border:1px solid rgba(239,68,68,.4);background:#160808">
+<h3><span class="dot" style="background:#ef4444"></span>BLOK 21/22 TAMAMLANDI — GUVENLIK, LOG, IZLEME VE YEDEKLEME <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Operasyon katmani: yonetici <b>rol eslemesi</b> (ADMIN/VIEWER), <b>ops log</b> (JSON-lines, her yonetici islemi kayitli), <b>kaynak saglik</b> kayitlari (art arda hata esigi), <b>disk izleme</b> (uyari/kritik yuzde), <b>yedekleme</b> (birincil SQLite; PostgreSQL secenegi hazir), <b>geri yukleme + retention</b> (14 yedek saklama), <b>secrets hijyeni</b> (gizli degerler loga dusmez).</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/ops/ (11 modul: backup.py, backup_run.py, disk.py, oplog.py, recovery.py, restore.py, retention.py, roles.py, secrets.py, source_health.py + __init__.py) · systemd/xk100-backup.service · systemd/xk100-backup.timer</td></tr>
+<tr><td style="font-weight:700">Gercek tablo veya artefakt</td><td>Gunluk yedek dosyalari (BACKUP_DIR) + ops log satirlari (OPS_LOG_DIR, JSON-lines) + source_health kayit tablosu</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok21/ (TAM 100 test)</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.72s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — yedekleme CLI'si hazir (python -m app.ops.backup_run); gunluk calistirma VPS'te xk100-backup.timer ile olacak</td></tr>
+</tbody></table>
+</div>
+
+<!-- BOLUM 3 - BLOK 22 KARTI -->
+<div class="card" style="border:1px solid rgba(34,197,94,.4);background:#07130b">
+<h3><span class="dot" style="background:#22c55e"></span>BLOK 22/22 TAMAMLANDI — TEST, VPS DEPLOYMENT VE TAMAMLANMA <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Kapanis blogu: <b>kabul testleri</b> (evren 100 kontrolu, staging, smoke, deployment artefakt dogrulama, tamamlanma kriterleri), <b>/health ucu</b> (canli saglik raporu), <b>VPS deployment paketi</b> (deploy.sh, nginx conf, certbot, logrotate). Tamamlanma kurali: her blok TAM 100 test + regresyon tam gecmeden TAMAMLANDI yazilmaz.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/acceptance/ (5 modul: universe.py, staging.py, smoke.py, deployment.py, completion.py) · app/api/health.py · deploy/ (deploy.sh, nginx-xk100.conf, certbot-https.sh, logrotate-xk100, DEPLOYMENT.md)</td></tr>
+<tr><td style="font-weight:700">Gercek tablo veya artefakt</td><td>/health ucu cevabi + deploy/ artefakt seti (veri tablosu degil)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok22/ (TAM 100 test)</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 1.91s&#34; (2026-07-15); modul toplami blok6-22: <b>1600/1600</b> (&#34;1600 passed in 11.06s&#34;)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — VPS kurulumu kullanicinin sunucusunda yapilacak (sudo bash deploy/deploy.sh); VPS_KURULDU/CANLI henuz degil, iddia edilmez</td></tr>
+</tbody></table>
+</div>
+
+<!-- BLOK SERISI DERIN REHBER (BLOK 23) -->
+<div class="card" id="blok-serisi-derin-rehber" style="border:1px solid rgba(250,204,21,.45);background:#141003">
+<h3><span class="dot" style="background:#facc15"></span>BLOK SERISI (5-22) — SISTEMIN TAM CALISMA DETAYI (HERKES ICIN, EN INCE AYRINTI)</h3>
+<div class="note" style="margin:8px 0 12px"><b>Kural:</b> Bu bolumdeki her dosya yolu repoda dogrulanmistir; var olmayan dosya yazilmaz. Calismayan hicbir seye "calisiyor" DENMEZ: yazida kalan <b>YAZIDA KALDI</b>, bosta olan <b>BOSTA</b> yazilir. Durum etiketleri: <b>CALISIYOR(TEST_GECTI)</b> · <b>YAZIDA KALDI</b> · <b>BOSTA</b> · <b>HAZIR_BEKLIYOR</b>. Teknik bilmeyen okuyucu icin: "modul" = bir isi yapan kod dosyasi grubu; "test" = kodun dogru calistigini kanitlayan otomatik kontrol; "CLI" = terminale yazilan komut; "systemd unit/timer" = VPS'te servisi baslatan/zamanlayan ayar dosyasi.</div>
+
+<div class="sub" style="margin:10px 0 6px"><b>a) GENEL MIMARI AKIS — veri sabah hangi sirayla akar (her adimin yaninda gercek modul yolu)</b></div>
+<table>
+<tbody><tr><th style="width:30%">Adim (akis sirasi)</th><th>Gercek modul (repo yolu)</th></tr>
+<tr><td style="font-weight:700">1. Evren (100 hisse listesi)</td><td>Bu repoda YOK (YAZIDA KALDI) — kabul dogrulamasi: app/acceptance/universe.py</td></tr>
+<tr><td style="font-weight:700">2. Kimlik (merkezi stock_id)</td><td>app/services/stock_scanning/symbol_identity.py (+ app/models/stock_identity.py)</td></tr>
+<tr><td style="font-weight:700">3. Fiyat + Hacim toplama</td><td>app/services/stock_scanning/price_collection/ + app/services/stock_scanning/volume/</td></tr>
+<tr><td style="font-weight:700">4. OHLCV Dogrulama</td><td>app/services/stock_scanning/validation/ (ohlcv_validator.py, gate.py, rules.py)</td></tr>
+<tr><td style="font-weight:700">5. KAP bildirimleri</td><td>app/services/stock_scanning/kap_collection/</td></tr>
+<tr><td style="font-weight:700">6. Haber toplama + eslestirme</td><td>app/services/stock_scanning/news/</td></tr>
+<tr><td style="font-weight:700">7. Kurumsal islemler + tedbirler</td><td>app/services/stock_scanning/corporate_actions/</td></tr>
+<tr><td style="font-weight:700">8. Zamanlama + durum makinesi</td><td>app/services/stock_scanning/orchestration/ (orchestrator.py, schedule.py, states.py)</td></tr>
+<tr><td style="font-weight:700">9. Veri guveni skoru</td><td>app/services/stock_scanning/confidence/</td></tr>
+<tr><td style="font-weight:700">10. Veri tabani (11 tablo)</td><td>app/services/stock_scanning/db/ (migrator.py, repo.py, migrations/)</td></tr>
+<tr><td style="font-weight:700">11. API (10 musteri + 7 yonetici ucu)</td><td>app/api/ (router.py, customer.py, admin.py, health.py)</td></tr>
+<tr><td style="font-weight:700">12. Zarf (her cevapta zorunlu 5 alan)</td><td>app/api/envelope.py (scan_run_id, report_version, last_updated_at, data_cutoff_at, status)</td></tr>
+<tr><td style="font-weight:700">13. Web + Mobil (musteri ekrani)</td><td>telegram-sender/index.html + manifest.webmanifest + sw.js + docs/api-contract.json</td></tr>
+</tbody></table>
+<div class="note" style="margin:8px 0 0">Yedekleme/izleme bu akisin disinda paralel calisir: app/ops/ (yedek, log, kaynak saglik, disk) — gunluk xk100-backup.timer ile.</div>
+
+<div class="sub" style="margin:14px 0 6px"><b>b) BLOK BLOK CALISMA DETAYI (BLOK 5'ten BLOK 22'ye — her blok icin: ne yapar, gercek dosyalar, veri girisi-cikisi, komutlar, is akisi adimlari, yapay zeka kullanimi, durum)</b></div>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 5 — XK100 EVREN MODULU (liste dogrulama)</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Aktif BIST Katilim 100 sirket listesini resmi kaynaklardan dogrular; tam 100 kontrolu yapar; listeye giren sirketi ekler, cikani arsivler (silmez). Evren dogrulanmadan hicbir hisse taranmaz.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td><b>Bu repoda YOK (YAZIDA KALDI)</b> — modul kaynaklari ve blok 5 kartinda yazan tests/test_evren.py dosyasi bu repoda bulunmuyor (blok baska konumda teslim edilmis). Bu repodaki tek evren dogrulama karsiligi: <b>app/acceptance/universe.py</b> (blok22 kabul katmani: 100 kontrolu + bos/tekrarli liste red testleri).</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: resmi XK100 listesi (UniverseBook listeyi URETMEZ, provider enjeksiyonu bekliyor) -&gt; Cikis: dogrulanmis 100 sembolluk evren listesi (blok6 kimlik katmanina gider)</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (bu repoda calistirilabilir evren komutu yok)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) Resmi liste provider'dan alinir (enjekte) 2) KAP + borsaistanbul + CSV capraz dogrulanir 3) 100/bos/tekrar/eksik kontrolu (ihlalde RED) 4) giren eklenir, cikan arsivlenir 5) liste identity_adapter.resolve_universe_symbols() ile kimlik katmanina verilir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>YAZIDA KALDI</b> (kaynak bu repoda degil; kabul testi blok22'de hazir)</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 6 — SIRKET KIMLIGI VE SEMBOL ESLESTIRME</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Tum sistemde kullanilan merkezi <b>stock_id</b> kimligini kurar (STK-000001, deterministik); her hissenin 5 platformdaki (bist/yahoo/google/tradingview/kap) sembolunu tek kimlik altinda toplar; kod degisikliginde eski kodu silmeden gecmisi saklar.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/models/stock_identity.py · app/services/stock_scanning/symbol_identity.py · kap_verifier.py · identity_adapter.py · app/admin/symbol_admin.py · tests/blok6/test_symbol_identity.py</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: evren sembol listesi + platform sembolleri + KAP linkleri -&gt; Cikis: stock_id, SymbolRecord (valid_from/valid_to), KapLink, pending dogrulama kuyrugu</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>Yonetici fonksiyonlari: admin_update_symbol · admin_merge_duplicate · admin_resolve_pending (app/admin/symbol_admin.py; admin_user zorunlu, audit log) — dogrudan CLI yok</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) register_stock ile merkezi kimlik acilir 2) add_symbol ile 5 platform sembolu baglanir 3) resolve/resolve_old_code ile cozumleme yapilir (eski kod: historical=True) 4) kap_verifier link dogrular; 3 art arda hata = SYMBOL_VERIFICATION_PENDING 5) belirsiz eslesme asla tahmin edilmez, kuyruga duser, yonetici cozer</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK (eslestirme tam token/word-boundary kuraliyle, tahminle degil)</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 7 — VERI TABANI VE MIGRATION</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Sistemin hafizasini kurar: 11 veri tablosu + surumlu migration (ileri + geri alma, checksum korumali). Ham/temiz/dogrulanmis veri ayri katmanlarda tutulur; kayitlar benzersizlik kurallariyla korunur.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/services/stock_scanning/db/migrator.py · backup.py · repo.py · migrations/ (0001_initial.sql, 0001_initial.down.sql, 0002_data_layers.sql, 0002_data_layers.down.sql) · tests/blok7/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: migration SQL dosyalari + uygulama kayitlari -&gt; Cikis: 11 tablo (stock_universe … source_health) + schema_migrations kayit tablosu</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>Python API: migrator (migrate/migrate_down) — dogrudan CLI yok; yedek icin: python -m app.ops.backup_run</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) Bos DB'de migration'lar sirayla uygulanir 2) her migration checksum ile dogrulanir 3) geri alma (down) test edilir 4) uygulama kayitlari repo.py uzerinden yazilir/okunur 5) yedek/kayip kontrolu yapilir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 8 — FIYAT VERISI TOPLAMA</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Her hisse icin fiyat/hacim serisini (Date, Open, High, Low, Close, Volume) toplar; hedef en az 260 tamamlanmis islem gunu. Ham veri once ham katmana yazilir; dogrulama blok9'da yapilir.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/services/stock_scanning/price_collection/ (collector.py, config.py, sources.py, storage.py, validator.py) · tests/blok8/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: stock_id + tarih araligi + kaynak yapilandirmasi -&gt; Cikis: ham OHLCV barlari (kaynagi ve cekim zamaniyla etiketli); veri yoksa NULL — uydurma yok</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (orchestration icinden cagrilir; lisansli API icin .env: LICENSED_PRICE_API_KEY / LICENSED_PRICE_API_URL — su an BOS, gercek fetcher enjekte edilmeyi bekliyor)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) kaynak secilir (ana lisansli API; yedek kaynak politikasi blok14'te) 2) seri cekilir 3) bicim dogrulanir 4) ham katmana yazilir 5) cekilemeyen hisse PARTIAL_DATA olarak isaretlenir, sistem durmaz</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — modul hazir (100/100); lisansli fiyat API baglantisi YAZIDA KALDI (anahtar bos)</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 9 — OHLCV DOGRULAMA + KURUMSAL ISLEM DUZELTME BAYRAKLARI</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Ham fiyat serisinin guvenilirligini denetler: OHLCV ic tutarliligi (High&gt;=Low vb.), islem gunu takvimi, en az 260 gun yeterliligi; kurumsal islem (bolunme/bedelsiz) gunlerini duzeltme bayragiyla isaretler. Gecmeyen veri temiz katmana cikmaz.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/services/stock_scanning/validation/ (calendar.py, corporate.py, gate.py, ohlcv_validator.py, rules.py, sufficiency.py) · tests/blok9/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: ham OHLCV serisi + islem takvimi + kurumsal islem kayitlari -&gt; Cikis: dogrulanmis seri + kural ihlal listesi + duzeltme bayraklari</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (orchestration icinden cagrilir)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) takvim kontrolu (tatil/islem gunu) 2) OHLCV kural dogrulamasi 3) 260 gun yeterlilik kontrolu 4) kurumsal islem bayraklari 5) gecis kapisi: gecen temiz katmana, kalan ham olarak kalir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 10 — HACIM, TL ISLEM HACMI VE HACIM ORANI</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Dogrulanmis seriden musteri tablosundaki hacim alanlarini uretir: yaklasik TL hacim ((O+H+L+C)/4 x Volume), 20 gunluk hacim orani (son gun / 20 gun ortalamasi) ve hacim siniflandirmasi.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/services/stock_scanning/volume/ (analyzer.py, classifier.py, models.py, ratio.py, turnover.py) · tests/blok10/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: dogrulanmis OHLCV serisi -&gt; Cikis: islem_miktari, tl_hacim, hacim_orani_20, hacim sinifi (musteri tablosunun 17 sutunundan 4'u)</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (orchestration icinden cagrilir)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) son 20 gunluk ortalama hacim hesaplanir 2) TL hacim formulu uygulanir 3) hacim orani hesaplanir 4) siniflandirma yapilir 5) alanlar ozet kaydina yazilir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 11 — KAP BILDIRIM TOPLAMA</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Kamuyu Aydinlatma Platformu bildirimlerini merkezi akistan toplar, dogru sirkete baglar (blok6 kimligiyle), tekrari engeller (kap_notice_no benzersiz). Musteri panelinde hisse detayinin 4. bolumunu besler.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/services/stock_scanning/kap_collection/ (collector.py, feed.py, matcher.py, models.py, readiness.py, storage.py) · tests/blok11/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: KAP akisi (.env: KAP_FEED_URL — su an BOS, enjekte bekliyor) -&gt; Cikis: sirkete bagli KAP bildirim kayitlari (bildirim no, tarih, konu, link)</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (orchestration icinden cagrilir)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) akis okunur 2) bildirim sirkete eslenir (eslenemeyen pending) 3) kap_notice_no ile tekillestirilir 4) kayit katmanina yazilir 5) musteri API'sinde listelenir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 12 — HABER TOPLAMA, ESLESTIRME VE TEKILLESTIRME</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Haberleri kaynaklardan toplar, dogru hisseye baglar (takma ad + bulanik eslestirme kurallari), ayni haberin tekrarlarini tekillestirir. Yanlis sirkete baglama engellenir: belirsiz eslesme otomatik baglanmaz.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/services/stock_scanning/news/ (ai_adapter.py, aliases.py, collector.py, dedupe.py, fuzzy.py, matcher.py, models.py, tagger.py) · tests/blok12/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: haber kaynaklari + sirket takma ad sozlugu -&gt; Cikis: hisseye eslenmis, tekillestirilmis, etiketlenmis haber kayitlari (panel 5. bolum)</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (orchestration icinden cagrilir)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) haber cekilir 2) baslik/icerik normalize edilir 3) token-tabanli + bulanik eslestirme 4) belirsizlik durumu: OPSIYONEL AI oyu (kapali) veya insan onayi kuyrugu 5) dedupe ile tekillestirilip kaydedilir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td><b>OPSIYONEL, KAPALI</b> — news/ai_adapter.py: ai_client=None varsayilan; API anahtari yok; acik olsa bile yalnizca belirsiz eslesmeleri oylar; AI hatasi taramayi DURDURMAZ</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100 (AI adaptoru kapali halde)</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 13 — KURUMSAL ISLEMLER VE TEDBIRLER</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Bolunme, bedelsiz, temettu gibi kurumsal islemleri ve borsa tedbirlerini (VBTS, islem yasagi, suspension) kayit altina alir; panelin 6. ve 7. bolumlerini besler; blok9 duzeltme bayraklarinin kaynagidir.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/services/stock_scanning/corporate_actions/ (collector.py, feed.py, models.py, registry.py, restrictions.py, suspension.py) · tests/blok13/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: kurumsal islem/tedbir kaynaklari (enjekte) -&gt; Cikis: kurumsal islem kayitlari + aktif tedbir listesi (turu, baslangic/bitis tarihi)</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (orchestration icinden cagrilir)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) kaynak okunur 2) islem hisseye baglanir 3) kayit defterine yazilir (registry) 4) aktif tedbirler/suspension listesi guncellenir 5) blok9'a duzeltme bayragi beslenir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 14 — ZAMANLAMA, PARALELLIK VE DURUM MAKINESI</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Sabah taramasinin beynidir: islem gunu kontrolu (tatilde baslamaz), hisse basina durum takibi (WAITING -&gt; COLLECTING_* -&gt; VALIDATING -&gt; READY/PARTIAL_DATA/FAILED), paralellik sinirlari, retry + yedek kaynak, veri kesim saati (data_cutoff) sonrasi kritik olay icin bilincli yeniden tarama (R2). Bir hisse patlarsa digerleri devam eder.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/services/stock_scanning/orchestration/ (orchestrator.py, schedule.py, states.py, runs.py, pool.py, retry.py, limits.py, run_scan.py) · tests/blok14/ (+ tests/blok22/test_run_resilience.py)</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: evren listesi + collector sozlugu {"price","kap","news","actions","restrictions"} -&gt; Cikis: scan_run_id ({tarih}-TARAMA-R{revizyon}), hisse durumlari, run kaydi (COMPLETED/NOT_TRADING_DAY)</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>systemd: <b>xk100-hisse-tarama.service</b> + <b>xk100-hisse-tarama.timer</b> (sabah otomatik tetikler) · CLI: <b>python -m app.services.stock_scanning.orchestration.run_scan</b> (unit icindeki ExecStart)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) PRECHECK: islem gunu degilse NOT_TRADING_DAY ile cik 2) run kaydi acilir, scan_run_id uretilir 3) her hisse icin 5 kaynak sirayla toplanir (hata izolasyonlu) 4) retry/backoff; gerekirse FALLBACK_SWITCHED 5) VALIDATING sonrasi READY/PARTIAL_DATA/FAILED yazilir 6) data_cutoff sonrasi kritik olay varsa critical_rescan (R2) 7) run COMPLETED kapanir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100; ilk gercek sabah taramasi VPS'te kosulacak</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 15 — VERI GUVENI (CONFIDENCE) HAZIRLIK</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Her hisse icin 0-100 arasi <b>veri guveni skoru</b> uretir: hangi kaynaklar dolu, veri ne kadar taze, dogrulama gecti mi. Musteri tablosundaki "veri_guveni" sutunu ve tarama kartindaki "ortalama veri guveni" buradan beslenir.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/services/stock_scanning/confidence/ (calculator.py, components.py, display.py, models.py, readiness.py) · tests/blok15/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: hisse basina toplama/dogrulama sonuclari (hangi kaynak dolu, tazelik, kural ihlalleri) -&gt; Cikis: veri_guveni (0-100) + bilesen kirirlimi + gosterim metni</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (orchestration icinden cagrilir)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) bilesenler hesaplanir (kaynak dolulugu, tazelik, dogrulama, uyum) 2) agirlikli toplam 0-100 skora doner 3) dusuk guven isaretlenir 4) gosterim katmani musteri icin metne cevirir 5) ozet kayda yazilir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 16 — API VE RAPOR SURUMU</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Sistemin dis dunyaya acilan kapisidir: 10 musteri ucu + 7 yonetici ucu. Her cevap <b>zarf</b> icinde doner (scan_run_id, report_version, last_updated_at, data_cutoff_at, status). Musteri yalnizca yayinlanabilir veriyi gorur; yonetici uclari X-Admin-Token ister; ham hata mesajlari maskelenir.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/api/ (router.py, customer.py, admin.py, envelope.py, auth.py, filters.py, masking.py, openapi.py, health.py) · tests/blok16/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: HTTP istegi (uclar: /api/xk100/scan/latest, /api/xk100/stocks, /api/stocks/{symbol} + 5 alt uc + /prices, yonetici uclari, /health) -&gt; Cikis: zarfli JSON cevap (12 liste parametresi destekli)</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>systemd: <b>xk100-api.service</b> (API sunucusu) · saglik kontrolu: <b>curl -fsS https://&lt;domain&gt;/health</b></td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) istek router'a duser 2) auth kontrolu (musteri/yonetici) 3) filtreler dogrulanir 4) handler veriyi repo'dan okur 5) envelope ile sarilir 6) hata varsa maskelenmis cevap doner 7) OpenAPI 3.0.3 semasi uclari belgeler</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100; gercek HTTP sunucusu VPS'te xk100-api.service ile ayaga kalkar</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 17 — YONETICI SISTEM SEMASI SAYFASI (docs.html)</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Bu gizli sayfa: sistemin tum kurallarinin, blok teslim kanitlarinin ve durum etiketlerinin yonetici dokuman merkezi. Musteri sayfasinda metin detay yoktur; her aciklama burada durur. Her blok tesliminde sayfa guncellenir.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>telegram-sender/docs.html (bu sayfa)</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: blok teslim raporlari + terminal test ciktilari -&gt; Cikis: OZET kutusu + C1-C13 kartlari + BLOK 5-22 teslim kartlari (bu sayfadaki tablolar)</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (statik sayfa; nginx sunar)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) blok kodlanir 2) testler kosulur (TAM 100) 3) terminal ciktisi karttaki "Son test sonucu" satirina yazilir 4) durum etiketi guncellenir 5) sayfa dogrulama testleriyle kilitlenir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — tests/blok17 dizini YOK (dogrulama sayfa betikleriyle yapildi); sayfa blok18-23 testleriyle kilitli</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 18 — MUSTERI ANA SAYFASI (index.html)</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Musterinin gordugu ana ekran: XK100 Tarama Durumu karti (8 alan), 100 Hisse Ozeti tablosu (17 sutun, 8 filtre, 3 siralama, sayfalama), mobil tasma duzeni ve DEMO isaretleri. Sahte canli gorunum yasaktir: demo icerik DEMO rozeti tasir, bos veri "HENUZ CALISMA YOK" gosterir.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>telegram-sender/index.html · tests/blok18/test_index_page.py</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: GET /api/xk100/scan/latest + GET /api/xk100/stocks?page=&amp;page_size= (zarf dogrulanmadan ekrana basilmaz) -&gt; Cikis: tarama karti + filtrelenmis/sirali/sayfalanmis 100 hisse tablosu</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (statik sayfa; nginx sunar; veri xk100-api.service'ten gelir)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) sayfa yuklenir 2) scan/latest cagrilir, zarf dogrulanir 3) 8 alan doldurulur (hata/bos = HENUZ CALISMA YOK) 4) stocks sayfa bazli cekilir 5) filtre/siralama/sayfalama istemci tarafinda uygulanir 6) ag/4xx/5xx hatasi maskelenir (ayrinti yalniz console)</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 19 — HISSE DETAY PANELI VE HAM GRAFIKLER</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Bir hisseye tiklayinca acilan derin panel: 8 bolum (sirket, fiyat ozeti, tarama, KAP, haber, kurumsal, tedbir, ham grafikler). Ham mum + hacim grafikleri canvas'a cizilir; 6 aralik secilir; HAM/DUZELTILMIS ayrimi yapilir.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>telegram-sender/index.html (stk-detail bolumu, sdOpen(sym), sd-candles + sd-volume canvas) · tests/blok19/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: GET /api/stocks/{symbol} + /scan/latest + /kap + /news + /corporate-actions + /restrictions + /prices?range=30|60|90|180|260|max -&gt; Cikis: 8 bolumluk detay paneli + 2 canvas grafik</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (istemci tarafi; sdOpen(sym) fonksiyonu ile acilir)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) tablo satirina tiklanir, sdOpen(sym) calisir 2) 7 uc paralel cagrilir 3) bolumler sirayla dolar 4) aralik degisince prices yeniden cekilir 5) HAM/DUZELTILMIS secilir (duzeltilmis seri yoksa buton DISABLED) 6) kapat (sd-close)</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 20 — MOBIL ENTEGRASYON (PWA + API SOZLESMESI)</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Telefon/tablet hazirligi: PWA manifest (ana ekrana ekleme), service worker (onbellek; eski onbellek sunulursa offline-banner acilir), musteri API sozlesmesi (native uygulamanin baglanacagi tek belge) ve dahili olay bus (3 dahili olay; musteri bildirimi URETMEZ).</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>telegram-sender/manifest.webmanifest · telegram-sender/sw.js · docs/api-contract.json · app/services/stock_scanning/events.py · tests/blok20/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: docs/api-contract.json'daki uclar + zarf -&gt; Cikis: PWA kurulabilirligi + native uygulama icin hazir sozlesme</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>— (statik artefaktlar + modul)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) tarayici manifest'i okur 2) sw.js kurulur, onbellek stratejisi baslar 3) cevrimdisi/eski onbellek durumunda offline-banner gosterilir 4) native uygulama gelistiricisi api-contract.json'a gore baglanir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100; native mobil uygulama <b>HAZIR_BEKLIYOR</b> (sozlesme hazir, uygulama yazilmadi)</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 21 — GUVENLIK, LOG, IZLEME VE YEDEKLEME</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Sistemin koruma kalkani: yonetici rolleri (ADMIN/VIEWER), her yonetici isleminin JSON-lines kaydi (ops log), kaynak saglik takibi (art arda hata esigi), disk doluluk izleme, gunluk yedek (birincil SQLite; PostgreSQL secenegi), geri yukleme ve saklama suresi (14 yedek), gizli deger hijyeni (secrets loga dusmez).</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/ops/ (backup.py, backup_run.py, disk.py, oplog.py, recovery.py, restore.py, retention.py, roles.py, secrets.py, source_health.py + __init__.py = 11 modul) · systemd/xk100-backup.service · systemd/xk100-backup.timer · tests/blok21/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: .env yapilandirmasi (BACKUP_ENGINE, BACKUP_DIR, BACKUP_RETENTION_COUNT, DISK_WARN_PCT, OPS_LOG_DIR, SOURCE_HEALTH_WARN_THRESHOLD) -&gt; Cikis: gunluk yedek dosyalari, ops log satirlari, kaynak saglik kayitlari, disk uyarilari</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>CLI: <b>python -m app.ops.backup_run</b> (gunluk yedek) · systemd: <b>xk100-backup.service</b> + <b>xk100-backup.timer</b> (gece otomatik tetikler)</td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) timer backup_run'i tetikler 2) motor secilir (sqlite/postgres) 3) yedek alinir + dogrulanir 4) eski yedekler retention kuralina gore silinir 5) restore/recovery gerektiginde geri yukler 6) tum islemler ops log'a yazilir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:12px 0 4px"><b>BLOK 22 — TEST, VPS DEPLOYMENT VE TAMAMLANMA</b></div>
+<table>
+<tbody><tr><th style="width:24%">Alan</th><th>Detay</th></tr>
+<tr><td style="font-weight:700">Ne yapar</td><td>Kapanis ve kanit blogu: kabul testleri (evren 100 kontrolu, staging, smoke, deployment artefakt dogrulama, tamamlanma kriterleri), /health ucu ve VPS kurulum paketi. Kural: her blok TAM 100 test + tam regresyon gecmeden TAMAMLANDI yazilmaz.</td></tr>
+<tr><td style="font-weight:700">Gercek dosyalar</td><td>app/acceptance/ (universe.py, staging.py, smoke.py, deployment.py, completion.py) · app/api/health.py · deploy/ (deploy.sh, nginx-xk100.conf, certbot-https.sh, logrotate-xk100, DEPLOYMENT.md) · tests/blok22/</td></tr>
+<tr><td style="font-weight:700">Veri girisi -&gt; cikisi</td><td>Giris: repo artefaktlari + systemd unit'leri + deploy sablonlari -&gt; Cikis: kabul kararlari (kriter gecti/kalmadi) + /health JSON cevabi</td></tr>
+<tr><td style="font-weight:700">Komutlar</td><td>VPS kurulumu: <b>bash deploy/deploy.sh</b> · dogrulama: <b>python -m pytest tests/blokNN -q</b> · saglik: <b>curl -fsS https://&lt;domain&gt;/health</b></td></tr>
+<tr><td style="font-weight:700">Is akisi adimlari</td><td>1) repo VPS'e klonlanir 2) .env doldurulur (.env.example sablon) 3) systemd servis+timer kurulur 4) pytest tam regresyon dogrulanir 5) nginx + certbot + logrotate ayarlanir 6) ilk basarili sabah taramasi sonrasi CANLI yazilir</td></tr>
+<tr><td style="font-weight:700">Yapay zeka kullanimi</td><td>YOK</td></tr>
+<tr><td style="font-weight:700">Durum</td><td><b>CALISIYOR(TEST_GECTI)</b> — 100/100 (toplam blok6-22: 1600/1600); gercek VPS deployment YAZIDA KALDI (bu ortamdan SSH yok)</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:14px 0 6px"><b>c) KOMUT KATALOGU — her komut, ne ise yaradigi ve nerede calisacagi (anlasilmayan komut YOK — hepsinin aciklamasi asagidadir)</b></div>
+<table>
+<tbody><tr><th style="width:34%">Komut</th><th>Ne ise yarar / nerede calisir / durum</th></tr>
+<tr><td style="font-weight:700">systemctl enable --now xk100-api.service</td><td>API sunucusunu baslatir ve acilista otomatik kurar · VPS'te calisir · <b>VPS'TE CALISACAK</b> (unit: systemd/xk100-api.service)</td></tr>
+<tr><td style="font-weight:700">systemctl enable --now xk100-index-scoring.service</td><td>Endeks skorlama servis birimi (Bolum 1-2 motoru baska konumda; bu unit onu tetikler) · VPS · <b>VPS'TE CALISACAK</b> (unit: systemd/xk100-index-scoring.service)</td></tr>
+<tr><td style="font-weight:700">systemctl enable --now xk100-index-scoring.timer</td><td>Endeks skorlamayi zamanlayan sayac · VPS · <b>VPS'TE CALISACAK</b> (unit: systemd/xk100-index-scoring.timer)</td></tr>
+<tr><td style="font-weight:700">systemctl enable --now xk100-hisse-tarama.service</td><td>Sabah hisse taramasini calistiran servis birimi (ExecStart: python -m app.services.stock_scanning.orchestration.run_scan) · VPS · <b>VPS'TE CALISACAK</b> (unit: systemd/xk100-hisse-tarama.service)</td></tr>
+<tr><td style="font-weight:700">systemctl enable --now xk100-hisse-tarama.timer</td><td>Taramayi her sabah zamanlayan sayac · VPS · <b>VPS'TE CALISACAK</b> (unit: systemd/xk100-hisse-tarama.timer)</td></tr>
+<tr><td style="font-weight:700">systemctl enable --now xk100-backup.service</td><td>Gunluk yedegi alan servis birimi (ExecStart: python -m app.ops.backup_run) · VPS · <b>VPS'TE CALISACAK</b> (unit: systemd/xk100-backup.service)</td></tr>
+<tr><td style="font-weight:700">systemctl enable --now xk100-backup.timer</td><td>Yedegi her gece zamanlayan sayac · VPS · <b>VPS'TE CALISACAK</b> (unit: systemd/xk100-backup.timer)</td></tr>
+<tr><td style="font-weight:700">python -m app.services.stock_scanning.orchestration.run_scan</td><td>Sabah taramasini calistiran CLI giris noktasi (modul: app/services/stock_scanning/orchestration/run_scan.py; evren/toplayici enjekte edilmeden tarama BASLAMAZ, sahte veri uretmez) · VPS (systemd ExecStart) · <b>HAZIR</b></td></tr>
+<tr><td style="font-weight:700">python -m app.ops.backup_run</td><td>Gunluk yedekleme CLI'si (modul: app/ops/backup_run.py; BACKUP_ENGINE=sqlite varsayilan) · VPS · <b>HAZIR</b></td></tr>
+<tr><td style="font-weight:700">python -m pytest tests/blokNN -q</td><td>Her blogun TAM 100 testini kosar (ornegin tests/blok23) · gelistirme ortami + VPS · <b>HAZIR</b></td></tr>
+<tr><td style="font-weight:700">curl -fsS https://&lt;domain&gt;/health</td><td>Canli saglik kontrolu (app/api/health.py): servis ayakta mi, son durum ne · her yerden VPS'e · <b>HAZIR</b> (uc kodlandi; VPS kurulunca canli cevap verir)</td></tr>
+<tr><td style="font-weight:700">nginx -t</td><td>nginx ayar dosyasinin sozdizimini dogrular (deploy/nginx-xk100.conf kurulduktan sonra) · VPS · <b>VPS'TE CALISACAK</b></td></tr>
+<tr><td style="font-weight:700">certbot --nginx</td><td>HTTPS sertifikasini alir/yeniler (sarici: deploy/certbot-https.sh) · VPS · <b>VPS'TE CALISACAK</b></td></tr>
+<tr><td style="font-weight:700">logrotate /etc/logrotate.d/xk100</td><td>Log dosyalarini dondurur/sikistirir (sablon: deploy/logrotate-xk100) · VPS · <b>VPS'TE CALISACAK</b></td></tr>
+<tr><td style="font-weight:700">bash deploy/deploy.sh</td><td>Tam VPS kurulumu: repo, .env, systemd, nginx, dogrulama adimlarini sirayla kurar · VPS · <b>VPS'TE CALISACAK</b> · <b>GELISTIRME ORTAMINDA CALISTIRILMAZ</b></td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:14px 0 6px"><b>d) YAPAY ZEKA ENVANTERI — durust tablo (sistemde yapay zeka nerede var, nerede yok)</b></div>
+<table>
+<tbody><tr><th style="width:30%">Yer</th><th>Durum (durust)</th></tr>
+<tr><td style="font-weight:700">Haber eslestirme AI adaptoru (app/services/stock_scanning/news/ai_adapter.py)</td><td><b>OPSIYONEL, KAPALI</b> — ai_client=None varsayilandir; API anahtari yoktur; acik olsa bile yalnizca belirsiz haber-hisse eslesmelerini oylar; AI hatasi taramayi DURDURMAZ. Su an sistemde aktif bir yapay zeka cagrisi YOKTUR.</td></tr>
+<tr><td style="font-weight:700">Jeopolitik hibrit AI (Bolum 2, B11 karti)</td><td>Kavram: kural tabanli + AI + kodlanmis motor (AI skoru dogrudan BELIRLEYEMEZ, guven esigi 0.70). Bu tasari Bolum 1-2 motoruna aittir; <b>bu repoda yapay zeka cagrisi YOKTUR</b> (Bolum 1-2 motoru bu repoda degildir).</td></tr>
+<tr><td style="font-weight:700">Diger tum bloklar (BLOK 5-22)</td><td><b>Bunun disinda hicbir blokta yapay zeka cagrisi yoktur</b> — tum hesaplamalar deterministik kurallar ve matematik ile yapilir.</td></tr>
+<tr><td style="font-weight:700">API anahtarlari (Gemini/ChatGPT/Kimi vb.)</td><td><b>.env dosyasinda yapay zeka API anahtar alani YOK</b> (.env.example dogrulandi: TELEGRAM, ADMIN_TOKEN, LICENSED_PRICE_API, KAP_FEED_URL, DB, log, yedek alanlari var; hicbir AI anahtar alani yok). Harici AI entegrasyonu <b>YAZIDA KALDI</b>.</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:14px 0 6px"><b>e) YAZIDA KALANLAR — 12 madde (neden kaldi + ne gerekiyor; hicbiri "tamamlandi" DENMEZ)</b></div>
+<table>
+<tbody><tr><th style="width:34%">Madde</th><th>Neden / ne gerekiyor</th></tr>
+<tr><td style="font-weight:700">1. BLOK 5 evren modulu kaynaklari — YAZIDA KALDI</td><td>Bu repoda YOK (blok kartinda yazan test dosyasi da bu repoda degil); modul baska konumda teslim edilmis. Gereken: kaynaklarin bu repoya eklenmesi.</td></tr>
+<tr><td style="font-weight:700">2. Endeks Skorlama motoru (Bolum 1-2, 268 test) — YAZIDA KALDI</td><td>Bu repoda YOK; kullanici baska konumda 268 testle tamamladi. Gereken: motorun bu repoya (veya VPS'e ayri paket) eklenmesi; xk100-index-scoring unit'leri onu tetikleyecek.</td></tr>
+<tr><td style="font-weight:700">3. Gercek VPS deployment — YAZIDA KALDI</td><td>deploy/ artefaktlari HAZIR; bu gelistirme ortamindan sunucuya SSH erisimi YOK. Gereken: VPS'te <b>sudo bash deploy/deploy.sh</b> calistirilmasi.</td></tr>
+<tr><td style="font-weight:700">4. Lisansli fiyat API baglantisi — YAZIDA KALDI</td><td>.env anahtarlari (LICENSED_PRICE_API_KEY/URL) bos; modul hazir, gercek fetcher enjekte edilmeyi bekliyor. Gereken: lisansli API sozlesmesi + anahtar.</td></tr>
+<tr><td style="font-weight:700">5. Resmi XK100 listesi provider baglantisi — YAZIDA KALDI</td><td>UniverseBook listeyi URETMEZ; resmi liste dis kaynaktan enjekte edilmeyi bekliyor. Gereken: resmi liste kaynak baglantisi.</td></tr>
+<tr><td style="font-weight:700">6. Native mobil uygulama — HAZIR_BEKLIYOR</td><td>API sozlesmesi (docs/api-contract.json) hazir; uygulama yazilmadi. Gereken: mobil uygulama gelistirme (ayri proje).</td></tr>
+<tr><td style="font-weight:700">7. Musteri bildirim kurallari (Bolum 9) — YAZIDA KALDI</td><td>Olusturulmadi; events.py yalnizca 3 dahili olay tasinir, musteri bildirimi uretmez. Gereken: bildirim kural modulu.</td></tr>
+<tr><td style="font-weight:700">8. Telegram entegrasyonu — PASIF (YAZIDA KALDI)</td><td>.env alanlari (TELEGRAM_BOT_TOKEN/CHAT_ID) bos; gonderim kodu yazilmadi. Gereken: bot kurulumu + gonderim modulu.</td></tr>
+<tr><td style="font-weight:700">9. PostgreSQL yedek motoru — YAZIDA KALDI (secenek hazir)</td><td>Secenek kodlandi (BACKUP_ENGINE=postgres); birincil motor SQLite. Gereken: gercek pg_dump saricisi (dis katman) + migrasyon (ayri blok).</td></tr>
+<tr><td style="font-weight:700">10. Hisse Skorlama modulu (Bolum 4) — YAZIDA KALDI</td><td>HENUZ CANLI DEGIL; musteri sayfasinda "HISSE SKORLAMA MODULU HENUZ CANLI DEGIL" banti bu yuzden duruyor. Gereken: skorlama motoru blogu.</td></tr>
+<tr><td style="font-weight:700">11. Teknik gosterge/seviye/portfoy analiz motorlari (Bolum 5-8) — YAZIDA KALDI</td><td>Motorlar yazilmadi; sayfadaki ilgili grafikler (ASELS/TUPRS/ALFAS demo bolumleri, favori, portfoy) DEMO veriyle duruyor. Gereken: analiz motoru bloklari.</td></tr>
+<tr><td style="font-weight:700">12. 09:45 rapor yayini (Bolum 9) — YAZIDA KALDI</td><td>Yayin zinciri kurallari yazili; otomatik yayin akisi henuz kodlanmadi. Gereken: yayin modulu blogu.</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:14px 0 6px"><b>f) BOSTA / BEKLEMEDE OLANLAR — ekranda gorunen ama henuz beslenmeyen ogeler (sahte doldurma YOK)</b></div>
+<table>
+<tbody><tr><th style="width:30%">Oge</th><th>Neden bosta / durum</th></tr>
+<tr><td style="font-weight:700">gauge (endeks yon gostergesi)</td><td>DEMO veriyle donuyor (71.5 ornek); gercek endeks skoru Bolum 1-2 motorundan bekleniyor — <b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">XK100 Tarama Durumu karti (xk100-scan-card)</td><td>API'ye BAGLI ama ilk gercek tarama olmadigi icin "HENUZ CALISMA YOK" gosteriyor; sahte doldurma YOK — <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">100 Hisse Ozeti tablosu (stk-table)</td><td>API'ye BAGLI; ilk tarama bekleniyor; bos durumda bilgi karti gosterilir — <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">DUZELTILMIS FIYAT butonu (sd-btn-adj)</td><td>Duzeltilmis fiyat serisi henuz uretilmedigi icin DISABLED duruyor — <b>BOSTA</b></td></tr>
+<tr><td style="font-weight:700">source_health gorsel ekrani</td><td>Backend kayit modulu HAZIR (app/ops/source_health.py); docs.html'e canli baglanti YAZIDA KALDI — <b>BOSTA</b> (admin API'ye endpoint eklenecek)</td></tr>
+<tr><td style="font-weight:700">offline-banner</td><td>Yalnizca service worker eski onbellek sunarsa acilir; varsayilan olarak gizli — bu dogru davranis (hata degil) — <b>BOSTA (gizli varsayilan)</b></td></tr>
+<tr><td style="font-weight:700">Haber AI adaptoru (news/ai_adapter.py)</td><td>KAPALI (ai_client=None, anahtar yok) — <b>BOSTA</b></td></tr>
+</tbody></table>
+</div>
+
 <!-- 4. HISSE SKORLAMA -->
 <div class="card">
 <h3><span class="bolum-no" style="background:#22c55e">4</span>HISSE SKORLAMA — KURALLAR VE OTOMASYON DETAYI</h3>
@@ -1328,7 +1712,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 <!-- MUSTERI SAYFASI TAM ENVANTERI -->
 <div class="card" style="border:1px solid rgba(34,197,94,.35);background:#07120b">
 <h3><span class="dot" style="background:#22c55e"></span>MUSTERI SAYFASI TAM ENVANTERI — index.html&#39;DEKI HER METIN, GORSEL, TABLO, RAKAM VE MATEMATIK (GUNCEL DURUM)</h3>
-<div class="note-green" style="margin:8px 0 12px">Bu kart musteri sayfasinin <b>birebir envanteridir</b>: sayfada gorunen her baslik, sayi, grafik, renk ve matematik kurali burada yazilidir. Sayfa degistikce <b>bu kart guncellenir</b> (devamli guncelleme kurali). Musteri sayfasinda metin detay yoktur; tum aciklama bu gizli sayfadadir. Sayfadaki tum rakamlar <b>2026-07-09-INDEX-R1</b> raporunun ornek degerleridir; canli sistemde ayni alanlar API&#39;den (app/api/routes.py) dolar.</div>
+<div class="note-green" style="margin:8px 0 12px">Bu kart musteri sayfasinin <b>birebir envanteridir</b>: sayfada gorunen her baslik, sayi, grafik, renk ve matematik kurali burada yazilidir. Sayfa degistikce <b>bu kart guncellenir</b> (devamli guncelleme kurali). Musteri sayfasinda metin detay yoktur; tum aciklama bu gizli sayfadadir. Sayfadaki tum rakamlar <b>2026-07-09-INDEX-R1</b> raporunun ornek degerleridir; canli sistemde ayni alanlar API&#39;den (app/api/routes.py) dolar. <b>GUNCELLEME NOTU (BLOK 23):</b> Bu kart BLOK 18 oncesi durumu anlatir; GUNCEL rehber sayfanin en altindaki ana-sayfa-is-akisi-rehberi bolumudur.</div>
 
 <div class="sub" style="margin:10px 0 6px"><b>A. BASLIK BANDI (header)</b></div>
 <table>
@@ -1992,6 +2376,100 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 5) https://worldgovernmentbonds.com/cds-historical-data/turkey/5-years <small style="color:#64748b">(Turkiye 5Y CDS)</small></td></tr>
 </tbody></table>
 <div class="note">Toplam: 10 haber/veri kaynagi + 7 KAP resmi sayfasi + <b>200 KAP sirket linki + 200 Yahoo/Google hisse linki</b> + endeks, kiymetli maden, doviz ve kuresel piyasa linkleri + hisse basina TradingView sayfalari. Hepsi her sabah 08:00-08:30 arasi taranir, 09:45&#39;te rapor web sitesinde yayinlanir ve mobil app bildirimi gider.</div>
+</div>
+
+<!-- ANA SAYFA IS AKISI REHBERI (BLOK 23) -->
+<div class="card" id="ana-sayfa-is-akisi-rehberi" style="border:1px solid rgba(56,189,248,.45);background:#061018">
+<h3><span class="dot" style="background:#38bdf8"></span>ANA SAYFA (index.html) TAM IS AKISI REHBERI — HER METIN, HER GRAFIK, HER BUTON</h3>
+<div class="note" style="margin:8px 0 12px"><b>Kural:</b> Bu rehber index.html'deki her ogeyi tek tek anlatir: ne gosterir, veriyi nereden alir, nasil calisir ve <b>durust durumu</b>. Durum etiketleri: <b>CANLI-API'YE BAGLI</b> (uc kodlandi, VPS'te gercek veri bekliyor) · <b>BOSTA-BEKLEMEDE</b> (API'ye bagli ama ilk tarama olmadigi icin bos) · <b>DEMO</b> (ornek veri; sahte canli gorunum YOK, DEMO rozeti zorunlu) · <b>BOSTA</b> (henuz beslenmiyor). Hicbir demo ogeye "canli" DENMEZ.</div>
+
+<div class="sub" style="margin:10px 0 6px"><b>A. 17 CANVAS (grafik alanlari) — TAMAMI</b></div>
+<table>
+<tbody><tr><th style="width:16%">Oge (id)</th><th style="width:26%">Ne gosterir</th><th style="width:22%">Veriyi nereden alir</th><th style="width:22%">Is akisi</th><th>Durum</th></tr>
+<tr><td style="font-weight:700">gauge</td><td>Endeks yon gostergesi (yarim daire, 5 rejim zonu, ibre)</td><td>Su an sabit DEMO deger (71.5); gercekte Bolum 1-2 endeks skorundan beslenecek</td><td>Sayfa yuklenince skor 0'dan hedefe animasyonla dolar; zonlar sirayla cizilir</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">c1</td><td>Favori Hisseler bar grafigi (3 hisse, skor renkli barlar)</td><td>DEMO ornek veri; gercekte Hisse Skorlama modulunden (Bolum 4)</td><td>Sayfa yuklenince barlar cizilir; tooltip hover ile acilir</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">mumASELS</td><td>ASELS mum grafigi (son 60 gun, Bollinger bantlari + POC)</td><td>DEMO ornek OHLCV; gercekte /api/stocks/ASELS/prices</td><td>Sayfa yuklenince DEMO seriden mumlar + bantlar cizilir</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">hacASELS</td><td>ASELS teknik gostergeler paneli (RSI-MACD-StochRSI-CCI-ATR-OBV-Hacim)</td><td>DEMO ornek hesaplar; gercekte Bolum 5 teknik gosterge motorundan</td><td>Sayfa yuklenince gosterge panelleri sirayla cizilir</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">c2</td><td>ASELS skor detay grafigi (Skor 87.4, yuzdelik barlar)</td><td>DEMO ornek skor; gercekte Hisse Skorlama modulunden</td><td>Sayfa yuklenince kategori barlari cizilir; tooltip hover ile</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">sevASELS</td><td>ASELS seviye haritasi (destek/direnc/durdurma seviyeleri)</td><td>DEMO ornek seviyeler; gercekte Bolum 6 seviye motorundan</td><td>Sayfa yuklenince yatay seviye cizgileri cizilir</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">mumTUPRS</td><td>TUPRS mum grafigi (Bollinger + POC)</td><td>DEMO ornek OHLCV</td><td>mumASELS ile ayni cizim akisi</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">hacTUPRS</td><td>TUPRS teknik gostergeler paneli</td><td>DEMO ornek hesaplar</td><td>hacASELS ile ayni cizim akisi</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">c3</td><td>TUPRS skor detay grafigi (Skor 84.2)</td><td>DEMO ornek skor</td><td>c2 ile ayni cizim akisi</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">sevTUPRS</td><td>TUPRS seviye haritasi</td><td>DEMO ornek seviyeler</td><td>sevASELS ile ayni cizim akisi</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">mumALFAS</td><td>ALFAS mum grafigi (Bollinger + POC)</td><td>DEMO ornek OHLCV</td><td>mumASELS ile ayni cizim akisi</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">hacALFAS</td><td>ALFAS teknik gostergeler paneli</td><td>DEMO ornek hesaplar</td><td>hacASELS ile ayni cizim akisi</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">c4</td><td>ALFAS skor detay grafigi (Skor 82.8)</td><td>DEMO ornek skor</td><td>c2 ile ayni cizim akisi</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">sevALFAS</td><td>ALFAS seviye haritasi</td><td>DEMO ornek seviyeler</td><td>sevASELS ile ayni cizim akisi</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">c8</td><td>Portfoy dagilimi pasta grafigi (ASELS %30, TUPRS %25, ALFAS %20, NAKIT %25)</td><td>DEMO ornek dagilim; gercekte Bolum 8 portfoy motorundan</td><td>Sayfa yuklenince pasta dilimleri cizilir; tooltip hover ile</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">sd-candles</td><td>Hisse detay panelindeki HAM mum grafigi</td><td>GET /api/stocks/{symbol}/prices?range=30|60|90|180|260|max (zarf dogrulanir)</td><td>sdOpen(sym) sonrasi prices cekilir; aralik degisince yeniden cekilir; HAM/DUZELTILMIS secimine gore seri cizilir</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b> (ilk tarama yok)</td></tr>
+<tr><td style="font-weight:700">sd-volume</td><td>Hisse detay panelindeki HAM hacim grafigi</td><td>Ayni prices ucu (volume alanlari)</td><td>sd-candles ile ayni cevaptan beslenir; mum grafiginin altina hacim barlari cizilir</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b> (ilk tarama yok)</td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:14px 0 6px"><b>B. XK100 TARAMA DURUMU KARTI (xk100-scan-card) — 8 ALAN</b></div>
+<table>
+<tbody><tr><th style="width:22%">Oge (id)</th><th style="width:24%">Ne gosterir</th><th style="width:20%">Veriyi nereden alir</th><th style="width:20%">Is akisi</th><th>Durum</th></tr>
+<tr><td style="font-weight:700">xk100-scan-status</td><td>Son taramanin durumu (ornegin COMPLETED)</td><td>GET /api/xk100/scan/latest zarf govdesi</td><td>Zarf dogrulanir, alan ekrana basilir; hata/bos = "HENUZ CALISMA YOK"</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">xk100-scanned-count</td><td>Taranan hisse sayisi</td><td>Ayni uc</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">xk100-full-count</td><td>Tam veriyle taranan (READY) sayisi</td><td>Ayni uc</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">xk100-partial-count</td><td>Kismi veri (PARTIAL_DATA) sayisi</td><td>Ayni uc</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">xk100-failed-count</td><td>Basarisiz (FAILED) sayisi</td><td>Ayni uc</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">xk100-avg-confidence</td><td>Ortalama veri guveni (blok15 hesaplayicisi)</td><td>Ayni uc</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">xk100-last-updated</td><td>Son guncelleme zamani (zarf: last_updated_at)</td><td>Ayni uc (zarf alani)</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">xk100-scan-run-id</td><td>Calisma kimligi (zarf: scan_run_id, ornek {tarih}-TARAMA-R1)</td><td>Ayni uc (zarf alani)</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:14px 0 6px"><b>C. 100 HISSE OZETI — 8 FILTRE + SIRALAMA + SAYFALAMA + TABLO</b></div>
+<table>
+<tbody><tr><th style="width:22%">Oge (id)</th><th style="width:24%">Ne gosterir</th><th style="width:20%">Veriyi nereden alir</th><th style="width:20%">Is akisi</th><th>Durum</th></tr>
+<tr><td style="font-weight:700">flt-symbol</td><td>Hisse kodu metin filtresi</td><td>Kullanici girdisi; liste GET /api/xk100/stocks</td><td>Girdi degisince filtre parametresi olusur, liste yeniden istenir</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">flt-name</td><td>Sirket adi metin filtresi</td><td>Ayni</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">flt-sector</td><td>Sektor filtresi</td><td>Ayni</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">flt-scan-status</td><td>Tarama durumu filtresi (READY/PARTIAL_DATA/FAILED)</td><td>Ayni</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">flt-kap</td><td>KAP bildirimi var/yok filtresi</td><td>Ayni</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">flt-news</td><td>Haber var/yok filtresi</td><td>Ayni</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">flt-measure</td><td>Tedbir (VBTS) filtresi</td><td>Ayni</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">flt-min-confidence</td><td>Asgari veri guveni filtresi</td><td>Ayni</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">sort-by</td><td>Siralama alani (3 secenek)</td><td>Kullanici secimi</td><td>Secim siralama parametresine donusur, liste yeniden istenir</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">sort-dir</td><td>Siralama yonu (artan/azalan)</td><td>Kullanici secimi</td><td>Ayni akis</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">page-size</td><td>Sayfa boyu (25/50/100)</td><td>Kullanici secimi</td><td>page_size parametresi degisir; 100 hisse tek cevapta cekilmez (sayfa bazli kural)</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">page-prev</td><td>Onceki sayfa butonu</td><td>Kullanici tiklamasi</td><td>Sayfa numarasi azalir, liste yeniden istenir</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">page-next</td><td>Sonraki sayfa butonu</td><td>Kullanici tiklamasi</td><td>Sayfa numarasi artar, liste yeniden istenir</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">page-info</td><td>Sayfa gosterge metni (ornegin 1/4)</td><td>API cevabindaki sayfa bilgisi</td><td>Her liste cevabinda guncellenir</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">stk-table / stk-tbody</td><td>100 hisse ozet tablosu (17 sutun) govdesi</td><td>GET /api/xk100/stocks?page=&amp;page_size= (zarf dogrulanir)</td><td>Satirlar cevaptan uretilir; skor/puan anahtarlari filtreye takilir (puan kilidi); bos = bilgi karti</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">stk-cards</td><td>Mobil ekran kart listesi (tablonun kart hali)</td><td>Ayni uc</td><td>640px altinda tablo yerine kartlar basilirir (ayni veri)</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:14px 0 6px"><b>D. HISSE DETAY PANELI (stk-detail) — BUTONLAR VE KONTROLLER</b></div>
+<table>
+<tbody><tr><th style="width:22%">Oge (id)</th><th style="width:24%">Ne gosterir</th><th style="width:20%">Veriyi nereden alir</th><th style="width:20%">Is akisi</th><th>Durum</th></tr>
+<tr><td style="font-weight:700">sdOpen(sym) fonksiyonu</td><td>Detay panelini verilen hisseyle acar</td><td>Tablo satiri tiklamasi + 7 API ucu</td><td>1) panel acilir 2) /api/stocks/{symbol} + 5 alt uc + prices cagrilir 3) 8 bolum sirayla dolar</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">sd-close</td><td>Panel kapatma butonu</td><td>Yalnizca istemci durumu</td><td>Paneli gizler; acik sembol/aralik durumu sifirlanir</td><td><b>CANLI-API'YE BAGLI</b> (istemci kontrolu)</td></tr>
+<tr><td style="font-weight:700">sd-range-buttons (6 aralik: 30/60/90/180/260/MAKSIMUM)</td><td>Grafik zaman araligi secimi (varsayilan 90 = 3AY)</td><td>GET /api/stocks/{symbol}/prices?range=...</td><td>Butona tiklaninca secili aralik isaretlenir, prices yeniden cekilir, 2 canvas yeniden cizilir</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">sd-btn-raw</td><td>HAM fiyat serisi secimi (varsayilan)</td><td>prices cevabinin ham serisi</td><td>Ham seriyle sd-candles + sd-volume cizilir</td><td><b>CANLI-API'YE BAGLI</b> + <b>BOSTA-BEKLEMEDE</b></td></tr>
+<tr><td style="font-weight:700">sd-btn-adj</td><td>DUZELTILMIS fiyat serisi secimi</td><td>Duzeltilmis seri (kurumsal islem duzeltmeli) — henuz uretilmiyor</td><td>Buton DISABLED durur; seri uretilince aktif olacak; sahte doldurma YOK</td><td><b>BOSTA</b></td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:14px 0 6px"><b>E. DIGER OGELER — banner, rozetler, bantlar, footer</b></div>
+<table>
+<tbody><tr><th style="width:22%">Oge (id)</th><th style="width:24%">Ne gosterir</th><th style="width:20%">Veriyi nereden alir</th><th style="width:20%">Is akisi</th><th>Durum</th></tr>
+<tr><td style="font-weight:700">offline-banner</td><td>Cevrimdisi/eski onbellek uyarisi</td><td>Service worker (sw.js) onbellek durumu</td><td>Yalnizca sw eski onbellek sunarsa gorunur; aksi halde gizli kalir (dogru davranis)</td><td><b>BOSTA (gizli varsayilan)</b></td></tr>
+<tr><td style="font-weight:700">demo-badge-tarih / demo-badge-endeks / demo-badge-rapor</td><td>Ust banttaki tarih, endeks skoru ve rapor kimliginin DEMO oldugunu bildiren rozetler</td><td>Sabit DEMO metin (09.07.2026, 71.5, 2026-07-09-INDEX-R1)</td><td>Sayfa yuklenince sabit durur; gercek veri baglaninca rozet kaldirilir</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">demo-band-favori / demo-band-asels / demo-band-portfoy (+ -sub bantlari)</td><td>"HISSE SKORLAMA MODULU HENUZ CANLI DEGIL" + "DEMO ORNEKTIR" uyarilari</td><td>Sabit metin (kural geregi)</td><td>Demo bolumlerin ustunde sabit durur; sahte canli gorunumu kirir</td><td><b>DEMO</b></td></tr>
+<tr><td style="font-weight:700">b20-footer (class)</td><td>"Native mobil uygulama: HAZIR BEKLIYOR (API sozlesmesi hazir)" dipnotu</td><td>Sabit metin (blok20 durumu)</td><td>Sayfa sonunda sabit durur; native uygulama yayinlaninca guncellenir</td><td><b>HAZIR_BEKLIYOR</b></td></tr>
+</tbody></table>
+
+<div class="sub" style="margin:14px 0 6px"><b>F. API BAGLANTI KATMANI — uclar + zarf + hata maskeleme</b></div>
+<table>
+<tbody><tr><th style="width:26%">Katman / uc</th><th style="width:28%">Ne yapar</th><th style="width:22%">Is akisi</th><th>Durum</th></tr>
+<tr><td style="font-weight:700">GET /api/xk100/scan/latest</td><td>Son taramanin ozet cevabi (tarama kartini besler)</td><td>Sayfa yuklenince cagrilir; zarf dogrulanir; 8 alan dolar</td><td><b>CANLI-API'YE BAGLI</b> (VPS'te xk100-api.service)</td></tr>
+<tr><td style="font-weight:700">GET /api/xk100/stocks</td><td>100 hisse ozeti; sayfa bazli (page, page_size + filtre/siralama parametreleri)</td><td>Filtre/siralama/sayfa degisiminde yeniden cagrilir; 100 hisse tek cevapta cekilmez</td><td><b>CANLI-API'YE BAGLI</b></td></tr>
+<tr><td style="font-weight:700">GET /api/stocks/{symbol} (+ /scan/latest)</td><td>Tek hisse temel + son tarama durumu (panel bolum 1-3)</td><td>sdOpen(sym) icinde cagrilir</td><td><b>CANLI-API'YE BAGLI</b></td></tr>
+<tr><td style="font-weight:700">GET /api/stocks/{symbol}/kap · /news · /corporate-actions · /restrictions</td><td>Panel bolum 4-7 verisi (KAP, haber, kurumsal islem, tedbir listeleri)</td><td>sdOpen(sym) icinde paralel cagrilir; bos liste "kayit yok" gosterir</td><td><b>CANLI-API'YE BAGLI</b></td></tr>
+<tr><td style="font-weight:700">GET /api/stocks/{symbol}/prices?range=30|60|90|180|260|max</td><td>Ham fiyat/hacim serisi (panel bolum 8 grafikleri)</td><td>Aralik butonuyla yeniden cagrilir; sd-candles + sd-volume'u besler</td><td><b>CANLI-API'YE BAGLI</b></td></tr>
+<tr><td style="font-weight:700">Zarf dogrulama katmani (ENVELOPE_KEYS)</td><td>Her cevapta 5 zorunlu alan kontrolu: scan_run_id, report_version, last_updated_at, data_cutoff_at, status</td><td>Zarf gecersizse cevap ekrana BASILMAZ (hata sayilir)</td><td><b>CANLI-API'YE BAGLI</b> (istemci kurali aktif)</td></tr>
+<tr><td style="font-weight:700">Hata maskeleme katmani</td><td>Ag hatasi / 4xx / 5xx durumunda ekrana "HENUZ CALISMA YOK" basilir; teknik ayrinti yalniz console'a yazilir; sahte veri URETILMEZ</td><td>Her fetch zincirinde catch ile uygulanir</td><td><b>CANLI-API'YE BAGLI</b> (istemci kurali aktif)</td></tr>
+</tbody></table>
+<div class="note-green" style="margin:10px 0 0"><b>Ozet:</b> index.html'de blok eksigi YOKTUR. API'ye bagli her oge ilk gercek sabah taramasini bekliyor (BOSTA-BEKLEMEDE); demo bolumlerin tamami DEMO rozeti/bandi tasir; sd-btn-adj ve source_health ekrani BOSTA; hicbir oge icin sahte veri uretilmez.</div>
 </div>
 
 <div class="ftr">Bu sayfa gizlidir — sadece direkt link ile erisilir, musteri sayfasinda (XK100) linki bulunmaz.<br/>-XK100- Sistem Semasi · aiborsam</div>
