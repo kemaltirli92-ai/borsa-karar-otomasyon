@@ -104,6 +104,61 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#080c14;paddin
   .gk,.gks{grid-template-columns:1fr}
   .gu{width:160px;height:90px}
 }
+
+/* ===== BLOK 18: XK100 Tarama Durumu + 100 Hisse Ozeti + DEMO isaretleri ===== */
+/* DEMO rozet/bant — sahte canli gorunumu kirmak icin (mevcut icerik korunur) */
+.demo-badge{display:inline-block;background:#7c2d12;color:#fdba74;font-size:8px;font-weight:800;padding:1px 6px;border-radius:4px;letter-spacing:.5px;vertical-align:middle;margin-left:4px;border:1px solid #9a3412}
+.demo-band{background:repeating-linear-gradient(45deg,#7c2d12,#7c2d12 10px,#6b2710 10px,#6b2710 20px);color:#ffedd5;font-size:10px;font-weight:800;letter-spacing:.6px;text-align:center;padding:6px 10px;border-radius:8px;margin-bottom:6px;border:1px solid #ea580c}
+.demo-band-sub{background:#431407;color:#fdba74;font-size:10px;font-weight:700;text-align:center;padding:5px 10px;border-radius:8px;margin-bottom:10px;border:1px dashed #ea580c}
+
+/* XK100 Tarama Durumu karti */
+.scan-empty{background:#0a0f1d;border:1px dashed #334155;color:#94a3b8;border-radius:10px;padding:12px;text-align:center;font-size:11px;font-weight:600}
+.scan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.scan-item{background:#0a0f1d;border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:8px 10px}
+.scan-item .k{font-size:9px;color:#64748b;letter-spacing:.4px;margin-bottom:3px}
+.scan-item .v{font-size:13px;color:#f8fafc;font-weight:700;word-break:break-all}
+
+/* 100 Hisse Ozeti — filtreler, siralama, sayfalama */
+.stk-filters{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.stk-filters label{display:flex;flex-direction:column;gap:3px;font-size:9px;color:#64748b;letter-spacing:.3px}
+.stk-filters input,.stk-filters select,.stk-sort select,.stk-page select{background:#0a0f1d;color:#e2e8f0;border:1px solid #1e293b;border-radius:6px;padding:5px 8px;font-size:10px}
+.stk-sort{display:flex;gap:8px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap}
+.stk-sort label{display:flex;flex-direction:column;gap:3px;font-size:9px;color:#64748b;letter-spacing:.3px}
+.stk-page{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;font-size:10px;color:#94a3b8}
+.stk-page button{background:#0f172a;color:#e2e8f0;border:1px solid #1e293b;border-radius:6px;padding:5px 12px;font-size:10px;cursor:pointer}
+.stk-page button:disabled{opacity:.4;cursor:not-allowed}
+.stk-page .page-note{font-size:9px;color:#475569}
+.stk-legend{font-size:9px;color:#64748b;margin-bottom:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+
+/* 17 sutunlu tablo (web) */
+.stk-wrap{overflow-x:auto;border:1px solid rgba(255,255,255,.05);border-radius:10px}
+.stk-table{width:100%;border-collapse:collapse;font-size:10px;min-width:1240px}
+.stk-table th{background:#0f172a;color:#94a3b8;font-size:9px;text-align:left;padding:6px 8px;border-bottom:1px solid #1e293b;white-space:nowrap;letter-spacing:.3px}
+.stk-table td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);color:#cbd5e1;white-space:nowrap}
+.stk-table tr:hover td{background:rgba(56,189,248,.03)}
+
+/* hacim_turu + ready rozetleri */
+.roz{display:inline-block;font-size:8px;font-weight:800;padding:1px 6px;border-radius:4px;letter-spacing:.4px}
+.roz-OFFICIAL{background:#052e16;color:#4ade80;border:1px solid #166534}
+.roz-PROVIDER{background:#0c1a2e;color:#60a5fa;border:1px solid #1e40af}
+.roz-ESTIMATED{background:#2a1a0f;color:#f59e0b;border:1px solid #92400e}
+.roz-MISSING{background:#2a0f0f;color:#f87171;border:1px solid #991b1b}
+.roz-ready{background:#052e16;color:#4ade80;border:1px solid #166534}
+.roz-notready{background:#1e293b;color:#94a3b8;border:1px solid #334155}
+
+/* Mobil kart listesi (<640px): tablo gizlenir, kart listesi gosterilir */
+.stk-cards{display:none;flex-direction:column;gap:8px}
+.stk-card{background:#0a0f1d;border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:10px;font-size:10px}
+.stk-card .stk-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.stk-card .stk-card-head b{color:#f8fafc;font-size:12px}
+.stk-card .stk-card-row{display:flex;justify-content:space-between;gap:8px;padding:2px 0;color:#64748b}
+.stk-card .stk-card-row b{color:#cbd5e1;font-weight:600;text-align:right}
+@media (max-width:640px){
+  .stk-wrap{display:none}
+  .stk-cards{display:flex}
+  .stk-filters{grid-template-columns:repeat(2,1fr)}
+  .scan-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 <script src="https://www.kimi.com/sdk-seed.js" defer=""></script></head>
 <body>
@@ -117,9 +172,26 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#080c14;paddin
 <div class="tt-small">BIST Katilim 100 Endeksi</div>
 </div>
 <div class="th-info">
-<span>09.07.2026 Persembe</span>
+<span>09.07.2026 Persembe<b class="demo-badge" id="demo-badge-tarih">DEMO ORNEK — gercek veri degil</b></span>
 <span>09:45</span>
-<span class="y">Endeks: 71.5 POZITIF</span><span class="rv">Rapor: 2026-07-09-INDEX-R1</span>
+<span class="y">Endeks: 71.5 POZITIF<b class="demo-badge" id="demo-badge-endeks">DEMO</b></span><span class="rv">Rapor: 2026-07-09-INDEX-R1<b class="demo-badge" id="demo-badge-rapor">DEMO</b></span>
+</div>
+</div>
+
+<!-- ===== BLOK 18: XK100 TARAMA DURUMU KARTI (header alti, Bolum 1 ustu) ===== -->
+<div class="cd" id="xk100-scan-card" style="animation-delay:.03s">
+<span class="lbl">CANLI VERI · BLOK 18</span>
+<h2>XK100 Tarama Durumu</h2>
+<div class="scan-empty" id="xk100-scan-empty">HENUZ CALISMA YOK — ilk sabah taramasi bekleniyor</div>
+<div class="scan-grid" id="xk100-scan-grid" hidden="">
+<div class="scan-item"><div class="k">Tarama Durumu</div><div class="v" id="xk100-scan-status">—</div></div>
+<div class="scan-item"><div class="k">Taranan Hisse</div><div class="v"><span id="xk100-scanned-count">—</span>/100</div></div>
+<div class="scan-item"><div class="k">Tam Veri Sayisi</div><div class="v" id="xk100-full-count">—</div></div>
+<div class="scan-item"><div class="k">Kismi Veri Sayisi</div><div class="v" id="xk100-partial-count">—</div></div>
+<div class="scan-item"><div class="k">Basarisiz Sayisi</div><div class="v" id="xk100-failed-count">—</div></div>
+<div class="scan-item"><div class="k">Ortalama Veri Guveni (0-100)</div><div class="v" id="xk100-avg-confidence">—</div></div>
+<div class="scan-item"><div class="k">Son Guncelleme</div><div class="v" id="xk100-last-updated">—</div></div>
+<div class="scan-item"><div class="k">scan_run_id</div><div class="v" id="xk100-scan-run-id">—</div></div>
 </div>
 </div>
 
@@ -225,13 +297,88 @@ Endeks Skoru 71.5 ile POZITIF bolgededir. Endeks Yonu ve Piyasa Yapisi, VIOP ve 
 <div class="cd" style="animation-delay:.1s">
 <span class="lbl">BOLUM 1/5</span>
 <h2>Favori Hisseler + 100 Hisse Ozeti</h2>
+<div class="demo-band" id="demo-band-favori">HISSE SKORLAMA MODULU HENUZ CANLI DEGIL</div>
+<div class="demo-band-sub" id="demo-band-favori-sub">BU ALANDAKI DEGERLER DEMO ORNEKTIR — gercek analiz degildir</div>
 <div class="cc" id="cb1"><h3 style="margin-top:0">FAVORI HISELER | 09.07.2026 | Endeks:71.5 | 3 HISSE</h3><canvas class="cv" id="c1" width="750" height="280"></canvas><div class="tp" id="tt1"><div class="tp-t" id="tf1"></div><div id="tb1"></div></div></div>
+</div>
+
+<!-- ===== BLOK 18: 100 HISSE OZETI (Bolum 1'in altina yeni bolum) ===== -->
+<div class="cd" id="xk100-stocks-section" style="animation-delay:.12s">
+<span class="lbl">CANLI VERI · BLOK 18</span>
+<h2>100 Hisse Ozeti</h2>
+
+<!-- 8 filtre kontrolu -->
+<div class="stk-filters" id="stk-filters">
+<label>Hisse Kodu<input type="text" id="flt-symbol" placeholder="or. ASELS" autocomplete="off"/></label>
+<label>Sirket Adi<input type="text" id="flt-name" placeholder="or. Aselsan" autocomplete="off"/></label>
+<label>Sektor<select id="flt-sector"><option value="">Tum Sektorler</option></select></label>
+<label>Tarama Durumu<select id="flt-scan-status"><option value="">Tumu</option><option value="OK">OK</option><option value="PARTIAL">PARTIAL</option><option value="FAILED">FAILED</option><option value="STALE">STALE</option></select></label>
+<label>KAP<select id="flt-kap"><option value="">Tumu</option><option value="1">Var</option><option value="0">Yok</option></select></label>
+<label>Haber<select id="flt-news"><option value="">Tumu</option><option value="1">Var</option><option value="0">Yok</option></select></label>
+<label>Tedbir<select id="flt-measure"><option value="">Tumu</option><option value="1">Var</option><option value="0">Yok</option></select></label>
+<label>Min Veri Guveni<input type="number" id="flt-min-confidence" min="0" max="100" step="1" placeholder="0-100"/></label>
+</div>
+
+<!-- 3 siralama secenegi + yon -->
+<div class="stk-sort" id="stk-sort">
+<label>Sirala<select id="sort-by">
+<option value="gunluk_yuzde_degisim" data-sort-key="gunluk_degisim">Gunluk Degisim</option>
+<option value="hacim_orani_20" data-sort-key="hacim_orani">Hacim Orani (20 gun)</option>
+<option value="veri_guveni" data-sort-key="veri_guveni">Veri Guveni</option>
+</select></label>
+<label>Yon<select id="sort-dir"><option value="desc">Azalan (desc)</option><option value="asc">Artan (asc)</option></select></label>
+</div>
+
+<!-- API verisi yoksa: sahte satir URETILMEZ -->
+<div class="scan-empty" id="stk-empty">HENUZ CALISMA YOK — ilk sabah taramasi bekleniyor · demo_data=false</div>
+
+<div class="stk-legend" id="stk-legend" hidden="">hacim_turu rozeti: <span class="roz roz-OFFICIAL">OFFICIAL</span><span class="roz roz-PROVIDER">PROVIDER</span><span class="roz roz-ESTIMATED">ESTIMATED</span><span class="roz roz-MISSING">MISSING</span></div>
+
+<!-- 17 sutunlu tablo (web gorunumu) -->
+<div class="stk-wrap" id="stk-wrap" hidden="">
+<table class="stk-table" id="stk-table">
+<thead><tr>
+<th data-col="hisse_kodu">Hisse Kodu</th>
+<th data-col="sirket_kisa_adi">Sirket Kisa Adi</th>
+<th data-col="sektor">Sektor</th>
+<th data-col="son_dogrulanmis_kapanis">Son Dogrulanmis Kapanis</th>
+<th data-col="son_islem_tarihi">Son Islem Tarihi</th>
+<th data-col="gunluk_yuzde_degisim">Gunluk % Degisim</th>
+<th data-col="islem_miktari">Islem Miktari</th>
+<th data-col="tl_hacim">TL Hacim + hacim_turu Rozeti</th>
+<th data-col="hacim_orani_20">20 Gunluk Hacim Orani</th>
+<th data-col="veri_guveni">Veri Guveni</th>
+<th data-col="tarama_durumu">Tarama Durumu</th>
+<th data-col="kap_sayisi">KAP Sayisi</th>
+<th data-col="haber_sayisi">Haber Sayisi</th>
+<th data-col="kurumsal_islem_rozeti">Kurumsal Islem</th>
+<th data-col="aktif_tedbir_rozeti">Aktif Tedbir</th>
+<th data-col="technical_ready">technical_ready</th>
+<th data-col="scoring_ready">scoring_ready</th>
+</tr></thead>
+<tbody id="stk-tbody"></tbody>
+</table>
+</div>
+
+<!-- Mobil (<640px): kompakt kart listesi — her hisse 1 kart, ayni 17 alan ozeti -->
+<div class="stk-cards" id="stk-cards"></div>
+
+<!-- Sayfalama: 100 hisse TEK cevapta cekilmez — sayfa bazli istek -->
+<div class="stk-page" id="stk-page">
+<label style="display:flex;flex-direction:column;gap:3px;font-size:9px;color:#64748b">Sayfa Boyutu<select id="page-size"><option value="25" selected="">25</option><option value="50">50</option><option value="100">100</option></select></label>
+<button id="page-prev" type="button" disabled="">‹ Onceki</button>
+<span id="page-info">Sayfa 1/1</span>
+<button id="page-next" type="button" disabled="">Sonraki ›</button>
+<span class="page-note">100 hissenin tamami tek cevapta cekilmez — sayfa bazli istek: GET /api/xk100/stocks?page=&amp;page_size=</span>
+</div>
 </div>
 
 <!-- ===== BOLUM 2: ASELS ===== -->
 <div class="cd" style="animation-delay:.15s">
 <span class="lbl">BOLUM 2/5</span>
 <h2>ASELS | Skor: 87.4 | Guven: %81</h2>
+<div class="demo-band" id="demo-band-asels">HISSE SKORLAMA MODULU HENUZ CANLI DEGIL</div>
+<div class="demo-band-sub" id="demo-band-asels-sub">BU ALANDAKI DEGERLER DEMO ORNEKTIR — gercek analiz degildir</div>
 
 <!-- Mum Grafik -->
 <div class="cc" style="margin-bottom:10px"><h3 style="margin-top:0">ASELS MUM GRAFİĞİ | Son 60 Gun | Bollinger Bantlari + Hacim Profili (POC)</h3><canvas class="cv" id="mumASELS" width="750" height="260"></canvas></div>
@@ -307,6 +454,8 @@ Endeks Skoru 71.5 ile POZITIF bolgededir. Endeks Yonu ve Piyasa Yapisi, VIOP ve 
 <div class="cd" style="animation-delay:.3s">
 <span class="lbl">BOLUM 5/5</span>
 <h2>Portfoy Dagilimi (Pasta Grafik)</h2>
+<div class="demo-band" id="demo-band-portfoy">HISSE SKORLAMA MODULU HENUZ CANLI DEGIL</div>
+<div class="demo-band-sub" id="demo-band-portfoy-sub">BU ALANDAKI DEGERLER DEMO ORNEKTIR — gercek analiz degildir</div>
 <div class="cc"><h3 style="margin-top:0">PORTFOY DAGILIMI | 3 HISSE %75 Sermaye</h3><canvas class="cv" id="c8" width="750" height="250"></canvas><div class="tp" id="tt8"><div class="tp-t" id="tf8"></div><div id="tb8"></div></div></div>
 <div class="lg"><i><d style="background:#3b82f6"></d>ASELS %30</i><i><d style="background:#f59e0b"></d>TUPRS %25</i><i><d style="background:#22c55e"></d>ALFAS %20</i><i><d style="background:#64748b"></d>NAKIT %25</i></div>
 </div>
@@ -848,5 +997,241 @@ window.addEventListener('load',()=>{
 });
 </script>
 
+
+<!-- ===== BLOK 18: API BAGLANTI KATMANI (vanilla JS — framework/dis bagimlilik YOK) ===== -->
+<script>
+(function(){
+"use strict";
+const API_BASE = ""; // ayni origin — statik frontend + VPS API
+const SCAN_URL = API_BASE + "/api/xk100/scan/latest";
+const STOCKS_URL = API_BASE + "/api/xk100/stocks";
+const HENUZ_CALISMA_YOK = "HENUZ CALISMA YOK — ilk sabah taramasi bekleniyor";
+
+/* PUAN KILIDI: bu adimda Hisse Skoru URETILMEZ. API cevabinda skor anahtari
+   gelse bile ekrana BASILMAZ — render oncesi tum skor anahtarlari filtrelenir. */
+const SCORE_KEYS = ["hisse_skoru","hisse_skor","stock_score","final_score","total_score","skor","score","puan"];
+
+/* Zarf (BLOK 16) zorunlu alanlari: scan_run_id, report_version,
+   last_updated_at, data_cutoff_at, status — dogrulanmadan ekrana basilmaz */
+const ENVELOPE_KEYS = ["scan_run_id","report_version","last_updated_at","data_cutoff_at","status"];
+
+function byId(id){ return document.getElementById(id); }
+
+/* Hata maskesi: ag hatasi / 4xx / 5xx -> HENUZ_CALISMA_YOK; ayrinti yalniz console'a */
+function maskError(where, err){
+  if (window.console && typeof console.warn === "function"){
+    console.warn("[XK100][BLOK18] API hatasi maskelendi (" + where + "):", err);
+  }
+}
+
+function envelopeValid(env){
+  if (!env || typeof env !== "object") return false;
+  for (let i=0;i<ENVELOPE_KEYS.length;i++){
+    if (!(ENVELOPE_KEYS[i] in env)) return false;
+  }
+  if (typeof env.scan_run_id !== "string" || env.scan_run_id.length === 0) return false;
+  if (typeof env.report_version !== "number") return false;
+  return true;
+}
+
+/* Puan kilidi filtresi — skor anahtari iceren alanlar ekrana basilamaz */
+function stripScoreKeys(rec){
+  if (!rec || typeof rec !== "object" || Array.isArray(rec)) return rec;
+  const clean = {};
+  Object.keys(rec).forEach(function(k){
+    const lk = k.toLowerCase();
+    for (let i=0;i<SCORE_KEYS.length;i++){
+      if (lk.indexOf(SCORE_KEYS[i]) !== -1) return;
+    }
+    clean[k] = rec[k];
+  });
+  return clean;
+}
+
+/* Sahte veri URETILMEZ: API yoksa/bossa yalnizca bos-durum metni gosterilir */
+function showNoRun(){
+  const se = byId("xk100-scan-empty"); if (se){ se.hidden = false; se.textContent = HENUZ_CALISMA_YOK; }
+  const sg = byId("xk100-scan-grid"); if (sg) sg.hidden = true;
+  const te = byId("stk-empty"); if (te){ te.hidden = false; te.textContent = HENUZ_CALISMA_YOK + " · demo_data=false"; }
+  const tw = byId("stk-wrap"); if (tw) tw.hidden = true;
+  const lg = byId("stk-legend"); if (lg) lg.hidden = true;
+  const tb = byId("stk-tbody"); if (tb) tb.innerHTML = "";
+  const cards = byId("stk-cards"); if (cards) cards.innerHTML = "";
+}
+
+function setText(id, val){
+  const el = byId(id);
+  if (el) el.textContent = (val === null || val === undefined || val === "") ? "—" : String(val);
+}
+
+/* --- XK100 Tarama Durumu karti --- */
+function renderScan(env){
+  const d = stripScoreKeys(env.data) || {};
+  byId("xk100-scan-empty").hidden = true;
+  byId("xk100-scan-grid").hidden = false;
+  setText("xk100-scan-status", env.status);
+  setText("xk100-scanned-count", d.scanned_count);
+  setText("xk100-full-count", d.full_data_count);
+  setText("xk100-partial-count", d.partial_data_count);
+  setText("xk100-failed-count", d.failed_count);
+  setText("xk100-avg-confidence", d.avg_confidence);
+  setText("xk100-last-updated", env.last_updated_at);
+  setText("xk100-scan-run-id", env.scan_run_id);
+}
+
+function loadScan(){
+  fetch(SCAN_URL, {method:"GET"})
+    .then(function(resp){ if (!resp.ok) throw new Error("HTTP " + resp.status); return resp.json(); })
+    .then(function(env){
+      if (!envelopeValid(env)) throw new Error("gecersiz zarf (scan_run_id/report_version/... eksik)");
+      renderScan(env);
+    })
+    .catch(function(err){ maskError("scan/latest", err); showNoRun(); });
+}
+
+/* --- 100 Hisse Ozeti: durum, filtreler, siralama, sayfalama --- */
+const state = { page:1, pageSize:25, totalPages:1, total:0, items:[],
+                sortKey:"gunluk_yuzde_degisim", sortDir:"desc" };
+
+function readFilters(){
+  const p = new URLSearchParams();
+  p.set("page", String(state.page));
+  p.set("page_size", String(state.pageSize)); // 25/50/100 — 100 hisse TEK cevapta cekilmez
+  const sym = byId("flt-symbol").value.trim();
+  const nam = byId("flt-name").value.trim();
+  if (sym) p.set("search", sym);
+  else if (nam) p.set("search", nam);
+  const sec = byId("flt-sector").value; if (sec) p.set("sector", sec);
+  const st  = byId("flt-scan-status").value; if (st) p.set("scan_status", st);
+  const kap = byId("flt-kap").value; if (kap !== "") p.set("has_kap", kap);
+  const nws = byId("flt-news").value; if (nws !== "") p.set("has_news", nws);
+  const ted = byId("flt-measure").value; if (ted !== "") p.set("has_restriction", ted);
+  const minc = byId("flt-min-confidence").value; if (minc !== "") p.set("minimum_confidence", minc);
+  return p.toString();
+}
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function val(x){ return (x === null || x === undefined || x === "") ? "—" : esc(x); }
+function rozVolume(t){
+  const known = ["OFFICIAL","PROVIDER","ESTIMATED","MISSING"];
+  const tt = known.indexOf(t) !== -1 ? t : "MISSING";
+  return '<span class="roz roz-' + tt + '">' + tt + '</span>';
+}
+function rozBool(b, t){
+  return b ? '<span class="roz roz-ready">' + (t || "VAR") + '</span>'
+           : '<span class="roz roz-notready">' + (t ? "YOK" : "HAYIR") + '</span>';
+}
+
+function sortItems(items){
+  const k = state.sortKey, dir = state.sortDir === "asc" ? 1 : -1;
+  return items.slice().sort(function(a,b){
+    const va = (a[k] === null || a[k] === undefined) ? -Infinity : Number(a[k]);
+    const vb = (b[k] === null || b[k] === undefined) ? -Infinity : Number(b[k]);
+    if (va < vb) return -1*dir;
+    if (va > vb) return 1*dir;
+    return 0;
+  });
+}
+
+function rowHtml(r){
+  return "<tr>" +
+    "<td><b>" + val(r.hisse_kodu) + "</b></td>" +
+    "<td>" + val(r.sirket_kisa_adi) + "</td>" +
+    "<td>" + val(r.sektor) + "</td>" +
+    "<td>" + val(r.son_dogrulanmis_kapanis) + "</td>" +
+    "<td>" + val(r.son_islem_tarihi) + "</td>" +
+    "<td>" + val(r.gunluk_yuzde_degisim) + "</td>" +
+    "<td>" + val(r.islem_miktari) + "</td>" +
+    "<td>" + val(r.tl_hacim) + " " + rozVolume(r.hacim_turu) + "</td>" +
+    "<td>" + val(r.hacim_orani_20) + "</td>" +
+    "<td>" + val(r.veri_guveni) + "</td>" +
+    "<td>" + val(r.tarama_durumu) + "</td>" +
+    "<td>" + val(r.kap_sayisi) + "</td>" +
+    "<td>" + val(r.haber_sayisi) + "</td>" +
+    "<td>" + rozBool(!!r.kurumsal_islem_rozeti) + "</td>" +
+    "<td>" + rozBool(!!r.aktif_tedbir_rozeti) + "</td>" +
+    "<td>" + rozBool(!!r.technical_ready, "EVET") + "</td>" +
+    "<td>" + rozBool(!!r.scoring_ready, "EVET") + "</td>" +
+    "</tr>";
+}
+
+function cardHtml(r){
+  const rows = [
+    ["Sirket", r.sirket_kisa_adi], ["Sektor", r.sektor],
+    ["Son Dogrulanmis Kapanis", r.son_dogrulanmis_kapanis],
+    ["Son Islem Tarihi", r.son_islem_tarihi],
+    ["Gunluk % Degisim", r.gunluk_yuzde_degisim],
+    ["Islem Miktari", r.islem_miktari],
+    ["20g Hacim Orani", r.hacim_orani_20],
+    ["Veri Guveni", r.veri_guveni],
+    ["Tarama Durumu", r.tarama_durumu],
+    ["KAP Sayisi", r.kap_sayisi], ["Haber Sayisi", r.haber_sayisi]
+  ];
+  let h = '<div class="stk-card"><div class="stk-card-head"><b>' + val(r.hisse_kodu) + '</b>' + rozVolume(r.hacim_turu) + '</div>';
+  rows.forEach(function(p){ h += '<div class="stk-card-row"><span>' + p[0] + '</span><b>' + val(p[1]) + '</b></div>'; });
+  h += '<div class="stk-card-row"><span>TL Hacim</span><b>' + val(r.tl_hacim) + '</b></div>';
+  h += '<div class="stk-card-row"><span>Kurumsal Islem</span><b>' + rozBool(!!r.kurumsal_islem_rozeti) + '</b></div>';
+  h += '<div class="stk-card-row"><span>Aktif Tedbir</span><b>' + rozBool(!!r.aktif_tedbir_rozeti) + '</b></div>';
+  h += '<div class="stk-card-row"><span>technical_ready</span><b>' + rozBool(!!r.technical_ready, "EVET") + '</b></div>';
+  h += '<div class="stk-card-row"><span>scoring_ready</span><b>' + rozBool(!!r.scoring_ready, "EVET") + '</b></div>';
+  return h + "</div>";
+}
+
+function renderStocks(){
+  const items = sortItems(state.items);
+  byId("stk-empty").hidden = true;
+  byId("stk-wrap").hidden = false;
+  byId("stk-legend").hidden = false;
+  byId("stk-tbody").innerHTML = items.map(rowHtml).join("");
+  byId("stk-cards").innerHTML = items.map(cardHtml).join("");
+  byId("page-info").textContent = "Sayfa " + state.page + "/" + Math.max(state.totalPages,1) + " · toplam " + state.total;
+  byId("page-prev").disabled = state.page <= 1;
+  byId("page-next").disabled = state.page >= state.totalPages;
+  const secSel = byId("flt-sector");
+  if (secSel.options.length <= 1){
+    const seen = {};
+    state.items.forEach(function(r){ if (r.sektor && !seen[r.sektor]){ seen[r.sektor] = 1;
+      const o = document.createElement("option"); o.value = r.sektor; o.textContent = r.sektor; secSel.appendChild(o); } });
+  }
+}
+
+function loadStocks(){
+  fetch(STOCKS_URL + "?" + readFilters(), {method:"GET"})
+    .then(function(resp){ if (!resp.ok) throw new Error("HTTP " + resp.status); return resp.json(); })
+    .then(function(env){
+      if (!envelopeValid(env)) throw new Error("gecersiz zarf (scan_run_id/report_version/... eksik)");
+      if (!Array.isArray(env.items)) throw new Error("items dizisi eksik");
+      const pg = env.pagination || {};
+      state.items = env.items.map(stripScoreKeys); // PUAN KILIDI: skor anahtarlari render oncesi dusurulur
+      state.total = (typeof pg.total === "number") ? pg.total : state.items.length;
+      state.totalPages = (typeof pg.total_pages === "number" && pg.total_pages > 0) ? pg.total_pages : 1;
+      if (state.items.length === 0){ showNoRun(); return; }
+      renderStocks();
+    })
+    .catch(function(err){ maskError("stocks", err); showNoRun(); });
+}
+
+function bindControls(){
+  ["flt-symbol","flt-name","flt-sector","flt-scan-status","flt-kap","flt-news","flt-measure","flt-min-confidence"]
+    .forEach(function(id){
+      byId(id).addEventListener("change", function(){ state.page = 1; loadStocks(); });
+    });
+  byId("sort-by").addEventListener("change", function(e){ state.sortKey = e.target.value; renderStocks(); });
+  byId("sort-dir").addEventListener("change", function(e){ state.sortDir = e.target.value; renderStocks(); });
+  byId("page-size").addEventListener("change", function(e){
+    state.pageSize = parseInt(e.target.value, 10) || 25; state.page = 1; loadStocks();
+  });
+  byId("page-prev").addEventListener("click", function(){ if (state.page > 1){ state.page -= 1; loadStocks(); } });
+  byId("page-next").addEventListener("click", function(){ if (state.page < state.totalPages){ state.page += 1; loadStocks(); } });
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  showNoRun();   // varsayilan: sahte sayi YOK
+  bindControls();
+  loadScan();
+  loadStocks();  // sayfa bazli: GET /api/xk100/stocks?page=1&page_size=25
+});
+})();
+</script>
 
 </body></html>
