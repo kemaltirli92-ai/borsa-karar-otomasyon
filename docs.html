@@ -994,6 +994,194 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 <div class="note-green" style="margin:10px 0 0"><b>Durum:</b> BLOK 6/22 TAMAMLANDI — <b>100/100 test gecti</b> (pytest: &#34;100 passed in 1.70s&#34;, 2026-07-14). Merkezi stock_id katmani kuruldu; fiyat/hacim, KAP ve haber toplayicilari (sonraki bloklar) artik tum kayitlari bu tek kimlik uzerinden baglayacak. Bolum toplami: Bolum 1-2 (268 test) + Bolum 3 Blok 5 (100 test) + Blok 6 (100 test).</div>
 </div>
 
+<!-- BOLUM 3 - OZET KUTUSU (BLOK 17) -->
+<div class="card" style="border:1px solid rgba(139,92,246,.5);background:#0d0616">
+<h3><span class="dot" style="background:#a78bfa"></span>BOLUM 3 OZET — HESAP MAKINESI GIBI SAYILABILIR DURUM (TERMINAL DOGRULAMALI)</h3>
+<table>
+<tbody><tr><th style="width:30%">Ozet alani</th><th>Guncel deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Aktif sirket sayisi</td><td><b>Henuz calisma yok</b> — ilk gercek sabah taramasi VPS'te calisincaya kadar dogrulanmis rakam yazilmaz</td></tr>
+<tr><td style="font-weight:700">Son scan_run_id</td><td><b>Henuz calisma yok</b> — ilk calismada {YYYY-MM-DD}-TARAMA-R1 biciminde uretilecek (BLOK 14 kurali)</td></tr>
+<tr><td style="font-weight:700">Son basarili calisma</td><td><b>Henuz calisma yok</b> — gercek sabah taramasi henuz yapilmadi</td></tr>
+<tr><td style="font-weight:700">Tam taranan</td><td><b>Henuz calisma yok</b></td></tr>
+<tr><td style="font-weight:700">Kismi veri</td><td><b>Henuz calisma yok</b></td></tr>
+<tr><td style="font-weight:700">Basarisiz</td><td><b>Henuz calisma yok</b></td></tr>
+<tr><td style="font-weight:700">Ortalama Veri Guveni</td><td><b>Henuz calisma yok</b> — BLOK 15 hesaplayicisi kodlandi, gercek hisse verisi bekliyor</td></tr>
+<tr><td style="font-weight:700">Kural surumu</td><td><b>HISSE-TARAMA-V1.0</b> (Bolum 3 kart serisi: C1-C13, BLOK 17)</td></tr>
+<tr><td style="font-weight:700">Modul test toplami</td><td><b>1100/1100 gecti</b> — terminal: &#34;1100 passed in 9.28s&#34; (blok6-16, 2026-07-15)</td></tr>
+</tbody></table>
+</div>
+
+<!-- BOLUM 3 - C KART SERISI (BLOK 17) -->
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#38bdf8"></span>C1 — SISTEMIN CALISMA MODELI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Hisse taramasi VPS uzerinde kontrollu gorev akisi olarak calisir: 08:00 on kontrol → 08:00-08:45 toplama → 08:45-09:00 temizleme → 09:00-09:30 toparlanma → 09:30-09:35 paketleme → 09:35-09:40 anomali → <b>09:40 veri kesim</b> → 09:40-09:45 kritik yeniden tarama. 100 hisse tek senkron donguyle calistirilmaz; kontrollu paralellik + hata izolasyonu (1 hisse patlarsa 99 devam eder).</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/orchestration/orchestrator.py · schedule.py · pool.py · runs.py · retry.py · limits.py · states.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_scan_runs · stock_scan_results · stock_scan_errors (BLOK 7 semasi)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok14/test_orchestration.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.72s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — kod + test tamam; VPS kurulumu bekliyor (VPS_KURULDU degil)</td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#22c55e"></span>C2 — XK100 EVREN YONETIMI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Aktif BIST Katilim 100 listesi 3 kaynak capraz dogrulamasiyla alinir (KAP Endeks + borsaistanbul.com/endeks/xk100 + CSV). Tam <b>100 sirket</b> zorunludur: 100 ustu REDDEDILIR, eksik REDDEDILIR, tekrarli kod REDDEDILIR, bos evren REDDEDILIR. Donem degisikliginde giren eklenir, cikan arsivlenir (silinmez).</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/identity_adapter.py (evren sembollerini merkezi kimlige baglayan adaptor — bu repoda mevcut) · <b>Not:</b> Blok 5 evren modulu kaynak dosyalari onceki oturumda yazildi, bu repoda degil; GitHub'a sonraki oturumda eklenecek (durum budur, uydurma yol yazilmaz)</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_universe · stock_universe_memberships</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/test_evren.py — <b>bu repoda mevcut degil</b> (Blok 5 onceki oturumda yazildi ve 100/100 gecti; dosya GitHub'a sonraki oturumda eklenecek — var gibi gosterilmez)</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> (Blok 5 oturumu, 2026-07-14)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — bu repoda modul kaynaklari degil test dosyasi bulunur; evren servis katmani BLOK 14 orchestrator'a enjekte edilir</td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#06b6d4"></span>C3 — SIRKET KIMLIGI VE SEMBOL ESLESTIRME <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Tum sistemde tek merkezi <b>stock_id</b> (STK-000001, deterministik). 5 platform sembolu (bist/yahoo/google/tradingview/kap). Eslestirme tam token bazli — kisa kod (&#34;IS&#34;) uzun sembol icinde (&#34;ISCTR&#34;) yakalanamaz. Kod degisikliginde eski sembol SILINMEZ (valid_from/valid_to). Cift eslestirme DUPLICATE_SYMBOL; dogrulanamayan SYMBOL_VERIFICATION_PENDING kuyruguna duser.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/models/stock_identity.py · app/services/stock_scanning/symbol_identity.py · kap_verifier.py · identity_adapter.py · app/admin/symbol_admin.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_symbol_mappings</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok6/test_symbol_identity.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.94s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b></td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#f59e0b"></span>C4 — FIYAT VE TARIHSEL VERI TOPLAMA <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Tek kaynaga bagimlilik yok: ana (lisansli) → yedek (yfinance), dogrulama (Google Finance); kaynak onceligi yonetici ayarindan. Ilk kurulum 260+ gun; her sabah artimli guncelleme + son 10 gun tekrar kontrol. Ayni veri tekrar gelirse kopya YAZILMAZ. Iki kaynak bos ise PRICE_DATA_MISSING. Kaynaklar arasi kapanis farki toleransi config'ten. Kayit: Date, Open, High, Low, Close, Adj Close, Volume, Currency, Source ts, Collected ts.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/price_collection/sources.py · collector.py · config.py · storage.py · validator.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_prices_daily (UNIQUE: stock_id+trade_date+source+data_version)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok8/test_price_collection.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.71s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — kaynaklar fetcher enjekte; gercek lisansli API anahtari VPS'te takilacak</td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#ef4444"></span>C5 — OHLCV KALITE KONTROLU <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Analiz modullerine gondermeden once 13 kontrol: OHLC&gt;0, hacim≥0, High/Low kapsama, gecerli islem gunu, tekrar tarih, para birimi, sembol-sirket, aciklanmamis fark, kurumsal kontrol, kaynak karsilastirma. 5 katman: RAW/CLEAN/VALIDATED/REJECTED/REVIEW_REQUIRED. Gecersiz veri analize GECMEZ (ReleaseGate). Ham kayit asla silinmez; eski rapor sessizce degismez; yeni halka arza sentetik gecmis uretilmez. 6 yeterlilik etiketi (SUFFICIENT…PRICE_DATA_MISSING).</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/validation/rules.py · ohlcv_validator.py · corporate.py · calendar.py · sufficiency.py · gate.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_prices_daily (data_layer: raw/clean/validated) · data_layer_promotions</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok9/test_ohlcv_validation.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.69s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b></td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#3b82f6"></span>C6 — HACIM VE TL ISLEM HACMI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>volume_units (adet) ile TL hacim kati ayrilir. turnover_try = kaynaktan gercek TL (OFFICIAL/PROVIDER); yoksa estimated_turnover_try = ((O+H+L+C)/4) x Volume (ESTIMATED) — tahmin asla gercek diye gosterilmez. 20 gunluk oran: son gun / onceki 20 gecerli gun ortalamasi (son gun ortalamaya DAHIL DEGIL). Tatil/kaynak hatasi sifir eklenmez; gercek sifir ≠ eksik. 6 durum (NORMAL…REVIEW_REQUIRED). Anormal hacim tek basina sinyal uretmez (signal her zaman None — SignalLockError).</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/volume/models.py · turnover.py · ratio.py · classifier.py · analyzer.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_prices_daily (volume alani)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok10/test_volume.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.68s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b></td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#8b5cf6"></span>C7 — KAP TOPLAMA <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Merkezi KAP akisi taranir — 200 profil linki kontrolsuz acilmaz (detay calisma ici tek kez). 6 adim: yeni bildirim → XK100 eslestirme → detay → ek dosya meta → revizyon/iptal → stock_id baglama. 17 alanli kayit; ayni notification_id ikinci kez eklenmez. Duzeltilmis bildirim eskinin uzerine YAZILMAZ (SUPERSEDED/REVISED/CANCELLED zinciri). Profiller haftalik kontrol. KAP calismazsa fiyat taramasi durmaz (PARTIAL). Kritik bildirim tam metni yoksa hisse Favori surecine hazir sayilmaz. Olumlu/olumsuz puan HESAPLANMAZ.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/kap_collection/models.py · feed.py · matcher.py · collector.py · storage.py · readiness.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>kap_notifications (notification_id UNIQUE) · stock_corporate_actions (kap_notice_no UNIQUE)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok11/test_kap_collection.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.97s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b></td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#f97316"></span>C8 — HABER HAVUZU VE ESLESTIRME <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>10 alanli haber kaydi. Eslestirme 9 varlikla (kod, tam unvan, kisa ad, eski ad, eski kod, marka, bagli ortaklik, istirak, yonetici). Sadece kod gecmesi kesin eslesme degil (max 70, confirmed=False); kelime ici eslesme yasak. Guven skoru 0-100; dusuk guven otomatik kesin haber yapilmaz (needs_review). 6 duplikasyon kanali; ajans kopyasi bagimsiz dogrulama sayilmaz. Reklam/sponsorlu/forum/otomatik fiyat tablosu ayri etiket. AI zorunlu degil — kapaliysa/hata verirse tarama durmaz. Ton/onem/etki puani HESAPLANMAZ.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/news/models.py · aliases.py · fuzzy.py · matcher.py · dedupe.py · tagger.py · ai_adapter.py · collector.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_news_matches (UNIQUE: stock_id+news_id)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok12/test_news.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.71s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b></td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#eab308"></span>C9 — KURUMSAL ISLEMLER VE TEDBIRLER <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>11 kurumsal islem tipi (temettu→kod degisikligi), 11 alanli kayit. 7 tedbir tipi (islem durdurma→pazar degisikligi), 7 alanli kayit. Duzeltilmis kayit eskinin uzerine yazilmaz (action-vN surum zinciri). Cift kayit engeli. Aktif TRADING_HALT: taramadan SILINMEZ, gecmis grafik KORUNUR, normal hisse gibi GOSTERILMEZ, scoring_ready=False; tedbir bitince otomatik True. Suresi biten tedbir otomatik pasif + arsiv. Ham+dogrulanmis olay verisi sonraki modullere frozen paketle aktarilir. Otomatik puan URETMEZ.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/corporate_actions/models.py · registry.py · restrictions.py · suspension.py · feed.py · collector.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_corporate_actions · stock_trading_restrictions</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok13/test_corporate_actions.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.62s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b></td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#14b8a6"></span>C10 — ZAMANLAMA VE GOREV DURUMLARI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>11 durum (WAITING, COLLECTING_PRICE/KAP/NEWS/ACTIONS/RESTRICTIONS, VALIDATING, READY, PARTIAL_DATA, FAILED, INACTIVE) + izinli gecis tablosu. Kaynak basina concurrency_limit/requests_per_minute/timeout/retry_count/backoff. Retry: hemen → +30sn → +90sn; asimda yedek kaynak gecisi loglanir (FALLBACK_SWITCHED). Ayni run_id iki kez baslatilamaz; bilincli yeniden tarama R2 olusturur. Systemd timer: islem gunleri 08:00 Europe/Istanbul.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/orchestration/states.py · limits.py · retry.py · runs.py · pool.py · systemd/xk100-hisse-tarama.service + .timer</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_scan_runs (run_id UNIQUE) · stock_scan_results (UNIQUE: run_id+stock_id) · source_health</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok14/test_orchestration.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.72s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b></td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#ec4899"></span>C11 — TARAMA VERI GUVENI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>0-100 Tarama Veri Guveni — <b>Hisse Skoru degil, yukselme ihtimali degil, alim tavsiyesi degil</b> (kilitli disclaimer: &#34;Bu oran verinin tamlik ve dogrulama seviyesidir, hissenin yukselme ihtimali degil.&#34;). 12 bilesen, agirliklar config+yonetici panelinden (toplam dogrulamali). Eksik alan sifir veri gibi kabul edilmez. 5 cikti: technical_ready, scoring_ready, favorite_eligible, data_confidence, missing_fields. Kritik eksikte favorite_eligible=false + KRITIK VERI EKSIK; aktif halt'ta scoring_ready=false.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/confidence/models.py · components.py · calculator.py · readiness.py · display.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>stock_scan_results (data_quality_score alani ile uyumlu)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok15/test_confidence.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>100/100 gecti</b> — terminal: &#34;100 passed in 0.80s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b></td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#84cc16"></span>C12 — VERI TABANI VE API <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td><b>DB:</b> 11 tablo + surumlu migration (ileri+geri alma, checksum korumali) + yedek/kayip kontrolu + bos DB'de test. Benzersizlik: run_id, run_id+stock_id, stock_id+trade_date+source+data_version, kap_notice_no. Ham/temiz/dogrulanmis ayri katmanlar. <b>API:</b> 10 musteri ucu + 7 yonetici ucu; 12 liste parametresi; her cevapta zarf (scan_run_id, report_version, last_updated_at, data_cutoff_at, status); run_id karistirilmaz; musteri yalnizca yayinlanabilir veri; yonetici X-Admin-Token; ham hata maskesi; OpenAPI 3.0.3.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>app/services/stock_scanning/db/migrator.py · backup.py · repo.py · migrations/0001-0002 · app/api/envelope.py · router.py · customer.py · admin.py · auth.py · filters.py · masking.py · openapi.py</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>schema_migrations + 11 veri tablosu (stock_universe … source_health)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>tests/blok7/test_db_migration.py · tests/blok16/test_api.py</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>blok7: 100/100</b> (&#34;100 passed in 2.21s&#34;) + <b>blok16: 100/100</b> (&#34;100 passed in 0.63s&#34;) — 2026-07-15</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — API handler katmani hazir; gercek HTTP sunucusu (http.server) VPS'te baglanacak</td></tr>
+</tbody></table>
+</div>
+
+<div class="card" style="border:1px solid rgba(148,163,184,.3)">
+<h3><span class="dot" style="background:#94a3b8"></span>C13 — TESTLER, VPS DEPLOYMENT VE TAMAMLANMA KRITERLERI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<table>
+<tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
+<tr><td style="font-weight:700">Kural aciklamasi</td><td>Her blok TAM 100 pytest testi ile teslim edilir; terminal kaniti olmadan hicbir kart TEST_GECTI/CANLI olamaz (sahte test sayisi veya sahte dosya adi YASAK). Modul toplami: <b>1100/1100</b> (blok6-16) + Bolum 1-2 (268) = 1368 test. VPS deployment: repo klonlanir, .env doldurulur (.env.example sablon), systemd servis+timer kurulur, pytest 1100/1100 dogrulanir. CANLI durumu ancak ilk gercek sabah taramasi basarili calistiktan sonra yazilir.</td></tr>
+<tr><td style="font-weight:700">Gercek calisan dosya</td><td>tests/blok6 … tests/blok16 (11 test paketi) · systemd/ (4 servis/timer dosyasi) · .env.example · requirements.txt · README.md</td></tr>
+<tr><td style="font-weight:700">Gercek tablo</td><td>— (test/deployment katmani; veri tablosu degil)</td></tr>
+<tr><td style="font-weight:700">Gercek test dosyasi</td><td>11 dosya, toplam 1100 test fonksiyonu (grep ile sayildi: 1100)</td></tr>
+<tr><td style="font-weight:700">Son test sonucu</td><td><b>1100/1100 gecti</b> — terminal: &#34;1100 passed in 9.28s&#34; (2026-07-15)</td></tr>
+<tr><td style="font-weight:700">Uygulama durumu</td><td><b>TEST_GECTI</b> — GitHub'a push edildi (commit 8aa790f); VPS kurulumu kullanicinin sunucusunda yapilacak (VPS_KURULDU/CANLI henuz degil, iddia edilmez)</td></tr>
+</tbody></table>
+<div class="note-blue" style="margin:10px 0 0"><b>Not:</b> Bu kart serisindeki her dosya adi GitHub reposunda mevcuttur; her test sayisi terminal ciktisindan alinmistir. Durum etiketleri: PLANLANDI → KODLANDI → TEST_EDILIYOR → <b>TEST_GECTI</b> (simdilik burada) → VPS_KURULDU → CANLI. Son iki asama VPS'te gercek kurulum + ilk basarili tarama sonrasi guncellenecektir.</div>
+</div>
+
 <!-- 4. HISSE SKORLAMA -->
 <div class="card">
 <h3><span class="bolum-no" style="background:#22c55e">4</span>HISSE SKORLAMA — KURALLAR VE OTOMASYON DETAYI</h3>
