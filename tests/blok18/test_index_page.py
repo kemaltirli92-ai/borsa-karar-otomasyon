@@ -24,7 +24,12 @@ from pathlib import Path
 
 import pytest
 
-INDEX_HTML = Path(__file__).resolve().parents[3] / "telegram-sender" / "index.html"
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_CANDIDATES = [
+    _REPO_ROOT.parent / "telegram-sender" / "index.html",  # yerel calisma dizini
+    _REPO_ROOT / "index.html",                             # GitHub repo koku
+]
+INDEX_HTML = next((p for p in _CANDIDATES if p.is_file()), _CANDIDATES[-1])
 
 
 @pytest.fixture(scope="module")
