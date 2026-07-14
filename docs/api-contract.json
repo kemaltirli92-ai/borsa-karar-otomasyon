@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "base": "/api",
+  "title": "XK100 Borsa — Mobil/Web API Sozlesmesi (BLOK 20)",
+  "native_mobile": {
+    "status": "HAZIR_BEKLIYOR",
+    "note": "API sozlesmesi hazir; native mobil proje henuz olusturulmadi. Sahte native uygulama/indirme linki YOK."
+  },
+  "envelope": {
+    "description": "Zarf sozlesmesi: her cevap zorunlu zarf alanlarini tasir. Web ve mobil AYNI zarf degerlerini kullanir (scan_run_id esleme kurali).",
+    "fields": ["scan_run_id", "report_version", "last_updated_at", "data_cutoff_at", "status"],
+    "field_types": {
+      "scan_run_id": "string (ornek: 2026-07-09-XK100-R1)",
+      "report_version": "integer (artan)",
+      "last_updated_at": "string ISO-8601",
+      "data_cutoff_at": "string ISO-8601 (09:40 kesim)",
+      "status": "enum: OK | PARTIAL | FAILED | STALE"
+    },
+    "status_values": ["OK", "PARTIAL", "FAILED", "STALE"],
+    "run_id_rule": "Web ve mobil istemci ayni scan_run_id degerini gorur; data run_id ile zarf run_id eslesmezse cevap reddedilir (BLOK 16 kurali)."
+  },
+  "error_format": {
+    "shape": {"error": "KOD", "error_id": "string"},
+    "fields": ["error", "error_id"],
+    "note": "BLOK 16 masking ile uyumlu: bilinmeyen hata -> 500 {\"error\": \"INTERNAL_ERROR\", \"error_id\": \"...\"}; stack/SQL/yol sizintisi yok."
+  },
+  "endpoints": [
+    {"method": "GET", "path": "/api/stocks/universe/xk100", "description": "Aktif evren listesi"},
+    {"method": "GET", "path": "/api/stocks/{symbol}", "description": "Hisse ozeti"},
+    {"method": "GET", "path": "/api/stocks/{symbol}/scan/latest", "description": "Son tarama sonucu (BLOK 15 confidence dahil)"},
+    {"method": "GET", "path": "/api/stocks/{symbol}/prices", "description": "Fiyat serisi (data_layer filtresi: vars. validated/clean)"},
+    {"method": "GET", "path": "/api/stocks/{symbol}/kap", "description": "KAP bildirimleri (BLOK 11)"},
+    {"method": "GET", "path": "/api/stocks/{symbol}/news", "description": "Haberler (BLOK 12; dedupe canonical)"},
+    {"method": "GET", "path": "/api/stocks/{symbol}/corporate-actions", "description": "Kurumsal islemler (BLOK 13)"},
+    {"method": "GET", "path": "/api/stocks/{symbol}/restrictions", "description": "Tedbirler (BLOK 13)"},
+    {"method": "GET", "path": "/api/xk100/scan/latest", "description": "Endeks tarama ozeti"},
+    {"method": "GET", "path": "/api/xk100/stocks", "description": "100 hisse listesi (12 parametre destekli)"}
+  ],
+  "screens": [
+    {"screen": "01_ana_sayfa", "title": "Ana Sayfa", "endpoints": ["GET /api/xk100/scan/latest", "GET /api/stocks/universe/xk100"]},
+    {"screen": "02_tarama_durumu", "title": "XK100 Tarama Durumu", "endpoints": ["GET /api/xk100/scan/latest"]},
+    {"screen": "03_hisse_listesi", "title": "100 Hisse Ozeti", "endpoints": ["GET /api/xk100/stocks"]},
+    {"screen": "04_hisse_detayi", "title": "Hisse Detayi", "endpoints": ["GET /api/stocks/{symbol}"]},
+    {"screen": "05_tarama_sonucu", "title": "Hisse Son Tarama Sonucu", "endpoints": ["GET /api/stocks/{symbol}/scan/latest"]},
+    {"screen": "06_fiyat_grafigi", "title": "Ham Fiyat Grafigi", "endpoints": ["GET /api/stocks/{symbol}/prices"]},
+    {"screen": "07_kap_bildirimleri", "title": "KAP Bildirimleri", "endpoints": ["GET /api/stocks/{symbol}/kap"]},
+    {"screen": "08_haberler", "title": "Haberler", "endpoints": ["GET /api/stocks/{symbol}/news"]},
+    {"screen": "09_kurumsal_islemler", "title": "Kurumsal Islemler", "endpoints": ["GET /api/stocks/{symbol}/corporate-actions"]},
+    {"screen": "10_tedbirler", "title": "Tedbirler", "endpoints": ["GET /api/stocks/{symbol}/restrictions"]},
+    {"screen": "11_evren_listesi", "title": "Evren / Endeks Uyeleri", "endpoints": ["GET /api/stocks/universe/xk100"]},
+    {"screen": "12_liste_filtreleri", "title": "Filtreleme / Siralama / Sayfalama", "endpoints": ["GET /api/xk100/stocks"]},
+    {"screen": "13_ayarlar_hakkinda", "title": "Ayarlar / Hakkinda (native durum: HAZIR_BEKLIYOR)", "endpoints": ["GET /api/xk100/scan/latest"]}
+  ]
+}

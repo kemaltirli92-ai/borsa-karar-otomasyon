@@ -1,0 +1,27 @@
+{
+  "name": "XK100 Borsa",
+  "short_name": "XK100 Borsa",
+  "description": "XK100 (BIST Katilim 100) tarama durumu ve 100 hisse ozeti — PWA kabuk. Native mobil uygulama: HAZIR_BEKLIYOR.",
+  "lang": "tr",
+  "dir": "ltr",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#080c14",
+  "theme_color": "#07130b",
+  "icons": [
+    {
+      "src": "logo-aiborsam2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo-aiborsam2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

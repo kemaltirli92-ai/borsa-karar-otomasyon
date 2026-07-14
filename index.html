@@ -4,6 +4,8 @@
 <title>XK100 - Borsa Asistanim</title>
 <link rel="icon" type="image/png" href="favicon-xk100.png"/>
 <link rel="apple-touch-icon" href="favicon-xk100.png"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <meta name="theme-color" content="#0d1526"/>
 <meta name="apple-mobile-web-app-title" content="Borsa Asistanim"/>
 <style>
@@ -224,9 +226,38 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#080c14;paddin
   .sd-item{flex-wrap:wrap}
 }
 /* ===== BLOK 19 CSS SON ===== */
+
+/* ===== BLOK 20: Mobil Uygulama Entegrasyonu — cevrimdisi bant + dokunmatik hedefler + mobil alt-sheet ===== */
+/* Cevrimdisi veri bandi: eski onbellek ACIK etiketle sunulur — canli veri gibi SUNULMAZ */
+#offline-banner{position:fixed;top:0;left:0;right:0;z-index:2000;background:#451a03;color:#fde68a;border-bottom:1px solid #b45309;font-size:11px;font-weight:700;letter-spacing:.4px;text-align:center;padding:8px 12px}
+#offline-banner[hidden]{display:none}
+#offline-banner .ob-date{color:#fff;font-weight:800}
+/* Dokunmatik hedefler (touch-target) + mobil tasma onlemi: yalnizca mobil kirpida */
+@media (max-width:640px){
+  /* filtre / siralama / sayfalama kontrolleri min 44px dokunmatik hedef */
+  .stk-filters input,.stk-filters select{min-height:44px;font-size:13px}
+  .stk-filters label{font-size:11px}
+  .stk-sort select{min-height:44px;font-size:13px}
+  .stk-page button{min-height:44px;min-width:44px;padding:10px 14px;font-size:12px}
+  .stk-page select{min-height:44px;font-size:13px}
+  /* satir tiklama hedefi min 44px (tablo satiri + mobil kart) */
+  .stk-table tbody tr{min-height:44px}
+  .stk-table tbody td{padding-top:10px;padding-bottom:10px}
+  .stk-cards>*{min-height:44px}
+  .sd-close{min-height:44px;min-width:44px;padding:10px 14px}
+  .sd-range button,.sd-adjust button{min-height:44px}
+  /* Mobil tablo: yatay scroll-wrap — tablo tasmaz, dokunarak kaydirilir */
+  .stk-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100vw}
+  /* Detay paneli mobil alt-sheet (bottom-sheet): alta yapisik tam genislik, max-width:100vw */
+  .stk-detail{align-items:flex-end;padding:0}
+  .stk-detail .sd-box{max-width:100vw;width:100%;border-radius:16px 16px 0 0;max-height:92vh;margin-top:auto}
+}
+/* ===== BLOK 20 CSS SON ===== */
 </style>
 <script src="https://www.kimi.com/sdk-seed.js" defer=""></script></head>
 <body>
+<!-- ===== BLOK 20: CEVRIMDISI VERI bandi (gizli varsayilan — sw eski onbellek sununca acilir; eski onbellek canli veri gibi SUNULMAZ) ===== -->
+<div id="offline-banner" hidden="" role="status">CEVRIMDISI VERI — SON GUNCELLEME: <span class="ob-date" id="offline-banner-date">—</span></div>
 <div class="w">
 
 <!-- ===== LOGO SOLDA + XK100 ORTADA + BILGILER SAGDA ===== -->
@@ -1154,6 +1185,52 @@ window.addEventListener('load',()=>{
 });
 </script>
 
+<!-- ===== BLOK 20: Native durum isareti — sahte uygulama butonu/indirme linki YOK ===== -->
+<footer class="b20-footer" style="text-align:center;font-size:10px;color:#475569;padding:10px 8px 16px;letter-spacing:.4px">
+Native mobil uygulama: <b style="color:#94a3b8">HAZIR BEKLIYOR</b> (API sozlesmesi hazir)
+</footer>
+
+<!-- ===== BLOK 20: PWA kaydi + cevrimdisi bant mantigi (vanilla JS — framework/dis bagimlilik YOK) ===== -->
+<script>
+(function(){
+  "use strict";
+  /* Service worker kaydi: manifest.webmanifest + sw.js yuklenir */
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("sw.js").catch(function(err){
+        console.warn("[XK100][BLOK20] sw kaydi basarisiz:", err);
+      });
+    });
+  }
+  /* Cevrimdisi bant mantigi: sw eski onbellek sundugunda ACIK etiket gosterilir.
+     Eski onbellek canli veri gibi SUNULMAZ — bant her zaman "CEVRIMDISI VERI" der. */
+  var banner = null, bannerDate = null;
+  function b20ShowOffline(cachedAt){
+    banner = banner || document.getElementById("offline-banner");
+    bannerDate = bannerDate || document.getElementById("offline-banner-date");
+    if (!banner) return;
+    var text = cachedAt || "bilinmiyor";
+    try { if (cachedAt) text = new Date(cachedAt).toLocaleString("tr-TR"); } catch (e) {}
+    if (bannerDate) bannerDate.textContent = text;
+    banner.hidden = false;
+  }
+  function b20HideOffline(){
+    banner = banner || document.getElementById("offline-banner");
+    if (banner) banner.hidden = true;
+  }
+  /* sw mesajlari: B20_STALE_SERVED (eski onbellek sunuldu) / B20_LIVE (canli yanit) */
+  if ("serviceWorker" in navigator && navigator.serviceWorker.addEventListener) {
+    navigator.serviceWorker.addEventListener("message", function(ev){
+      var msg = ev.data || {};
+      if (msg.type === "B20_STALE_SERVED") b20ShowOffline(msg.cachedAt);
+      if (msg.type === "B20_LIVE" && navigator.onLine) b20HideOffline();
+    });
+  }
+  window.addEventListener("offline", function(){ b20ShowOffline(""); });
+  window.addEventListener("online", function(){ b20HideOffline(); });
+})();
+</script>
+
 
 <!-- ===== BLOK 18: API BAGLANTI KATMANI (vanilla JS — framework/dis bagimlilik YOK) ===== -->
 <script>
@@ -1742,6 +1819,77 @@ function sdLoadAll(){
   sdFetch(sdBase(sym) + "/restrictions", "restrictions", sdRenderRestrictions, function(){ sdListError("sd-restrictions-list"); });
   sdLoadPrices();
 }
+
+/* ===== BLOK 20 EK: GRAFIK PERFORMANS KATMANI (mevcut cizim fonksiyonlari korunur — silinmez, sadece sarmalanir) ===== */
+/* 1) canvas dpr sinirlamasi (max 2): yuksek dpr ekranlarda piksel maliyeti sinirlanir.
+      window.devicePixelRatio salt-okunur oldugundan own-property ile golgelenir;
+      tarayici izin vermezse orijinal deger kullanilir. */
+function b20CapDpr(){
+  const raw = window.devicePixelRatio || 1;
+  return Math.min(raw, 2);
+}
+(function b20ApplyDprCap(){
+  try {
+    const desc = Object.getOwnPropertyDescriptor(window, "devicePixelRatio") ||
+                 Object.getOwnPropertyDescriptor(Object.getPrototypeOf(window), "devicePixelRatio");
+    const rawGet = desc && desc.get ? desc.get : function(){ return 1; };
+    Object.defineProperty(window, "devicePixelRatio", {
+      configurable: true,
+      get: function(){ return Math.min(rawGet.call(window) || 1, 2); }
+    });
+  } catch (e) { /* golgeleme basarisizsa orijinal dpr kullanilir */ }
+})();
+/* 2) downsample (gruplama): veri noktasi >500 ise SADECE cizim katmaninda gruplanir.
+      HAM VERI DEGISTIRILMEZ — sd.barsRaw / sd.barsAdj oldugu gibi kalir;
+      bu fonksiyon girdi dizisine dokunmaz, yeni bir dizi dondurur. */
+const B20_DOWNSAMPLE_THRESHOLD = 500;
+function b20DownsampleForDraw(bars, maxPoints){
+  const limit = maxPoints || B20_DOWNSAMPLE_THRESHOLD;
+  if (!bars || bars.length <= limit) return bars;
+  const group = Math.ceil(bars.length / limit);
+  const out = [];
+  for (let i = 0; i < bars.length; i += group){
+    const chunk = bars.slice(i, i + group);
+    let hi = -Infinity, lo = Infinity, vol = 0;
+    chunk.forEach(function(b){
+      if (b.high > hi) hi = b.high;
+      if (b.low < lo) lo = b.low;
+      vol += b.volume || 0;
+    });
+    out.push({
+      date: chunk[chunk.length - 1].date,
+      open: chunk[0].open,
+      high: hi,
+      low: lo,
+      close: chunk[chunk.length - 1].close,
+      volume: vol
+    });
+  }
+  return out;
+}
+/* 3) resize debounce: ardisik boyutlandirma olaylari tek cizime indirgenir */
+const B20_RESIZE_DEBOUNCE_MS = 150;
+function b20Debounce(fn, wait){
+  let timer = null;
+  return function(){
+    const args = arguments;
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function(){ timer = null; fn.apply(null, args); }, wait);
+  };
+}
+/* Sarmalama: orijinal fonksiyon tanimlari yukarida aynen durur; cizim aninda
+   performans katmani (downsample + debounce) uygulanir. */
+const b20OrigDrawCandles = drawStockCandles;
+const b20OrigDrawVolume = drawStockVolume;
+drawStockCandles = function(canvas, bars, events){
+  return b20OrigDrawCandles(canvas, b20DownsampleForDraw(bars), events);
+};
+drawStockVolume = function(canvas, bars){
+  return b20OrigDrawVolume(canvas, b20DownsampleForDraw(bars));
+};
+const b20OrigRedrawCharts = sdRedrawCharts;
+sdRedrawCharts = b20Debounce(function(){ b20OrigRedrawCharts(); }, B20_RESIZE_DEBOUNCE_MS);
+/* ===== BLOK 20 EK SON ===== */
 
 document.addEventListener("DOMContentLoaded", function(){
   sdBindRowClicks();
