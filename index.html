@@ -159,6 +159,71 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#080c14;paddin
   .stk-filters{grid-template-columns:repeat(2,1fr)}
   .scan-grid{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ===== BLOK 19: Hisse Detayi paneli + ham fiyat grafikleri (saf canvas) ===== */
+/* YASAK LISTESI (Bolum 5/6): teknik analiz katmani bu adimda kodda yer alamaz */
+.stk-detail{position:fixed;inset:0;z-index:500;background:rgba(4,8,16,.72);display:flex;align-items:flex-start;justify-content:center;padding:18px;overflow-y:auto}
+.stk-detail[hidden]{display:none}
+.sd-box{width:100%;max-width:760px;background:#0d1526;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;max-height:94vh;overflow-y:auto;overflow-x:hidden;box-shadow:0 18px 60px rgba(0,0,0,.65)}
+.sd-head{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:10px;margin-bottom:10px}
+.sd-title{font-size:14px;font-weight:800;color:#f8fafc;letter-spacing:.4px}
+.sd-close{background:#1e293b;color:#e2e8f0;border:1px solid #334155;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer}
+.sd-close:hover{border-color:#60a5fa}
+.sd-sec{background:#0a0f1d;border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.sd-sec h3{font-size:11px;color:#94a3b8;margin:0 0 8px;letter-spacing:.5px}
+.sd-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.sd-item{display:flex;justify-content:space-between;gap:8px;font-size:10px;background:#060a14;border-radius:6px;padding:6px 8px}
+.sd-item .k{color:#64748b}
+.sd-item .v{color:#e2e8f0;font-weight:700;text-align:right;word-break:break-word}
+.sd-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin:0;padding:0}
+.sd-list li{background:#060a14;border:1px solid rgba(255,255,255,.04);border-radius:6px;padding:7px 9px;font-size:10px;color:#cbd5e1}
+.sd-list li .t{color:#64748b;font-size:9px;display:block;margin-top:2px}
+.sd-list li.sd-empty{color:#64748b;text-align:center;border-style:dashed}
+.sd-scroll{overflow-x:auto}
+.sd-warn{color:#f59e0b;font-size:10px;margin:2px 0}
+.sd-warn-list{margin-top:6px}
+/* rozetler: KAP revizyon + tedbir aktif/gecmis */
+.sd-badge{display:inline-block;font-size:8px;font-weight:800;padding:1px 6px;border-radius:4px;letter-spacing:.4px;margin-left:6px;vertical-align:middle}
+.sd-badge-active{background:#2a0f0f;color:#f87171;border:1px solid #991b1b}
+.sd-badge-past{background:#1e293b;color:#94a3b8;border:1px solid #334155}
+.sd-badge-rev{background:#2a1a0f;color:#f59e0b;border:1px solid #92400e}
+/* grafik alani: aralik butonlari + ham/duzeltilmis secimi + canvas */
+.sd-range{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.sd-range button,.sd-adjust button{background:#0f172a;color:#cbd5e1;border:1px solid #1e293b;border-radius:6px;padding:5px 10px;font-size:10px;font-weight:700;cursor:pointer}
+.sd-range button.sd-sel,.sd-adjust button.sd-sel{border-color:#38bdf8;color:#38bdf8;background:#082032}
+.sd-adjust{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.sd-adjust button:disabled{opacity:.4;cursor:not-allowed}
+.sd-adj-note{font-size:9px;color:#f59e0b}
+.sd-chart-wrap{position:relative}
+.sd-canvas{width:100%;display:block;background:#060a14;border-radius:8px;border:1px solid rgba(255,255,255,.04);margin-bottom:4px}
+.sd-chart-title{font-size:9px;color:#64748b;margin:2px 0 6px;letter-spacing:.4px}
+.sd-marker-legend{display:flex;gap:8px;flex-wrap:wrap;font-size:9px;color:#94a3b8;margin-top:4px}
+.sd-marker{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;font-size:8px;font-weight:800;color:#0a0f1d;vertical-align:middle}
+.sd-mk-D{background:#38bdf8}
+.sd-mk-B{background:#a78bfa}
+.sd-mk-S{background:#fbbf24}
+.sd-mk-X{background:#64748b}
+/* 5 veri-yok durum karti: bos canvas yerine renkli rozet + aciklama */
+.sd-statecard{border-radius:10px;padding:14px;text-align:center;border:1px dashed #334155;margin-bottom:8px}
+.sd-statecard .sd-state-title{font-size:12px;font-weight:800;letter-spacing:.5px;margin-bottom:4px}
+.sd-statecard .sd-state-desc{font-size:10px;line-height:1.6;opacity:.85}
+.sd-statecard .sd-state-note{font-size:9px;margin-top:6px;font-weight:700}
+.sd-sc-PRICE_DATA_MISSING{background:#1e293b;color:#cbd5e1}
+.sd-sc-LIMITED_DATA{background:#2a1a0f;color:#f59e0b;border-color:#92400e}
+.sd-sc-NEW_LISTING{background:#0c1a2e;color:#60a5fa;border-color:#1e40af}
+.sd-sc-PENDING_REVIEW{background:#241a0a;color:#fbbf24;border-color:#854d0e}
+.sd-sc-TRADING_HALT{background:#2a0f0f;color:#f87171;border-color:#991b1b}
+.sd-sc-error{background:#1e293b;color:#94a3b8}
+/* Responsive: mobil tasmasin — detay paneli max-width:100vw, overflow-x:hidden */
+@media (max-width:640px){
+  .stk-detail{padding:6px;max-width:100vw;overflow-x:hidden}
+  .sd-box{max-width:100vw;overflow-x:hidden;border-radius:12px;padding:10px}
+  .sd-grid{grid-template-columns:1fr}
+  .sd-range button,.sd-adjust button{flex:1 1 28%;padding:6px 4px}
+  .sd-canvas{max-width:100%}
+  .sd-item{flex-wrap:wrap}
+}
+/* ===== BLOK 19 CSS SON ===== */
 </style>
 <script src="https://www.kimi.com/sdk-seed.js" defer=""></script></head>
 <body>
@@ -372,6 +437,98 @@ Endeks Skoru 71.5 ile POZITIF bolgededir. Endeks Yonu ve Piyasa Yapisi, VIOP ve 
 <span class="page-note">100 hissenin tamami tek cevapta cekilmez — sayfa bazli istek: GET /api/xk100/stocks?page=&amp;page_size=</span>
 </div>
 </div>
+
+<!-- ===== BLOK 19: HISSE DETAY PANELI (100 Hisse Ozeti satirina tiklayinca acilir — kapat butonu + ESC) ===== -->
+<div id="stk-detail" class="stk-detail" hidden="" role="dialog" aria-modal="true" aria-label="Hisse Detayi">
+<div class="sd-box">
+<div class="sd-head">
+<span class="sd-title" id="sd-title">Hisse Detayi</span>
+<button id="sd-close" class="sd-close" type="button" aria-label="Detay panelini kapat">Kapat</button>
+</div>
+
+<!-- 1. Sirket bilgisi: kod, kisa ad, sektor, XK100 uyelik durumu -->
+<section class="sd-sec" id="sd-sec-company">
+<h3>1 · Sirket Bilgisi</h3>
+<div class="sd-grid">
+<div class="sd-item"><span class="k">Hisse Kodu</span><span class="v" id="sd-company-symbol">—</span></div>
+<div class="sd-item"><span class="k">Sirket Kisa Adi</span><span class="v" id="sd-company-name">—</span></div>
+<div class="sd-item"><span class="k">Sektor</span><span class="v" id="sd-company-sector">—</span></div>
+<div class="sd-item"><span class="k">XK100 Uyelik Durumu</span><span class="v" id="sd-company-membership">—</span></div>
+</div>
+</section>
+
+<!-- 2. Fiyat ozeti: son dogrulanmis fiyat, gunluk %, son islem tarihi -->
+<section class="sd-sec" id="sd-sec-price">
+<h3>2 · Fiyat Ozeti</h3>
+<div class="sd-grid">
+<div class="sd-item"><span class="k">Son Dogrulanmis Fiyat</span><span class="v" id="sd-price-last">—</span></div>
+<div class="sd-item"><span class="k">Gunluk % Degisim</span><span class="v" id="sd-price-change">—</span></div>
+<div class="sd-item"><span class="k">Son Islem Tarihi</span><span class="v" id="sd-price-date">—</span></div>
+</div>
+</section>
+
+<!-- 3. Tarama ozeti: tarama durumu, Veri Guveni, eksik veri uyarilari -->
+<section class="sd-sec" id="sd-sec-scan">
+<h3>3 · Tarama Ozeti</h3>
+<div class="sd-grid">
+<div class="sd-item"><span class="k">Tarama Durumu</span><span class="v" id="sd-scan-status">—</span></div>
+<div class="sd-item"><span class="k">Veri Guveni (0-100)</span><span class="v" id="sd-scan-confidence">—</span></div>
+</div>
+<div class="sd-warn-list" id="sd-scan-warnings"></div>
+</section>
+
+<!-- 4. KAP listesi: tip, baslik, tarih, revizyon rozeti -->
+<section class="sd-sec" id="sd-sec-kap">
+<h3>4 · KAP Bildirimleri</h3>
+<div class="sd-scroll"><ul class="sd-list" id="sd-kap-list"></ul></div>
+</section>
+
+<!-- 5. Dogrulanmis ham haber listesi (dedupe canonical) -->
+<section class="sd-sec" id="sd-sec-news">
+<h3>5 · Dogrulanmis Ham Haberler</h3>
+<div class="sd-scroll"><ul class="sd-list" id="sd-news-list"></ul></div>
+</section>
+
+<!-- 6. Kurumsal islemler (11 tip) -->
+<section class="sd-sec" id="sd-sec-actions">
+<h3>6 · Kurumsal Islemler</h3>
+<div class="sd-scroll"><ul class="sd-list" id="sd-actions-list"></ul></div>
+</section>
+
+<!-- 7. Aktif tedbirler (7 tip, aktif/gecmis rozeti) -->
+<section class="sd-sec" id="sd-sec-restrictions">
+<h3>7 · Aktif Tedbirler</h3>
+<div class="sd-scroll"><ul class="sd-list" id="sd-restrictions-list"></ul></div>
+</section>
+
+<!-- 8. Grafikler: mum + hacim (saf canvas — harici grafik kutuphanesi YOK) -->
+<section class="sd-sec" id="sd-sec-charts">
+<h3>8 · Ham Fiyat Grafikleri</h3>
+<div class="sd-range" id="sd-range-buttons" role="group" aria-label="Grafik araligi">
+<button type="button" data-range="30">30</button>
+<button type="button" data-range="60">60</button>
+<button type="button" data-range="90" class="sd-sel">3AY</button>
+<button type="button" data-range="180">6AY</button>
+<button type="button" data-range="260">1YIL</button>
+<button type="button" data-range="max">MAKSIMUM</button>
+</div>
+<div class="sd-adjust" id="sd-adjust-buttons" role="group" aria-label="Fiyat serisi secimi">
+<button type="button" id="sd-btn-raw" class="sd-sel">HAM FIYAT</button>
+<button type="button" id="sd-btn-adj" disabled="">DUZELTILMIS FIYAT</button>
+<span class="sd-adj-note" id="sd-adj-note">duzeltilmis seri yok</span>
+</div>
+<div class="sd-chart-title" id="sd-chart-title">Mum grafigi — Open/High/Low/Close + Hacim (dogrulanmis validated seri)</div>
+<div class="sd-chart-wrap" id="sd-chart-wrap">
+<canvas id="sd-candles" class="sd-canvas" height="240"></canvas>
+<canvas id="sd-volume" class="sd-canvas" height="90"></canvas>
+</div>
+<div class="sd-marker-legend" id="sd-marker-legend" hidden=""></div>
+<div id="sd-statecards" hidden=""></div>
+</section>
+
+</div>
+</div>
+<!-- ===== BLOK 19 PANEL SON ===== -->
 
 <!-- ===== BOLUM 2: ASELS ===== -->
 <div class="cd" style="animation-delay:.15s">
@@ -1230,6 +1387,383 @@ document.addEventListener("DOMContentLoaded", function(){
   bindControls();
   loadScan();
   loadStocks();  // sayfa bazli: GET /api/xk100/stocks?page=1&page_size=25
+});
+})();
+</script>
+
+<!-- ===== BLOK 19: HISSE DETAY + HAM FIYAT GRAFIK MOTORU (vanilla JS + canvas, harici grafik kutuphanesi YOK) ===== -->
+<script>
+(function(){
+"use strict";
+/* YASAK LISTESI (Bolum 5/6): teknik analiz katmani bu adimda kodda yer alamaz.
+   Bu modul YALNIZCA dogrulanmis ham OHLCV mum grafigi + hacim grafigi cizer.
+   Sahte veri URETILMEZ — API hatasinda durum karti gosterilir. */
+const API_BASE = ""; // ayni origin — statik frontend + VPS API
+
+/* PUAN KILIDI: detayda Hisse Skoru ekrana BASILMAZ — render oncesi skor anahtarlari dusurulur */
+const SD_SCORE_KEYS = ["hisse_skoru","hisse_skor","stock_score","final_score","total_score","skor","score","puan"];
+
+/* 5 veri-yok durum karti: bos canvas yerine renkli rozet + aciklama */
+const SD_STATE_MAP = {
+  PRICE_DATA_MISSING: {title:"FIYAT VERISI YOK", desc:"Bu hisse icin dogrulanmis fiyat serisi bulunmuyor."},
+  LIMITED_DATA:       {title:"SINIRLI VERI", desc:"Fiyat serisi sinirli sayida islem gunu iceriyor; eksik gunler icin uretim yapilmaz."},
+  NEW_LISTING:        {title:"YENI HALKA ARZ", desc:"Hisse yeni islem gormeye basladi; fiyat gecmisi kisa.", note:"eksik gecmis uretilmez"},
+  PENDING_REVIEW:     {title:"DOGRULAMA BEKLIYOR", desc:"Fiyat verisi dogrulama asamasinda (review/pending); ham seri henuz onaylanmadi."},
+  TRADING_HALT:       {title:"AKTIF ISLEM DURDURMA", desc:"Hisse icin aktif islem durdurma (TRADING_HALT) tedbiri var."}
+};
+/* Kurumsal islem isaret harfleri: D temettu, B bedelsiz, S bolunme */
+const SD_EVENT_LETTERS = { dividend:"D", bonus:"B", split:"S" };
+const SD_ACTION_TYPES = ["dividend","bonus","split","rights_issue","capital_increase","merger","spinoff","buyback","delisting","name_change","other"]; // 11 tip
+const SD_RESTRICTION_TYPES = ["TRADING_HALT","UPWARD_TICK","DOWNWARD_TICK","BRUT_TAKAS","PACKAGE_ORDER_BAN","SHORT_SELL_BAN","MARGIN_BAN"]; // 7 tip
+
+const sd = { symbol:null, range:"90", useAdjusted:false, barsRaw:[], barsAdj:[], events:[], open:false };
+
+function byId(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function sdVal(x){ return (x===null||x===undefined||x==="") ? "—" : esc(x); }
+function sdSetText(id, x){ const el=byId(id); if (el) el.textContent = (x===null||x===undefined||x==="") ? "—" : String(x); }
+function sdMaskError(where, err){
+  if (window.console && typeof console.warn === "function"){
+    console.warn("[XK100][BLOK19] API hatasi maskelendi (" + where + "):", err);
+  }
+}
+function sdStripScoreKeys(rec){
+  if (!rec || typeof rec !== "object" || Array.isArray(rec)) return rec;
+  const clean = {};
+  Object.keys(rec).forEach(function(k){
+    const lk = k.toLowerCase();
+    for (let i=0;i<SD_SCORE_KEYS.length;i++){ if (lk.indexOf(SD_SCORE_KEYS[i]) !== -1) return; }
+    clean[k] = rec[k];
+  });
+  return clean;
+}
+
+/* 7 API ucu (detay icin):
+   GET /api/stocks/{symbol}
+   GET /api/stocks/{symbol}/scan/latest
+   GET /api/stocks/{symbol}/kap
+   GET /api/stocks/{symbol}/news
+   GET /api/stocks/{symbol}/corporate-actions
+   GET /api/stocks/{symbol}/restrictions
+   GET /api/stocks/{symbol}/prices?range=30|60|90|180|260|max */
+function sdBase(sym){ return API_BASE + "/api/stocks/" + encodeURIComponent(sym); }
+function sdFetch(path, where, ok, fail){
+  fetch(path, {method:"GET"})
+    .then(function(resp){ if (!resp.ok) throw new Error("HTTP " + resp.status); return resp.json(); })
+    .then(ok)
+    .catch(function(err){ sdMaskError(where, err); if (fail) fail(err); });
+}
+
+/* --- panel ac/kapa: satira tikla + kapat butonu + ESC --- */
+function sdOpen(sym){
+  sd.symbol = sym; sd.open = true;
+  byId("stk-detail").hidden = false;
+  byId("sd-title").textContent = "Hisse Detayi — " + sym;
+  sdLoadAll();
+}
+function sdClose(){ sd.open = false; byId("stk-detail").hidden = true; }
+
+/* 100 Hisse Ozeti satirina tiklayinca detay acilir (tablo arka planda kalir) */
+function sdBindRowClicks(){
+  const tb = byId("stk-tbody");
+  if (tb) tb.addEventListener("click", function(e){
+    const tr = e.target.closest ? e.target.closest("tr") : null;
+    if (!tr) return;
+    const cell = tr.querySelector("td b");
+    if (cell && cell.textContent.trim()) sdOpen(cell.textContent.trim());
+  });
+  const cards = byId("stk-cards");
+  if (cards) cards.addEventListener("click", function(e){
+    const card = e.target.closest ? e.target.closest(".stk-card") : null;
+    if (!card) return;
+    const b = card.querySelector(".stk-card-head b");
+    if (b && b.textContent.trim()) sdOpen(b.textContent.trim());
+  });
+}
+
+/* --- 1/2/3: sirket bilgisi + fiyat ozeti + tarama ozeti --- */
+function sdRenderDetail(env){
+  const d = sdStripScoreKeys((env && env.data) || env) || {};
+  sdSetText("sd-company-symbol", d.hisse_kodu || d.symbol || sd.symbol);
+  sdSetText("sd-company-name", d.sirket_kisa_adi || d.short_name);
+  sdSetText("sd-company-sector", d.sektor || d.sector);
+  sdSetText("sd-company-membership", d.xk100_uyelik || d.membership_status); // XK100 uyelik durumu
+  sdSetText("sd-price-last", d.son_dogrulanmis_kapanis);
+  sdSetText("sd-price-change", d.gunluk_yuzde_degisim);
+  sdSetText("sd-price-date", d.son_islem_tarihi);
+}
+function sdRenderScan(env){
+  const d = sdStripScoreKeys((env && env.data) || env) || {};
+  sdSetText("sd-scan-status", d.tarama_durumu || d.status);
+  sdSetText("sd-scan-confidence", d.veri_guveni);
+  const warns = d.eksik_veri_uyarilari || d.missing_data_warnings || [];
+  byId("sd-scan-warnings").innerHTML = warns.map(function(w){
+    return '<div class="sd-warn">&#9888; ' + esc(w) + '</div>';
+  }).join("");
+}
+
+/* --- 4/5/6/7: KAP + haber + kurumsal islem + tedbir listeleri --- */
+function sdListError(id){ const el=byId(id); if (el) el.innerHTML = '<li class="sd-empty">veri alinamadi</li>'; }
+function sdRenderKap(env){
+  const items = (env && env.items) || [];
+  const ul = byId("sd-kap-list");
+  if (!items.length){ ul.innerHTML = '<li class="sd-empty">KAP bildirimi yok</li>'; return; }
+  ul.innerHTML = items.map(function(k){
+    const rev = k.revizyon ? '<span class="sd-badge sd-badge-rev">REVIZYON</span>' : "";
+    return '<li><b>' + sdVal(k.tip || k.type) + '</b> ' + sdVal(k.baslik || k.title) + rev +
+      '<span class="t">' + sdVal(k.tarih || k.date) + '</span></li>';
+  }).join("");
+}
+function sdRenderNews(env){
+  const items = (env && env.items) || []; // dedupe canonical — dogrulanmis ham liste
+  const ul = byId("sd-news-list");
+  if (!items.length){ ul.innerHTML = '<li class="sd-empty">Dogrulanmis haber yok</li>'; return; }
+  ul.innerHTML = items.map(function(n){
+    return '<li><b>' + sdVal(n.baslik || n.title) + '</b>' +
+      '<span class="t">' + sdVal(n.kaynak || n.source) + ' · ' + sdVal(n.tarih || n.date) +
+      ' · canonical: ' + sdVal(n.canonical_url) + '</span></li>';
+  }).join("");
+}
+function sdRenderActions(env){
+  const items = (env && env.items) || [];
+  const ul = byId("sd-actions-list");
+  if (!items.length){ ul.innerHTML = '<li class="sd-empty">Kurumsal islem yok</li>'; return; }
+  ul.innerHTML = items.map(function(a){
+    const letter = SD_EVENT_LETTERS[a.type] || "";
+    const badge = letter ? '<span class="sd-marker sd-mk-' + letter + '">' + letter + '</span> ' : "";
+    return '<li>' + badge + '<b>' + sdVal(a.type) + '</b> ' + sdVal(a.aciklama || a.title) +
+      '<span class="t">' + sdVal(a.tarih || a.date) + '</span></li>';
+  }).join("");
+}
+function sdRenderRestrictions(env){
+  const items = (env && env.items) || [];
+  const ul = byId("sd-restrictions-list");
+  if (!items.length){ ul.innerHTML = '<li class="sd-empty">Aktif/gecmis tedbir yok</li>'; return; }
+  ul.innerHTML = items.map(function(t){
+    const badge = t.aktif ? '<span class="sd-badge sd-badge-active">AKTIF</span>'
+                          : '<span class="sd-badge sd-badge-past">GECMIS</span>';
+    return '<li><b>' + sdVal(t.tip || t.type) + '</b>' + badge +
+      '<span class="t">' + sdVal(t.baslangic || t.start) + ' → ' + sdVal(t.bitis || t.end) + '</span></li>';
+  }).join("");
+}
+
+/* --- 5 veri-yok durum karti (grafik alaninda bos canvas YERINE) --- */
+function sdShowStateCard(key){
+  const meta = SD_STATE_MAP[key];
+  if (!meta){ sdShowStateError(); return; }
+  byId("sd-chart-wrap").hidden = true;
+  byId("sd-marker-legend").hidden = true;
+  const box = byId("sd-statecards");
+  box.innerHTML = '<div class="sd-statecard sd-sc-' + key + '" data-state="' + key + '">' +
+    '<div class="sd-state-title">' + meta.title + '</div>' +
+    '<div class="sd-state-desc">' + meta.desc + '</div>' +
+    (meta.note ? '<div class="sd-state-note">' + meta.note + '</div>' : "") +
+    '</div>';
+  box.hidden = false;
+}
+function sdShowStateError(){
+  /* fetch hatasi -> "veri alinamadi" durum karti (sahte veri YOK) */
+  byId("sd-chart-wrap").hidden = true;
+  byId("sd-marker-legend").hidden = true;
+  const box = byId("sd-statecards");
+  box.innerHTML = '<div class="sd-statecard sd-sc-error" data-state="ERROR">' +
+    '<div class="sd-state-title">VERI ALINAMADI</div>' +
+    '<div class="sd-state-desc">Fiyat verisi alinamadi — HENUZ_CALISMA_YOK. Sahte veri uretilmez.</div></div>';
+  box.hidden = false;
+}
+function sdHideStateCard(){
+  const box = byId("sd-statecards");
+  box.hidden = true; box.innerHTML = "";
+  byId("sd-chart-wrap").hidden = false;
+}
+
+/* --- grafik veri modeli: OHLC 4 alan + volume + tarih (dogrulanmis validated seri) --- */
+function sdNormalizeBars(rows){
+  const out = [];
+  (rows || []).forEach(function(r){
+    if (!r) return; /* eksik gun: sifir mum URETILMEZ — kayit yoksa o gun atlanir (grafikte bosluk kalir) */
+    const bar = { date:(r.date || r.tarih), open:+r.open, high:+r.high, low:+r.low, close:+r.close, volume:+(r.volume || 0) };
+    if (!sdBarValid(bar)) return; /* tatil gunu: sahte mum OLUSTURMA (grafikte yer almaz) */
+    out.push(bar);
+  });
+  /* tarih ekseni yalnizca islem gunlerinden olusur — gun doldurma/padding yapilmaz */
+  return out;
+}
+function sdBarValid(bar){
+  return !!bar.date && isFinite(bar.open) && isFinite(bar.high) && isFinite(bar.low) && isFinite(bar.close) &&
+    bar.open > 0 && bar.high > 0 && bar.low > 0 && bar.close > 0 && bar.high >= bar.low;
+}
+
+/* Mum grafigi ve hacim grafigi AYNI tarih eksenini paylasir:
+   iki canvas da ayni padL/cw ile ayni sdAxisX fonksiyonunu kullanir. */
+function sdAxisX(i, n, padL, cw){ return padL + cw * (i + 0.5) / n; }
+
+function drawStockCandles(canvas, bars, events){
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  const r = canvas.getBoundingClientRect();
+  const W = Math.max(240, r.width || 240), H = 240;
+  canvas.width = W*dpr; canvas.height = H*dpr; ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  const padL=46, padR=12, padT=10, padB=18;
+  const cw=W-padL-padR, ch=H-padT-padB;
+  const n=bars.length; if (!n) return;
+  let hi=-Infinity, lo=Infinity;
+  bars.forEach(function(b){ if (b.high>hi) hi=b.high; if (b.low<lo) lo=b.low; });
+  const range=(hi-lo)||1;
+  function py(p){ return padT + (1-(p-lo)/range)*ch; }
+  ctx.strokeStyle="rgba(255,255,255,.05)"; ctx.fillStyle="rgba(255,255,255,.3)"; ctx.font="8px Segoe UI"; ctx.lineWidth=1;
+  for (let g=0; g<=4; g++){
+    const y=padT+ch*g/4;
+    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(W-padR,y); ctx.stroke();
+    ctx.textAlign="right"; ctx.fillText((hi-range*g/4).toFixed(2), padL-4, y+3);
+  }
+  const bw=Math.max(1.5, Math.min(8, cw/n*0.6));
+  bars.forEach(function(bar, i){
+    const x = sdAxisX(i, n, padL, cw); /* paylasilan x-ekseni */
+    const up = bar.close >= bar.open;
+    ctx.strokeStyle = up ? "#22c55e" : "#ef4444";
+    ctx.fillStyle = ctx.strokeStyle;
+    ctx.beginPath(); ctx.moveTo(x, py(bar.high)); ctx.lineTo(x, py(bar.low)); ctx.stroke(); /* fitil: high-low */
+    const yO=py(bar.open), yC=py(bar.close);
+    ctx.fillRect(x-bw/2, Math.min(yO,yC), bw, Math.max(1, Math.abs(yC-yO))); /* govde: open-close */
+  });
+  /* tarih etiketleri yalnizca islem gunlerinden — eksik/tatil gunu eksende yer almaz */
+  ctx.fillStyle="rgba(255,255,255,.25)"; ctx.textAlign="center";
+  const step=Math.max(1, Math.ceil(n/6));
+  for (let i=0; i<n; i+=step){ ctx.fillText(String(bars[i].date).slice(5), sdAxisX(i,n,padL,cw), H-5); }
+  sdDrawEventMarkers(ctx, events, bars, padL, cw);
+}
+
+function drawStockVolume(canvas, bars){
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  const r = canvas.getBoundingClientRect();
+  const W = Math.max(240, r.width || 240), H = 90;
+  canvas.width = W*dpr; canvas.height = H*dpr; ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  const padL=46, padR=12, padT=6, padB=18;
+  const cw=W-padL-padR, ch=H-padT-padB;
+  const n=bars.length; if (!n) return;
+  let maxV=0; bars.forEach(function(b){ if (b.volume>maxV) maxV=b.volume; }); maxV=maxV||1;
+  const bw=Math.max(1.5, Math.min(8, cw/n*0.6));
+  bars.forEach(function(bar, i){
+    const x = sdAxisX(i, n, padL, cw); /* paylasilan x-ekseni — mum grafigiyle AYNI tarih hizasi */
+    const bh = (bar.volume/maxV)*ch;
+    ctx.fillStyle = bar.close >= bar.open ? "rgba(34,197,94,.5)" : "rgba(239,68,68,.5)";
+    ctx.fillRect(x-bw/2, padT+ch-bh, bw, bh);
+  });
+  /* AYNI tarih etiketleri: hacim grafigi mum grafiginin altinda ayni ekseni paylasir */
+  ctx.fillStyle="rgba(255,255,255,.25)"; ctx.font="8px Segoe UI"; ctx.textAlign="center";
+  const step=Math.max(1, Math.ceil(n/6));
+  for (let i=0; i<n; i+=step){ ctx.fillText(String(bars[i].date).slice(5), sdAxisX(i,n,padL,cw), H-5); }
+}
+
+/* kurumsal islem isaretleri: API isaret gonderirse D/B/S harfli rozetler + baslik listesi */
+function sdDrawEventMarkers(ctx, events, bars, padL, cw){
+  const legend = byId("sd-marker-legend");
+  if (!events || !events.length){ legend.hidden = true; legend.innerHTML = ""; return; }
+  const idx = {}; bars.forEach(function(b,i){ idx[b.date] = i; }); /* tarih -> islem gunu indeksi */
+  const items = [];
+  events.forEach(function(ev){
+    const letter = SD_EVENT_LETTERS[ev.type] || "X";
+    items.push({letter:letter, date:ev.date, label:(ev.title || ev.type)});
+    const i = idx[ev.date];
+    if (i === undefined) return; /* isaret islem gunune denk gelmiyorsa cizilmez */
+    const x = sdAxisX(i, bars.length, padL, cw);
+    ctx.beginPath(); ctx.arc(x, 14, 7, 0, Math.PI*2);
+    ctx.fillStyle = letter==="D" ? "#38bdf8" : letter==="B" ? "#a78bfa" : letter==="S" ? "#fbbf24" : "#64748b";
+    ctx.fill();
+    ctx.fillStyle="#0a0f1d"; ctx.font="bold 8px Segoe UI"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText(letter, x, 14); ctx.textBaseline="alphabetic";
+  });
+  /* tooltip benzeri baslik listesi */
+  legend.hidden = false;
+  legend.innerHTML = items.map(function(m){
+    return '<span><span class="sd-marker sd-mk-' + m.letter + '">' + m.letter + '</span> ' +
+      esc(m.date) + ' ' + esc(m.label) + '</span>';
+  }).join("");
+}
+
+/* --- fiyat serisi yukleme + durum karti secimi --- */
+function sdActiveBars(){ return (sd.useAdjusted && sd.barsAdj.length) ? sd.barsAdj : sd.barsRaw; }
+function sdRedrawCharts(){
+  if (!sd.open) return;
+  const bars = sdActiveBars();
+  if (!bars.length) return;
+  byId("sd-chart-title").textContent =
+    (sd.useAdjusted ? "DUZELTILMIS FIYAT" : "HAM FIYAT") +
+    " — Open/High/Low/Close + Hacim (dogrulanmis validated seri) · " + bars.length + " islem gunu";
+  drawStockCandles(byId("sd-candles"), bars, sd.useAdjusted ? [] : sd.events);
+  drawStockVolume(byId("sd-volume"), bars);
+}
+function sdRenderPrices(env){
+  const d = sdStripScoreKeys((env && env.data) || env) || {};
+  const halt = d.active_trading_halt || d.trading_halt_active;
+  if (halt){ sdShowStateCard("TRADING_HALT"); return; }
+  const suff = d.sufficiency || d.data_sufficiency || "";
+  if (suff && SD_STATE_MAP[suff]){ sdShowStateCard(suff); return; }
+  if (d.status === "review" || d.status === "pending" || d.review_pending){ sdShowStateCard("PENDING_REVIEW"); return; }
+  /* dogrulanmis (validated) OHLCV serisi secimi — ham + duzeltilmis ayri seriler */
+  const series = d.series || d;
+  sd.barsRaw = sdNormalizeBars(series.validated || series.raw || []);
+  sd.barsAdj = sdNormalizeBars(series.adjusted || []);
+  sd.events = Array.isArray(d.corporate_events) ? d.corporate_events : (Array.isArray(d.events) ? d.events : []);
+  /* DUZELTILMIS seri yoksa buton pasif + "duzeltilmis seri yok" notu */
+  const hasAdj = sd.barsAdj.length > 0;
+  byId("sd-btn-adj").disabled = !hasAdj;
+  byId("sd-adj-note").hidden = hasAdj;
+  if (!hasAdj && sd.useAdjusted) sd.useAdjusted = false;
+  if (!sd.barsRaw.length && !hasAdj){ sdShowStateCard("PRICE_DATA_MISSING"); return; }
+  sdHideStateCard();
+  sdRedrawCharts();
+}
+function sdLoadPrices(){
+  if (!sd.symbol) return;
+  /* GET /api/stocks/{symbol}/prices?range=30|60|90|180|260|max */
+  sdFetch(sdBase(sd.symbol) + "/prices?range=" + sd.range, "prices", sdRenderPrices, sdShowStateError);
+}
+
+/* --- HAM FIYAT / DUZELTILMIS FIYAT butonlari: acik etiketli, secili olan vurgulu --- */
+function sdSyncAdjustButtons(){
+  byId("sd-btn-raw").classList.toggle("sd-sel", !sd.useAdjusted);
+  byId("sd-btn-adj").classList.toggle("sd-sel", sd.useAdjusted);
+}
+
+function sdLoadAll(){
+  const sym = sd.symbol;
+  if (!sym) return;
+  sdFetch(sdBase(sym), "detail", sdRenderDetail, function(){});
+  sdFetch(sdBase(sym) + "/scan/latest", "scan", sdRenderScan,
+    function(){ byId("sd-scan-warnings").innerHTML = '<div class="sd-warn">veri alinamadi</div>'; });
+  sdFetch(sdBase(sym) + "/kap", "kap", sdRenderKap, function(){ sdListError("sd-kap-list"); });
+  sdFetch(sdBase(sym) + "/news", "news", sdRenderNews, function(){ sdListError("sd-news-list"); });
+  sdFetch(sdBase(sym) + "/corporate-actions", "corporate-actions", sdRenderActions, function(){ sdListError("sd-actions-list"); });
+  sdFetch(sdBase(sym) + "/restrictions", "restrictions", sdRenderRestrictions, function(){ sdListError("sd-restrictions-list"); });
+  sdLoadPrices();
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  sdBindRowClicks();
+  byId("sd-close").addEventListener("click", sdClose);
+  byId("stk-detail").addEventListener("click", function(e){ if (e.target === byId("stk-detail")) sdClose(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape" && sd.open) sdClose(); });
+  byId("sd-range-buttons").addEventListener("click", function(e){
+    const btn = e.target.closest ? e.target.closest("button[data-range]") : null;
+    if (!btn) return;
+    sd.range = btn.getAttribute("data-range");
+    Array.prototype.forEach.call(byId("sd-range-buttons").querySelectorAll("button"), function(b){
+      b.classList.toggle("sd-sel", b === btn);
+    });
+    sdLoadPrices();
+  });
+  byId("sd-btn-raw").addEventListener("click", function(){ sd.useAdjusted=false; sdSyncAdjustButtons(); sdRedrawCharts(); });
+  byId("sd-btn-adj").addEventListener("click", function(){
+    if (byId("sd-btn-adj").disabled) return;
+    sd.useAdjusted=true; sdSyncAdjustButtons(); sdRedrawCharts();
+  });
+  /* mobil yeniden boyutlandirma: canvas genisligi container'a uyar */
+  window.addEventListener("resize", function(){ if (sd.open) sdRedrawCharts(); });
 });
 })();
 </script>
