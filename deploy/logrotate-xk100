@@ -1,0 +1,12 @@
+# XK100 Borsa — logrotate yapilandirmasi (BLOK 22)
+# /var/log/xk100 altindaki tum loglar: gunluk rotasyon, 14 gun saklama,
+# sikistirma, eksik dosya toleransi, calisan servise copytruncate.
+/var/log/xk100/*.log {
+    daily
+    rotate 14
+    compress
+    delaycompress
+    missingok
+    notifempty
+    copytruncate
+}
