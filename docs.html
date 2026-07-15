@@ -59,6 +59,10 @@ ul.kaynak li small{display:block;color:#64748b;font-size:11px;margin-top:1px;lin
 .note-green{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:10px 14px;font-size:12px;color:#86efac;margin-top:14px}
 .ftr{text-align:center;color:#475569;font-size:11px;margin-top:30px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
 @media(max-width:600px){.tophead{flex-direction:column;align-items:center;padding:16px 12px}.tophead .th-title{position:static;transform:none;margin:10px 0}.badge-gizli{margin-top:4px}td,th{padding:6px 8px;font-size:11.5px}.tt-big{font-size:26px}}
+.yd{display:inline-block;margin-left:10px;padding:2px 10px;border-radius:10px;
+font-size:10px;font-weight:800;letter-spacing:.6px;vertical-align:middle}
+.yd-ok{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid #22c55e}
+.yd-no{background:rgba(239,68,68,.15);color:#ef4444;border:1px solid #ef4444}
 </style>
 <script src="https://www.kimi.com/sdk-seed.js" defer=""></script></head>
 <body>
@@ -90,55 +94,448 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 <div class="flow">
 
 <div class="step"><div class="ln"><div class="num" style="background:#3b82f6">1</div><div class="bar"></div></div>
-<div class="bd"><div><span class="ttl">VERI TOPLAMA</span><span class="tm">08:00 - 08:45</span></div>
+<div class="bd"><div><span class="ttl">VERI TOPLAMA</span><span class="yd yd-no" data-kod="AKIS-1" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span><span class="tm">08:00 - 08:45</span></div>
 <div class="ds">Tum kaynaklardan gunluk veriler otomatik cekilir: KAP bildirimleri, haber akislari, fiyat/hacim verileri, VIOP, kuresel piyasalar, doviz/CDS, jeopolitik gelismeler.</div>
 <div class="chips"><span class="chip">KAP Bildirimleri</span><span class="chip">BIST Fiyat/Hacim</span><span class="chip">VIOP</span><span class="chip">Kuresel Vadeliler</span><span class="chip">Doviz &amp; CDS</span><span class="chip">Haber Kaynaklari</span></div>
 </div></div>
 
 <div class="step"><div class="ln"><div class="num" style="background:#06b6d4">2</div><div class="bar"></div></div>
-<div class="bd"><div><span class="ttl">ENDEKS SKORLAMA</span><span class="tm">0-100 PUAN</span></div>
+<div class="bd"><div><span class="ttl">ENDEKS SKORLAMA</span><span class="yd yd-no" data-kod="AKIS-2" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span><span class="tm">0-100 PUAN</span></div>
 <div class="ds">Piyasanin genel yonunu belirleyen 7 kategori puanlanir ve toplam &#34;Endeks Skoru&#34; olusur. Bu skor gunun risk istahini belirler.</div>
 <div class="chips"><span class="chip"><b>Endeks Yonu</b> /30</span><span class="chip"><b>VIOP</b> /15</span><span class="chip"><b>Hacim-Genislik</b> /15</span><span class="chip"><b>Kuresel</b> /10</span><span class="chip"><b>Doviz-CDS-Faiz</b> /15</span><span class="chip"><b>Sektor</b> /10</span><span class="chip"><b>Jeopolitik</b> /5</span></div>
 </div></div>
 
 <div class="step"><div class="ln"><div class="num" style="background:#8b5cf6">3</div><div class="bar"></div></div>
-<div class="bd"><div><span class="ttl">HISSE TARAMASI</span><span class="tm">XK100 — AKTIF 100 HISSE</span></div>
+<div class="bd"><div><span class="ttl">HISSE TARAMASI</span><span class="yd yd-ok" data-kod="AKIS-3" data-durum="yuklu" data-test="1700/1700" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span><span class="tm">XK100 — AKTIF 100 HISSE</span></div>
 <div class="ds">Resmi kaynaklardan dogrulanan aktif XK100 sirketlerinin tamami taranir. Her sirket icin fiyat-hacim serileri, KAP bildirimleri, haber havuzu, kurumsal islemler, aktif tedbirler ve veri kalite durumu hazirlanir. Dogrulanmis veri paketleri sonraki analiz modullerine aktarilir.</div>
 <div class="chips"><span class="chip">260+ Gun OHLCV</span><span class="chip">KAP ve Haber Havuzu</span><span class="chip">Kurumsal Islemler</span><span class="chip">Aktif Tedbirler</span><span class="chip">Veri Guveni</span></div>
 </div></div>
 
 <div class="step"><div class="ln"><div class="num" style="background:#22c55e">4</div><div class="bar"></div></div>
-<div class="bd"><div><span class="ttl">HISSE SKORLAMA</span><span class="tm">6 KATEGORI</span></div>
+<div class="bd"><div><span class="ttl">HISSE SKORLAMA</span><span class="yd yd-no" data-kod="AKIS-4" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span><span class="tm">6 KATEGORI</span></div>
 <div class="ds">Her hisse 6 kategoride puanlanir: <b>Teknik, Haber, Para, Makro, Islem, Guven</b>. Agirlikli toplam 0-100 arasi hisse skorunu verir. En yuksek skorlu hisseler &#34;Favori&#34; listesine girer.</div>
 <div class="chips"><span class="chip" style="color:#3b82f6">Teknik</span><span class="chip" style="color:#f59e0b">Haber</span><span class="chip" style="color:#22c55e">Para</span><span class="chip" style="color:#ef4444">Makro</span><span class="chip" style="color:#8b5cf6">Islem</span><span class="chip" style="color:#06b6d4">Guven</span></div>
 </div></div>
 
 <div class="step"><div class="ln"><div class="num" style="background:#f59e0b">5</div><div class="bar"></div></div>
-<div class="bd"><div><span class="ttl">TEKNIK GOSTERGE ANALIZI</span></div>
+<div class="bd"><div><span class="ttl">TEKNIK GOSTERGE ANALIZI</span><span class="yd yd-no" data-kod="AKIS-5" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></div>
 <div class="ds">Her favori hisse icin 9 gosterge hesaplanir ve esik kurallarina gore sinyal uretilir.</div>
 </div></div>
 
 <div class="step"><div class="ln"><div class="num" style="background:#ef4444">6</div><div class="bar"></div></div>
-<div class="bd"><div><span class="ttl">SEVIYE HARITASI</span><span class="tm">DESTEK / DIRENC</span></div>
+<div class="bd"><div><span class="ttl">SEVIYE HARITASI</span><span class="yd yd-no" data-kod="AKIS-6" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span><span class="tm">DESTEK / DIRENC</span></div>
 <div class="ds">Her hisse icin 3 direnc (R1-R2-R3) ve 3 destek (S1-S2-S3) seviyesi belirlenir. Her seviyenin gucu, gorulme sayisi ve kirilma/tutma orani hesaplanir.</div>
 </div></div>
 
 <div class="step"><div class="ln"><div class="num" style="background:#0ea5e9">7</div><div class="bar"></div></div>
-<div class="bd"><div><span class="ttl">HABER ANALIZI</span></div>
+<div class="bd"><div><span class="ttl">HABER ANALIZI</span><span class="yd yd-no" data-kod="AKIS-7" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></div>
 <div class="ds">Her hisse icin son 3 buyuk haber secilir (sozlesme, bilanco, hedef fiyat vb.). Haber kaynagi, zamani ve linki ile rapora eklenir. Haber tonu &#34;Haber&#34; skoruna yansir.</div>
 </div></div>
 
 <div class="step"><div class="ln"><div class="num" style="background:#64748b">8</div><div class="bar"></div></div>
-<div class="bd"><div><span class="ttl">PORTFOY DAGILIMI</span></div>
+<div class="bd"><div><span class="ttl">PORTFOY DAGILIMI</span><span class="yd yd-no" data-kod="AKIS-8" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></div>
 <div class="ds">Endeks skoru + hisse skorlari + guven oranlarina gore portfoy agirliklari belirlenir. Kalan kisim NAKIT olarak tutulur.</div>
 </div></div>
 
 <div class="step"><div class="ln"><div class="num" style="background:#22c55e">9</div><div class="bar" style="background:transparent"></div></div>
-<div class="bd"><div><span class="ttl">RAPOR YAYINI</span><span class="tm">09:45 — WEB + MOBIL APP</span></div>
+<div class="bd"><div><span class="ttl">RAPOR YAYINI</span><span class="yd yd-no" data-kod="AKIS-9" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span><span class="tm">09:45 — WEB + MOBIL APP</span></div>
 <div class="ds">Rapor internet sitemizde yayinlanir, mobil uygulamaya bildirim gider. Sistem bu iki platform disinda hicbir dis uygulamaya bagimli degildir.</div>
 </div></div>
 
 </div>
+</div>
+
+<!-- BLOK 24 - SISTEM YUKLULUK ENVANTERI -->
+<div class="card" id="sistem-yukluluk-envanteri">
+<h3><span class="dot" style="background:#22c55e"></span>SISTEM YUKLULUK ENVANTERI — HANGI OGE YUKLU, HANGI OGE BOS YAZI (BLOK 24)</h3>
+<div class="intro">
+<b>Legend:</b> <span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span> = kod + test bu repoda, is akisi calisiyor · <span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span> = kural/tasarim yazili, sisteme yuklenmedi (nedenleri blok-serisi-derin-rehber "YAZIDA KALANLAR" bolumunde).<br/><br/>
+<b>Sayac ozeti:</b> 53 ogeden 21'i YUKLU, 32'si BOS YAZI (2026-07-15, 1700/1700 test). Akis semasindaki AKIS-1..AKIS-9 rozetleri ayri kod uzayindadir; tabloda ayni durumlar BOLUM-1..BOLUM-9 kodlariyla temsil edilir (AKIS kodlari bu tabloya girmez).
+</div>
+<table>
+<tbody><tr><th style="width:11%">Kod</th><th style="width:26%">Ad</th><th style="width:20%">Durum</th><th>Kanit</th></tr>
+<tr data-kod="BOLUM-1" data-durum="bos-yazi"><td style="font-weight:700">BOLUM-1</td><td>VERI TOPLAMA</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Endeks veri toplayicilari (VIOP, kuresel, doviz/CDS) repoda YOK</td></tr>
+<tr data-kod="BOLUM-2" data-durum="bos-yazi"><td style="font-weight:700">BOLUM-2</td><td>ENDEKS SKORLAMA</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Skor motoru bu repoda YOK (Bolum 1-2 baska konumda)</td></tr>
+<tr data-kod="BOLUM-3" data-durum="yuklu"><td style="font-weight:700">BOLUM-3</td><td>HISSE TARAMASI</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/ + tests/blok6-23 (1700 test)</td></tr>
+<tr data-kod="BOLUM-4" data-durum="bos-yazi"><td style="font-weight:700">BOLUM-4</td><td>HISSE SKORLAMA</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Skorlama modulu yok; sayfada HENUZ CANLI DEGIL banti</td></tr>
+<tr data-kod="BOLUM-5" data-durum="bos-yazi"><td style="font-weight:700">BOLUM-5</td><td>TEKNIK GOSTERGE ANALIZI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Gosterge motoru yok (RSI/MACD hesaplayici yok)</td></tr>
+<tr data-kod="BOLUM-6" data-durum="bos-yazi"><td style="font-weight:700">BOLUM-6</td><td>SEVIYE HARITASI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Seviye motoru yok</td></tr>
+<tr data-kod="BOLUM-7" data-durum="bos-yazi"><td style="font-weight:700">BOLUM-7</td><td>HABER ANALIZI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Haber TOPLAMA yuklu (BLOK 12) ama analiz/ton skoru yok</td></tr>
+<tr data-kod="BOLUM-8" data-durum="bos-yazi"><td style="font-weight:700">BOLUM-8</td><td>PORTFOY DAGILIMI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Portfoy motoru yok</td></tr>
+<tr data-kod="BOLUM-9" data-durum="bos-yazi"><td style="font-weight:700">BOLUM-9</td><td>RAPOR YAYINI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Web+API yuklu ama otomatik 09:45 yayin + bildirim yok</td></tr>
+<tr data-kod="B1" data-durum="bos-yazi"><td style="font-weight:700">B1</td><td>ONEMLI UYGULAMA TALIMATI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Uygulama talimati/kavram — kod karsiligi yok</td></tr>
+<tr data-kod="B2" data-durum="bos-yazi"><td style="font-weight:700">B2</td><td>ENDEKS SKORLAMA KURALLARI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Skor motoru bu repoda YOK</td></tr>
+<tr data-kod="B3" data-durum="bos-yazi"><td style="font-weight:700">B3</td><td>HESAPLAMA ZAMANI VE SCHEDULER</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Zamanlayici unitler repoda VAR ama tetiklenen motor yok</td></tr>
+<tr data-kod="B4" data-durum="bos-yazi"><td style="font-weight:700">B4</td><td>KULLANILACAK VERI DONEMI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Endeks skorlama motoru bu repoda YOK</td></tr>
+<tr data-kod="B5" data-durum="bos-yazi"><td style="font-weight:700">B5</td><td>ENDEKS YONU VE PIYASA YAPISI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Endeks skorlama motoru bu repoda YOK</td></tr>
+<tr data-kod="B6" data-durum="bos-yazi"><td style="font-weight:700">B6</td><td>VIOP</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Endeks skorlama motoru bu repoda YOK</td></tr>
+<tr data-kod="B7" data-durum="bos-yazi"><td style="font-weight:700">B7</td><td>HACIM VE PIYASA GENISLIGI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Endeks skorlama motoru bu repoda YOK</td></tr>
+<tr data-kod="B8" data-durum="bos-yazi"><td style="font-weight:700">B8</td><td>KURESEL PIYASALAR</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Endeks skorlama motoru bu repoda YOK</td></tr>
+<tr data-kod="B9" data-durum="bos-yazi"><td style="font-weight:700">B9</td><td>DOVIZ, CDS VE FAIZ</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Endeks skorlama motoru bu repoda YOK</td></tr>
+<tr data-kod="B10" data-durum="bos-yazi"><td style="font-weight:700">B10</td><td>SEKTOR ROTASYONU</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Endeks skorlama motoru bu repoda YOK</td></tr>
+<tr data-kod="B11" data-durum="bos-yazi"><td style="font-weight:700">B11</td><td>JEOPOLITIK RISK</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>AI entegrasyonu da yok (motor yok)</td></tr>
+<tr data-kod="B12" data-durum="bos-yazi"><td style="font-weight:700">B12</td><td>PUAN NORMALIZASYON VE REJIM</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Endeks skorlama motoru bu repoda YOK</td></tr>
+<tr data-kod="B13" data-durum="bos-yazi"><td style="font-weight:700">B13</td><td>VPS MIMARISI VE SISTEM BIRLESIMI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>db/schema.sql + systemd artefaktlari VAR ama backtest/golge mod/aciklama motoru yok</td></tr>
+<tr data-kod="C1" data-durum="yuklu"><td style="font-weight:700">C1</td><td>SISTEMIN CALISMA MODELI</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>Kural karti; sayfa dogrulama blok23 regresyonunda (100/100)</td></tr>
+<tr data-kod="C2" data-durum="yuklu"><td style="font-weight:700">C2</td><td>XK100 EVREN YONETIMI</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/acceptance/universe.py + tests/blok22 (100/100)</td></tr>
+<tr data-kod="C3" data-durum="yuklu"><td style="font-weight:700">C3</td><td>SIRKET KIMLIGI VE SEMBOL ESLESTIRME</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/symbol_identity.py + tests/blok6 (100/100)</td></tr>
+<tr data-kod="C4" data-durum="yuklu"><td style="font-weight:700">C4</td><td>FIYAT VE TARIHSEL VERI TOPLAMA</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/price_collection/ + tests/blok8 (100/100)</td></tr>
+<tr data-kod="C5" data-durum="yuklu"><td style="font-weight:700">C5</td><td>OHLCV KALITE KONTROLU</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/validation/ + tests/blok9 (100/100)</td></tr>
+<tr data-kod="C6" data-durum="yuklu"><td style="font-weight:700">C6</td><td>HACIM VE TL ISLEM HACMI</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/volume/ + tests/blok10 (100/100)</td></tr>
+<tr data-kod="C7" data-durum="yuklu"><td style="font-weight:700">C7</td><td>KAP TOPLAMA</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/kap_collection/ + tests/blok11 (100/100)</td></tr>
+<tr data-kod="C8" data-durum="yuklu"><td style="font-weight:700">C8</td><td>HABER HAVUZU VE ESLESTIRME</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/news/ + tests/blok12 (100/100)</td></tr>
+<tr data-kod="C9" data-durum="yuklu"><td style="font-weight:700">C9</td><td>KURUMSAL ISLEMLER VE TEDBIRLER</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/corporate_actions/ + tests/blok13 (100/100)</td></tr>
+<tr data-kod="C10" data-durum="yuklu"><td style="font-weight:700">C10</td><td>ZAMANLAMA VE GOREV DURUMLARI</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/orchestration/ + tests/blok14 (100/100)</td></tr>
+<tr data-kod="C11" data-durum="yuklu"><td style="font-weight:700">C11</td><td>TARAMA VERI GUVENI</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/confidence/ + tests/blok15 (100/100)</td></tr>
+<tr data-kod="C12" data-durum="yuklu"><td style="font-weight:700">C12</td><td>VERI TABANI VE API</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/db/ + app/api/ + tests/blok7 + tests/blok16 (100/100)</td></tr>
+<tr data-kod="C13" data-durum="yuklu"><td style="font-weight:700">C13</td><td>TESTLER, VPS DEPLOYMENT VE TAMAMLANMA KRITERLERI</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/acceptance/ + deploy/ + tests/blok22 (100/100)</td></tr>
+<tr data-kod="BLOK-5" data-durum="bos-yazi"><td style="font-weight:700">BLOK-5</td><td>XK100 EVREN MODULU</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Modul kaynaklari bu repoda YOK — yazida kalanlar maddesi 1 (kabul: app/acceptance/universe.py haric)</td></tr>
+<tr data-kod="BLOK-6" data-durum="yuklu"><td style="font-weight:700">BLOK-6</td><td>SIRKET KIMLIGI VE SEMBOL ESLESTIRME</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/services/stock_scanning/symbol_identity.py + tests/blok6 (100/100)</td></tr>
+<tr data-kod="BLOK-7" data-durum="bos-yazi"><td style="font-weight:700">BLOK-7</td><td>VERI TABANI VE MIGRATION</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C12 kartinda yuklu sayildi (tests/blok7, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-8" data-durum="bos-yazi"><td style="font-weight:700">BLOK-8</td><td>FIYAT VERISI TOPLAMA</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C4 kartinda yuklu sayildi (tests/blok8, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-9" data-durum="bos-yazi"><td style="font-weight:700">BLOK-9</td><td>OHLCV DOGRULAMA VE KURUMSAL ISLEM</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C5 kartinda yuklu sayildi (tests/blok9, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-10" data-durum="bos-yazi"><td style="font-weight:700">BLOK-10</td><td>HACIM, TL ISLEM HACMI VE HACIM ORANI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C6 kartinda yuklu sayildi (tests/blok10, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-11" data-durum="bos-yazi"><td style="font-weight:700">BLOK-11</td><td>KAP BILDIRIM TOPLAMA</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C7 kartinda yuklu sayildi (tests/blok11, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-12" data-durum="bos-yazi"><td style="font-weight:700">BLOK-12</td><td>HABER TOPLAMA, ESLESTIRME VE TEKILLESTIRME</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C8 kartinda yuklu sayildi (tests/blok12, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-13" data-durum="bos-yazi"><td style="font-weight:700">BLOK-13</td><td>KURUMSAL ISLEMLER VE TEDBIRLER</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C9 kartinda yuklu sayildi (tests/blok13, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-14" data-durum="bos-yazi"><td style="font-weight:700">BLOK-14</td><td>ZAMANLAMA, PARALELLIK VE DURUM MAKINESI</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C10 kartinda yuklu sayildi (tests/blok14, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-15" data-durum="bos-yazi"><td style="font-weight:700">BLOK-15</td><td>VERI GUVENI (CONFIDENCE) HAZIRLIK</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C11 kartinda yuklu sayildi (tests/blok15, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-16" data-durum="bos-yazi"><td style="font-weight:700">BLOK-16</td><td>API VE RAPOR SURUMU</td><td><span class="yd yd-no" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></td><td>Teslim karti bu sayfada YOK — calisma C12 kartinda yuklu sayildi (tests/blok16, 100/100); BLOK kodu cift sayilmaz</td></tr>
+<tr data-kod="BLOK-17" data-durum="yuklu"><td style="font-weight:700">BLOK-17</td><td>YONETICI SISTEM SEMASI SAYFASI</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>telegram-sender/docs.html (bu sayfa); blok18-23 sayfa testleri regresyonu</td></tr>
+<tr data-kod="BLOK-18" data-durum="yuklu"><td style="font-weight:700">BLOK-18</td><td>MUSTERI ANA SAYFASI</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>telegram-sender/index.html + tests/blok18 (100/100)</td></tr>
+<tr data-kod="BLOK-19" data-durum="yuklu"><td style="font-weight:700">BLOK-19</td><td>HISSE DETAY PANELI + HAM GRAFIKLER</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>stk-detail paneli + tests/blok19 (100/100)</td></tr>
+<tr data-kod="BLOK-20" data-durum="yuklu"><td style="font-weight:700">BLOK-20</td><td>MOBIL ENTEGRASYON (PWA + API SOZLESMESI)</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>manifest.webmanifest + sw.js + docs/api-contract.json + tests/blok20 (100/100)</td></tr>
+<tr data-kod="BLOK-21" data-durum="yuklu"><td style="font-weight:700">BLOK-21</td><td>GUVENLIK, LOG, IZLEME VE YEDEKLEME</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/ops/ (11 modul) + tests/blok21 (100/100)</td></tr>
+<tr data-kod="BLOK-22" data-durum="yuklu"><td style="font-weight:700">BLOK-22</td><td>TEST, VPS DEPLOYMENT VE TAMAMLANMA</td><td><span class="yd yd-ok" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></td><td>app/acceptance/ + deploy/ + tests/blok22 (100/100)</td></tr>
+</tbody></table>
+<script type="application/json" id="sistem-envanteri-json">
+{
+ "generated": "2026-07-15",
+ "total": 53,
+ "yuklu": 21,
+ "bos_yazi": 32,
+ "items": [
+  {
+   "kod": "BOLUM-1",
+   "ad": "VERI TOPLAMA",
+   "durum": "bos-yazi",
+   "kanit": "Endeks veri toplayicilari (VIOP, kuresel, doviz/CDS) repoda YOK"
+  },
+  {
+   "kod": "BOLUM-2",
+   "ad": "ENDEKS SKORLAMA",
+   "durum": "bos-yazi",
+   "kanit": "Skor motoru bu repoda YOK (Bolum 1-2 baska konumda)"
+  },
+  {
+   "kod": "BOLUM-3",
+   "ad": "HISSE TARAMASI",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/ + tests/blok6-23 (1700 test)"
+  },
+  {
+   "kod": "BOLUM-4",
+   "ad": "HISSE SKORLAMA",
+   "durum": "bos-yazi",
+   "kanit": "Skorlama modulu yok; sayfada HENUZ CANLI DEGIL banti"
+  },
+  {
+   "kod": "BOLUM-5",
+   "ad": "TEKNIK GOSTERGE ANALIZI",
+   "durum": "bos-yazi",
+   "kanit": "Gosterge motoru yok (RSI/MACD hesaplayici yok)"
+  },
+  {
+   "kod": "BOLUM-6",
+   "ad": "SEVIYE HARITASI",
+   "durum": "bos-yazi",
+   "kanit": "Seviye motoru yok"
+  },
+  {
+   "kod": "BOLUM-7",
+   "ad": "HABER ANALIZI",
+   "durum": "bos-yazi",
+   "kanit": "Haber TOPLAMA yuklu (BLOK 12) ama analiz/ton skoru yok"
+  },
+  {
+   "kod": "BOLUM-8",
+   "ad": "PORTFOY DAGILIMI",
+   "durum": "bos-yazi",
+   "kanit": "Portfoy motoru yok"
+  },
+  {
+   "kod": "BOLUM-9",
+   "ad": "RAPOR YAYINI",
+   "durum": "bos-yazi",
+   "kanit": "Web+API yuklu ama otomatik 09:45 yayin + bildirim yok"
+  },
+  {
+   "kod": "B1",
+   "ad": "ONEMLI UYGULAMA TALIMATI",
+   "durum": "bos-yazi",
+   "kanit": "Uygulama talimati/kavram — kod karsiligi yok"
+  },
+  {
+   "kod": "B2",
+   "ad": "ENDEKS SKORLAMA KURALLARI",
+   "durum": "bos-yazi",
+   "kanit": "Skor motoru bu repoda YOK"
+  },
+  {
+   "kod": "B3",
+   "ad": "HESAPLAMA ZAMANI VE SCHEDULER",
+   "durum": "bos-yazi",
+   "kanit": "Zamanlayici unitler repoda VAR ama tetiklenen motor yok"
+  },
+  {
+   "kod": "B4",
+   "ad": "KULLANILACAK VERI DONEMI",
+   "durum": "bos-yazi",
+   "kanit": "Endeks skorlama motoru bu repoda YOK"
+  },
+  {
+   "kod": "B5",
+   "ad": "ENDEKS YONU VE PIYASA YAPISI",
+   "durum": "bos-yazi",
+   "kanit": "Endeks skorlama motoru bu repoda YOK"
+  },
+  {
+   "kod": "B6",
+   "ad": "VIOP",
+   "durum": "bos-yazi",
+   "kanit": "Endeks skorlama motoru bu repoda YOK"
+  },
+  {
+   "kod": "B7",
+   "ad": "HACIM VE PIYASA GENISLIGI",
+   "durum": "bos-yazi",
+   "kanit": "Endeks skorlama motoru bu repoda YOK"
+  },
+  {
+   "kod": "B8",
+   "ad": "KURESEL PIYASALAR",
+   "durum": "bos-yazi",
+   "kanit": "Endeks skorlama motoru bu repoda YOK"
+  },
+  {
+   "kod": "B9",
+   "ad": "DOVIZ, CDS VE FAIZ",
+   "durum": "bos-yazi",
+   "kanit": "Endeks skorlama motoru bu repoda YOK"
+  },
+  {
+   "kod": "B10",
+   "ad": "SEKTOR ROTASYONU",
+   "durum": "bos-yazi",
+   "kanit": "Endeks skorlama motoru bu repoda YOK"
+  },
+  {
+   "kod": "B11",
+   "ad": "JEOPOLITIK RISK",
+   "durum": "bos-yazi",
+   "kanit": "AI entegrasyonu da yok (motor yok)"
+  },
+  {
+   "kod": "B12",
+   "ad": "PUAN NORMALIZASYON VE REJIM",
+   "durum": "bos-yazi",
+   "kanit": "Endeks skorlama motoru bu repoda YOK"
+  },
+  {
+   "kod": "B13",
+   "ad": "VPS MIMARISI VE SISTEM BIRLESIMI",
+   "durum": "bos-yazi",
+   "kanit": "db/schema.sql + systemd artefaktlari VAR ama backtest/golge mod/aciklama motoru yok"
+  },
+  {
+   "kod": "C1",
+   "ad": "SISTEMIN CALISMA MODELI",
+   "durum": "yuklu",
+   "kanit": "Kural karti; sayfa dogrulama blok23 regresyonunda (100/100)"
+  },
+  {
+   "kod": "C2",
+   "ad": "XK100 EVREN YONETIMI",
+   "durum": "yuklu",
+   "kanit": "app/acceptance/universe.py + tests/blok22 (100/100)"
+  },
+  {
+   "kod": "C3",
+   "ad": "SIRKET KIMLIGI VE SEMBOL ESLESTIRME",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/symbol_identity.py + tests/blok6 (100/100)"
+  },
+  {
+   "kod": "C4",
+   "ad": "FIYAT VE TARIHSEL VERI TOPLAMA",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/price_collection/ + tests/blok8 (100/100)"
+  },
+  {
+   "kod": "C5",
+   "ad": "OHLCV KALITE KONTROLU",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/validation/ + tests/blok9 (100/100)"
+  },
+  {
+   "kod": "C6",
+   "ad": "HACIM VE TL ISLEM HACMI",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/volume/ + tests/blok10 (100/100)"
+  },
+  {
+   "kod": "C7",
+   "ad": "KAP TOPLAMA",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/kap_collection/ + tests/blok11 (100/100)"
+  },
+  {
+   "kod": "C8",
+   "ad": "HABER HAVUZU VE ESLESTIRME",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/news/ + tests/blok12 (100/100)"
+  },
+  {
+   "kod": "C9",
+   "ad": "KURUMSAL ISLEMLER VE TEDBIRLER",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/corporate_actions/ + tests/blok13 (100/100)"
+  },
+  {
+   "kod": "C10",
+   "ad": "ZAMANLAMA VE GOREV DURUMLARI",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/orchestration/ + tests/blok14 (100/100)"
+  },
+  {
+   "kod": "C11",
+   "ad": "TARAMA VERI GUVENI",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/confidence/ + tests/blok15 (100/100)"
+  },
+  {
+   "kod": "C12",
+   "ad": "VERI TABANI VE API",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/db/ + app/api/ + tests/blok7 + tests/blok16 (100/100)"
+  },
+  {
+   "kod": "C13",
+   "ad": "TESTLER, VPS DEPLOYMENT VE TAMAMLANMA KRITERLERI",
+   "durum": "yuklu",
+   "kanit": "app/acceptance/ + deploy/ + tests/blok22 (100/100)"
+  },
+  {
+   "kod": "BLOK-5",
+   "ad": "XK100 EVREN MODULU",
+   "durum": "bos-yazi",
+   "kanit": "Modul kaynaklari bu repoda YOK — yazida kalanlar maddesi 1 (kabul: app/acceptance/universe.py haric)"
+  },
+  {
+   "kod": "BLOK-6",
+   "ad": "SIRKET KIMLIGI VE SEMBOL ESLESTIRME",
+   "durum": "yuklu",
+   "kanit": "app/services/stock_scanning/symbol_identity.py + tests/blok6 (100/100)"
+  },
+  {
+   "kod": "BLOK-7",
+   "ad": "VERI TABANI VE MIGRATION",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C12 kartinda yuklu sayildi (tests/blok7, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-8",
+   "ad": "FIYAT VERISI TOPLAMA",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C4 kartinda yuklu sayildi (tests/blok8, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-9",
+   "ad": "OHLCV DOGRULAMA VE KURUMSAL ISLEM",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C5 kartinda yuklu sayildi (tests/blok9, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-10",
+   "ad": "HACIM, TL ISLEM HACMI VE HACIM ORANI",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C6 kartinda yuklu sayildi (tests/blok10, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-11",
+   "ad": "KAP BILDIRIM TOPLAMA",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C7 kartinda yuklu sayildi (tests/blok11, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-12",
+   "ad": "HABER TOPLAMA, ESLESTIRME VE TEKILLESTIRME",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C8 kartinda yuklu sayildi (tests/blok12, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-13",
+   "ad": "KURUMSAL ISLEMLER VE TEDBIRLER",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C9 kartinda yuklu sayildi (tests/blok13, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-14",
+   "ad": "ZAMANLAMA, PARALELLIK VE DURUM MAKINESI",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C10 kartinda yuklu sayildi (tests/blok14, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-15",
+   "ad": "VERI GUVENI (CONFIDENCE) HAZIRLIK",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C11 kartinda yuklu sayildi (tests/blok15, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-16",
+   "ad": "API VE RAPOR SURUMU",
+   "durum": "bos-yazi",
+   "kanit": "Teslim karti bu sayfada YOK — calisma C12 kartinda yuklu sayildi (tests/blok16, 100/100); BLOK kodu cift sayilmaz"
+  },
+  {
+   "kod": "BLOK-17",
+   "ad": "YONETICI SISTEM SEMASI SAYFASI",
+   "durum": "yuklu",
+   "kanit": "telegram-sender/docs.html (bu sayfa); blok18-23 sayfa testleri regresyonu"
+  },
+  {
+   "kod": "BLOK-18",
+   "ad": "MUSTERI ANA SAYFASI",
+   "durum": "yuklu",
+   "kanit": "telegram-sender/index.html + tests/blok18 (100/100)"
+  },
+  {
+   "kod": "BLOK-19",
+   "ad": "HISSE DETAY PANELI + HAM GRAFIKLER",
+   "durum": "yuklu",
+   "kanit": "stk-detail paneli + tests/blok19 (100/100)"
+  },
+  {
+   "kod": "BLOK-20",
+   "ad": "MOBIL ENTEGRASYON (PWA + API SOZLESMESI)",
+   "durum": "yuklu",
+   "kanit": "manifest.webmanifest + sw.js + docs/api-contract.json + tests/blok20 (100/100)"
+  },
+  {
+   "kod": "BLOK-21",
+   "ad": "GUVENLIK, LOG, IZLEME VE YEDEKLEME",
+   "durum": "yuklu",
+   "kanit": "app/ops/ (11 modul) + tests/blok21 (100/100)"
+  },
+  {
+   "kod": "BLOK-22",
+   "ad": "TEST, VPS DEPLOYMENT VE TAMAMLANMA",
+   "durum": "yuklu",
+   "kanit": "app/acceptance/ + deploy/ + tests/blok22 (100/100)"
+  }
+ ]
+}
+</script>
 </div>
 
 <h1 style="margin-top:30px">Akinin 9 Adimi + Endeks Skorlama Serisi (13 Bolum) — Detayli Kurallar</h1>
@@ -146,7 +543,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 1. VERI TOPLAMA -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#3b82f6">1</span>VERI TOPLAMA — KURALLAR VE OTOMASYON DETAYI</h3>
+<h3><span class="bolum-no" style="background:#3b82f6">1</span>VERI TOPLAMA — KURALLAR VE OTOMASYON DETAYI<span class="yd yd-no" data-kod="BOLUM-1" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="sub" style="margin:8px 0 4px"><b class="r">KRITIK ZAMANLAMA DUZELTMESI:</b> Veri toplama 08:00-08:30 DEGIL — sabah rejim taramasi 09:00-09:30&#39;da yapildigi icin veri toplama asamasi gercekte <b>08:00-09:30</b> arasinda devam eder.</div>
 <table>
@@ -283,13 +680,13 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- ENDEKS SKORLAMA SERISI AYRAC -->
 <div class="card" style="border:1px solid rgba(34,211,238,.35);background:#06121a">
-<h3><span class="dot" style="background:#22d3ee"></span>ENDEKS SKORLAMA SERISI (B1-B13) — ANA BOLUM 2&#39;NIN TAM MATEMATIK DETAYI</h3>
+<h3><span class="dot" style="background:#22d3ee"></span>ENDEKS SKORLAMA SERISI (B1-B13) — ANA BOLUM 2&#39;NIN TAM MATEMATIK DETAYI<span class="yd yd-no" data-kod="BOLUM-2" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 <div class="intro">Asagidaki <b>B1-B13</b> kartlari, akisin <b>2. adimi (ENDEKS SKORLAMA)</b> icin yazilan 13 bolumluk detay serisidir. Her kartin kurallari <b>borsa-karar-otomasyon</b> reposunda modul modul kodlanmistir ve her kart basliginda calisan dosya + test sayisi belirtilir. Seri toplami: <b>7 kategori = tam 100 puan</b>, kurallar surumu <b>INDEX-SCORE-V1.0</b>.</div>
 </div>
 
 <!-- B1. ONEMLI UYGULAMA TALIMATI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#8b5cf6">B1</span>ONEMLI UYGULAMA TALIMATI — SISTEMIN CALISMA MODELI</h3>
+<h3><span class="bolum-no" style="background:#8b5cf6">B1</span>ONEMLI UYGULAMA TALIMATI — SISTEMIN CALISMA MODELI<span class="yd yd-no" data-kod="B1" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>Bu bolumun tamami VPS tarafinda calisan gercek kod olarak yazilmistir:</b> <b>borsa-karar-otomasyon/</b> reposu (main.py + backtest.py + app/ + config/ + db/ + systemd/ + tests/) — 13 bolum tamamlandi, <b>268/268 test gecti</b>.</div>
 
@@ -319,7 +716,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 2. ENDEKS SKORLAMA -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#06b6d4">B2</span>ENDEKS SKORLAMA — CALISAN SISTEM KURALLARI (INDEX-SCORE-V1.0)</h3>
+<h3><span class="bolum-no" style="background:#06b6d4">B2</span>ENDEKS SKORLAMA — CALISAN SISTEM KURALLARI (INDEX-SCORE-V1.0)<span class="yd yd-no" data-kod="B2" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note-green" style="margin:0 0 12px">Bu bolumun calisan karsiligi (Bolum 01-02): <b>borsa-karar-otomasyon/</b> reposu — <b>app/services/index_scoring/agirliklar.py</b> (7 kategori agirlik tablosu + 100 puan zorunlu kontrolu: toplam 100 degilse AgirlikHatasi, eski 78&#39;lik tablo reddedilir, hatali toplamla panelden kayit REDDEDILIR) + <b>config/kategori_agirliklari.json</b> (panelden agirlik ayari dosyasi) + <b>app/services/index_scoring/engine.py</b> + <b>tests/test_agirliklar.py + test_engine.py</b> (16/16 test gecti). VPS tarafinda systemd timer ile calisir.</div>
 <div class="note" style="margin:8px 0 12px"><b>PUANLAMA HATASI DUZELTILDI:</b> Eski tablo (20+17+15+8+8+7+3) = <b>78</b> ediyordu, 100 degil. Yeni 7 kategori toplami <b>TAM 100</b>&#39;dur ve yonetici panelinde toplam 100 degilse ayar kaydedilemez (&#34;KATEGORI AGIRLIKLARI TOPLAMI 100 OLMALIDIR&#34;).</div>
@@ -495,7 +892,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 3. HESAPLAMA ZAMANI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#22c55e">B3</span>HESAPLAMA ZAMANI — ZAMAN PLANI, SCHEDULER VE CRON/TIMER YAPILANDIRMASI</h3>
+<h3><span class="bolum-no" style="background:#22c55e">B3</span>HESAPLAMA ZAMANI — ZAMAN PLANI, SCHEDULER VE CRON/TIMER YAPILANDIRMASI<span class="yd yd-no" data-kod="B3" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURAL:</b> Endeks Skoru veri toplamanin ilk asamasi sonrasi <b>08:30&#39;da hesaplanMAZ</b> — veri toplama ve sabah piyasa rejimi taramasi devam ettigi icin hesaplama <b>09:30-09:38</b> arasinda yapilir; <b>09:40</b> normal veri kesim; <b>09:45</b> rapor yayini + mobil uygulama bildirimi.</div>
 
@@ -525,7 +922,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 4. VERI DONEMI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#f59e0b">B4</span>KULLANILACAK VERI DONEMI — VERI DOGRULAMA VE EKSIK VERI KONTROLU</h3>
+<h3><span class="bolum-no" style="background:#f59e0b">B4</span>KULLANILACAK VERI DONEMI — VERI DOGRULAMA VE EKSIK VERI KONTROLU<span class="yd yd-no" data-kod="B4" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURALLAR:</b> Endeks Skoru sadece son 60 gunluk veriyle hesaplanMAYACAKTIR. Trend, yuzdelik dilim, standart sapma ve tarihsel karsilastirma icin <b>en az 260 TAMAMLANMIS islem gunu</b> verisi tutulmalidir. Yeterli veri yoksa metrik <b>HESAPLANMAZ</b>; eksik metrik icin <b>TAHMINI veya UYDURMA puan URETILMEZ</b>. Tamamlanmamis gunluk mumlar uzun vadeli trend hesaplarina <b>DAHIL EDILMEZ</b>.</div>
 
@@ -553,7 +950,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 5. ENDEKS YONU VE PIYASA YAPISI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#06b6d4">B5</span>ENDEKS YONU VE PIYASA YAPISI — 30 PUAN (BIST100 10 · BIST30 8 · XK100 12)</h3>
+<h3><span class="bolum-no" style="background:#06b6d4">B5</span>ENDEKS YONU VE PIYASA YAPISI — 30 PUAN (BIST100 10 · BIST30 8 · XK100 12)<span class="yd yd-no" data-kod="B5" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURALLAR:</b> Kategori uc endeks uzerinden hesaplanir: <b>BIST100 maks 10, BIST30 maks 8, XK100 maks 12</b> puan. XK100 sistemin asil hisse havuzunu temsil ettigi icin BIST30&#39;dan daha yuksek agirlik alir. Trend puani <b>negatif olamaz</b>. Yeterli veri yoksa ilgili kural puan alamaz — tahmin uretilmez.</div>
 
@@ -581,7 +978,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 6. VIOP -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#8b5cf6">B6</span>VIOP — 15 PUAN (FIYAT YONU 4 · BAZ 3 · ACIK POZISYON 4 · HACIM 2 · VADE YAPISI 2)</h3>
+<h3><span class="bolum-no" style="background:#8b5cf6">B6</span>VIOP — 15 PUAN (FIYAT YONU 4 · BAZ 3 · ACIK POZISYON 4 · HACIM 2 · VADE YAPISI 2)<span class="yd yd-no" data-kod="B6" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURALLAR:</b> <b>Acik pozisyon tek basina yon sinyali olarak KULLANILMAYACAKTIR</b> — fiyat, hacim ve acik pozisyon BIRLIKTE degerlendirilir. Pozitif baz <b>otomatik kesin pozitif sinyal SAYILMAZ</b>. Vade sonuna yaklastikca baz dogal degisir; vadeye kalan gune gore duzeltme uygulanir. Verisi olmayan alt puan icin tahmin uretilmez.</div>
 
@@ -607,7 +1004,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 7. HACIM VE PIYASA GENISLIGI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#22c55e">B7</span>HACIM VE PIYASA GENISLIGI — 15 PUAN (BIST 4 · XK100 4 · YUKSELEN/DUSEN 3 · HACIMLI YUKSELEN 2 · KATILIM 2)</h3>
+<h3><span class="bolum-no" style="background:#22c55e">B7</span>HACIM VE PIYASA GENISLIGI — 15 PUAN (BIST 4 · XK100 4 · YUKSELEN/DUSEN 3 · HACIMLI YUKSELEN 2 · KATILIM 2)<span class="yd yd-no" data-kod="B7" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURALLAR:</b> Hacim artisi <b>TEK BASINA pozitif SAYILMAYACAKTIR</b> — fiyat yonu ile hacim yonu BIRLIKTE hesaplanir. Tek bir buyuk hissenin toplam hacmi bozmasini engellemek icin hisse bazli hacim katkilarinda <b>ust sinir (%10)</b> uygulanir; asimlar kirpilir. Verisi olmayan alt puan icin tahmin uretilmez.</div>
 
@@ -632,7 +1029,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 8. KURESEL PIYASALAR -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#06b6d4">B8</span>KURESEL PIYASALAR — 10 PUAN (S&amp;P500 2 · NASDAQ 2 · DAX 1.5 · MSCI EM 1.5 · VIX 1.5 · BRENT+DOLAR 1.5)</h3>
+<h3><span class="bolum-no" style="background:#06b6d4">B8</span>KURESEL PIYASALAR — 10 PUAN (S&amp;P500 2 · NASDAQ 2 · DAX 1.5 · MSCI EM 1.5 · VIX 1.5 · BRENT+DOLAR 1.5)<span class="yd yd-no" data-kod="B8" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURALLAR:</b> Kuresel veriler <b>SADECE ANLIK YONLE degerlendirilMEYECEKTIR</b> — anlik degisim + onceki kapanisa gore degisim + 5 gunluk trend + 20 gunluk trend + son 60 gunluk yuzdelik seviyesi <b>BIRLIKTE</b> kullanilir. <b>VIX yukselisi risk azalticidir</b> ama seviye ve degisim hizi AYRI degerlendirilir. <b>Brent hizli yukselisi negatif etki</b>; petrol dususu otomatik tam pozitif puan URETEMEZ.</div>
 
@@ -659,7 +1056,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 9. DOVIZ CDS VE FAIZ -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#f59e0b">B9</span>DOVIZ, CDS VE FAIZ — 15 PUAN (USD/TRY 4 · CDS 5 · FAIZ 3 · EUR/TRY+DOLAR 2 · UYUM 1)</h3>
+<h3><span class="bolum-no" style="background:#f59e0b">B9</span>DOVIZ, CDS VE FAIZ — 15 PUAN (USD/TRY 4 · CDS 5 · FAIZ 3 · EUR/TRY+DOLAR 2 · UYUM 1)<span class="yd yd-no" data-kod="B9" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURALLAR:</b> USD/TRY sadece yonle degerlendirilMEZ — <b>6 olcum</b> birlikte. Kur artisi tarihsel volatilitenin cok uzerindeyse <b>risk puani daha hizli dusurulur</b> (x0.5). CDS verisi eksikse onceki gunun verisi <b>YENI VERI GIBI KULLANILMAZ</b>, sadece &#34;SON GUNCEL VERI&#34; etiketiyle gosterilir. Kur+CDS+faiz ayni anda kotulesirse <b>ek risk katsayisi</b> (x1.15, panelden aktif/pasif) uygulanir.</div>
 
@@ -686,7 +1083,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 10. SEKTOR ROTASYONU -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#e879f9">B10</span>SEKTOR ROTASYONU — 10 PUAN (POZITIF ORAN 3 · XK100 GUC 4 · DEFANSIF/BUYUME 2 · GENISLIK 1)</h3>
+<h3><span class="bolum-no" style="background:#e879f9">B10</span>SEKTOR ROTASYONU — 10 PUAN (POZITIF ORAN 3 · XK100 GUC 4 · DEFANSIF/BUYUME 2 · GENISLIK 1)<span class="yd yd-no" data-kod="B10" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURAL:</b> Sektor rotasyonu kategorisi <b>sadece bir gunluk degisime BAKMAYACAKTIR</b> — 1 gunluk, 5 gunluk ve 20 gunluk goreceli performans <b>BIRLIKTE</b> kullanilir (agirliklar: 1g %25, 5g %35, 20g %40).</div>
 
@@ -715,7 +1112,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 11. JEOPOLITIK RISK -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#ef4444">B11</span>JEOPOLITIK RISK — 5 PUAN (HIBRIT SISTEM: KURAL TABANLI + AI + KODLANMIS MOTOR)</h3>
+<h3><span class="bolum-no" style="background:#ef4444">B11</span>JEOPOLITIK RISK — 5 PUAN (HIBRIT SISTEM: KURAL TABANLI + AI + KODLANMIS MOTOR)<span class="yd yd-no" data-kod="B11" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURALLAR:</b> Bu kategori haber ve metin analizi gerektirir ama <b>AI tek basina Endeks Skoru BELIRLEYEMEZ</b> — &#34;Endeks Skoru 72 olsun&#34; diyemez. Kaynak linki bulunmayan veya haber verisiyle eslesmeyen model sonucu <b>KULLANILMAZ</b>. Model guveni <b>&lt; 0.70</b> ise olay puana cevrilmez, <b>&#34;YONETICI KONTROLU&#34;</b> etiketi alir. AI ciktisi DB&#39;ye kesin gercek olarak kaydedilmez.</div>
 
@@ -739,7 +1136,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 12. NORMALIZASYON VE REJIM -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#22c55e">B12</span>PUAN NORMALIZASYON, EKSIK VERI, VERI GUVEN, REJIM, POZISYON FILTRESI VE DETERMINISTIKLIK</h3>
+<h3><span class="bolum-no" style="background:#22c55e">B12</span>PUAN NORMALIZASYON, EKSIK VERI, VERI GUVEN, REJIM, POZISYON FILTRESI VE DETERMINISTIKLIK<span class="yd yd-no" data-kod="B12" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURALLAR:</b> Eksik veri icin <b>SIFIR PUAN YAZILMAYACAKTIR</b> — sifir puan ile veri bulunmamasi FARKLI saklanir; eksik veri <b>NULL</b> kaydedilir. Endeks Skoru = Kazanilan / Kullanilabilir Agirlik x 100. Kullanilabilir agirlik &lt; %80 -&gt; <b>SINIRLI YAYIN</b> uyariyla; &lt; %65 -&gt; <b>&#34;NAKITTE KAL / VERI BEKLE&#34;</b>. Panel agirlik toplami 100 degilse <b>KAYIT YAPILAMAZ</b>. Ayni girdi + ayni surum = <b>ayni sonuc</b>.</div>
 
@@ -779,7 +1176,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 13. VPS MIMARISI + TUM SISTEM BIRLESIMI (FINAL) -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#f59e0b">B13</span>VPS MIMARISI VE TUM SISTEMIN BIRLESIMI — FINAL (VERITABANI · API · ACIKLAMA · BACKTEST · GOLGE MOD · TAMAMLANMA)</h3>
+<h3><span class="bolum-no" style="background:#f59e0b">B13</span>VPS MIMARISI VE TUM SISTEMIN BIRLESIMI — FINAL (VERITABANI · API · ACIKLAMA · BACKTEST · GOLGE MOD · TAMAMLANMA)<span class="yd yd-no" data-kod="B13" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 
 <div class="note" style="margin:8px 0 12px"><b>KESIN KURALLAR:</b> Sadece sabit saatli cron <b>YETERLI DEGILDIR</b> — gorevler bagimlilik zinciriyle calisir (Veri Toplama tamamlanmadan Skorlama baslayamaz). Ayni calisma iki kez <b>KAYDEDILMEZ</b> (idempotency: run_id + girdi parmagi). Her rapor surumu <b>ayri satir</b>dir; eski raporun uzerine <b>YAZILMAZ</b>. Toplam skor 25 puandan fazla degisirse veya bir kategori 70 puandan fazla normalize degisim gosterirse: <b>&#34;SKOR ANOMALISI — DOGRULAMA GEREKIYOR&#34;</b> + kaynak dogrulanmadan <b>OTOMATIK YAYIN YOK</b>. GOLGE mod ve BACKTEST kayitlari canli skordan <b>KESIN olarak ayrilir</b>, halka acik API&#39;ye girmez.</div>
 
@@ -917,7 +1314,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 3. HISSE TARAMASI --><!-- 3. HISSE TARAMASI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#8b5cf6">3</span>HISSE TARAMASI — KURALLAR VE OTOMASYON DETAYI</h3>
+<h3><span class="bolum-no" style="background:#8b5cf6">3</span>HISSE TARAMASI — KURALLAR VE OTOMASYON DETAYI<span class="yd yd-ok" data-kod="BOLUM-3" data-durum="yuklu" data-test="1700/1700" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 
 <!-- BOLUM 3 DURUM ALANLARI -->
 <table class="tbl" style="margin:0 0 12px;border:1px solid rgba(139,92,246,.3)">
@@ -946,7 +1343,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- BOLUM 3 - BLOK 5 KARTI -->
 <div class="card" style="border:1px solid rgba(34,197,94,.4);background:#07130b">
-<h3><span class="dot" style="background:#22c55e"></span>BLOK 5/22 TAMAMLANDI — XK100 EVREN MODULU (100/100 TEST GECTI)</h3>
+<h3><span class="dot" style="background:#22c55e"></span>BLOK 5/22 TAMAMLANDI — XK100 EVREN MODULU (100/100 TEST GECTI)<span class="yd yd-no" data-kod="BLOK-5" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — bu repoda yuklu degil">✗ BOS YAZI (bu repoda yuklu degil)</span></h3>
 <div class="note" style="margin:8px 0 12px"><b>Kural:</b> Bu kartta yalnizca <b>terminal dogrulamali</b> bilgiler yer alir. Blok 5, Bolum 3 (Hisse Taramasi) zincirinin evren dogrulama halkasidir — evren dogrulanmadan hicbir hisse taranmaz.</div>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Terminal dogrulamali sonuc</th></tr>
@@ -962,7 +1359,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- BOLUM 3 - BLOK 6 KARTI -->
 <div class="card" style="border:1px solid rgba(6,182,212,.4);background:#04121a">
-<h3><span class="dot" style="background:#06b6d4"></span>BLOK 6/22 TAMAMLANDI — SIRKET KIMLIGI VE SEMBOL ESLESTIRME (100/100 TEST GECTI, 2026-07-14)</h3>
+<h3><span class="dot" style="background:#06b6d4"></span>BLOK 6/22 TAMAMLANDI — SIRKET KIMLIGI VE SEMBOL ESLESTIRME (100/100 TEST GECTI, 2026-07-14)<span class="yd yd-ok" data-kod="BLOK-6" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <div class="note" style="margin:8px 0 12px"><b>Kural:</b> Bu kartta yalnizca <b>terminal dogrulamali</b> bilgiler yer alir — pytest ciktisi: <b>&#34;100 passed in 1.70s&#34;</b> (2026-07-14). Blok 6, tum sistemde kullanilacak <b>merkezi stock_id</b> kimligini ve 5 platform sembol eslestirmesini kurar.</div>
 <table>
 <tbody><tr><th style="width:26%">Kod dosyasi</th><th>Gorev (gercek yol)</th></tr>
@@ -1013,7 +1410,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- BOLUM 3 - C KART SERISI (BLOK 17) -->
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#38bdf8"></span>C1 — SISTEMIN CALISMA MODELI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#38bdf8"></span>C1 — SISTEMIN CALISMA MODELI <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C1" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Hisse taramasi VPS uzerinde kontrollu gorev akisi olarak calisir: 08:00 on kontrol → 08:00-08:45 toplama → 08:45-09:00 temizleme → 09:00-09:30 toparlanma → 09:30-09:35 paketleme → 09:35-09:40 anomali → <b>09:40 veri kesim</b> → 09:40-09:45 kritik yeniden tarama. 100 hisse tek senkron donguyle calistirilmaz; kontrollu paralellik + hata izolasyonu (1 hisse patlarsa 99 devam eder).</td></tr>
@@ -1026,7 +1423,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#22c55e"></span>C2 — XK100 EVREN YONETIMI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#22c55e"></span>C2 — XK100 EVREN YONETIMI <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C2" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Aktif BIST Katilim 100 listesi 3 kaynak capraz dogrulamasiyla alinir (KAP Endeks + borsaistanbul.com/endeks/xk100 + CSV). Tam <b>100 sirket</b> zorunludur: 100 ustu REDDEDILIR, eksik REDDEDILIR, tekrarli kod REDDEDILIR, bos evren REDDEDILIR. Donem degisikliginde giren eklenir, cikan arsivlenir (silinmez).</td></tr>
@@ -1039,7 +1436,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#06b6d4"></span>C3 — SIRKET KIMLIGI VE SEMBOL ESLESTIRME <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#06b6d4"></span>C3 — SIRKET KIMLIGI VE SEMBOL ESLESTIRME <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C3" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Tum sistemde tek merkezi <b>stock_id</b> (STK-000001, deterministik). 5 platform sembolu (bist/yahoo/google/tradingview/kap). Eslestirme tam token bazli — kisa kod (&#34;IS&#34;) uzun sembol icinde (&#34;ISCTR&#34;) yakalanamaz. Kod degisikliginde eski sembol SILINMEZ (valid_from/valid_to). Cift eslestirme DUPLICATE_SYMBOL; dogrulanamayan SYMBOL_VERIFICATION_PENDING kuyruguna duser.</td></tr>
@@ -1052,7 +1449,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#f59e0b"></span>C4 — FIYAT VE TARIHSEL VERI TOPLAMA <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#f59e0b"></span>C4 — FIYAT VE TARIHSEL VERI TOPLAMA <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C4" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Tek kaynaga bagimlilik yok: ana (lisansli) → yedek (yfinance), dogrulama (Google Finance); kaynak onceligi yonetici ayarindan. Ilk kurulum 260+ gun; her sabah artimli guncelleme + son 10 gun tekrar kontrol. Ayni veri tekrar gelirse kopya YAZILMAZ. Iki kaynak bos ise PRICE_DATA_MISSING. Kaynaklar arasi kapanis farki toleransi config'ten. Kayit: Date, Open, High, Low, Close, Adj Close, Volume, Currency, Source ts, Collected ts.</td></tr>
@@ -1065,7 +1462,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#ef4444"></span>C5 — OHLCV KALITE KONTROLU <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#ef4444"></span>C5 — OHLCV KALITE KONTROLU <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C5" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Analiz modullerine gondermeden once 13 kontrol: OHLC&gt;0, hacim≥0, High/Low kapsama, gecerli islem gunu, tekrar tarih, para birimi, sembol-sirket, aciklanmamis fark, kurumsal kontrol, kaynak karsilastirma. 5 katman: RAW/CLEAN/VALIDATED/REJECTED/REVIEW_REQUIRED. Gecersiz veri analize GECMEZ (ReleaseGate). Ham kayit asla silinmez; eski rapor sessizce degismez; yeni halka arza sentetik gecmis uretilmez. 6 yeterlilik etiketi (SUFFICIENT…PRICE_DATA_MISSING).</td></tr>
@@ -1078,7 +1475,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#3b82f6"></span>C6 — HACIM VE TL ISLEM HACMI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#3b82f6"></span>C6 — HACIM VE TL ISLEM HACMI <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C6" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>volume_units (adet) ile TL hacim kati ayrilir. turnover_try = kaynaktan gercek TL (OFFICIAL/PROVIDER); yoksa estimated_turnover_try = ((O+H+L+C)/4) x Volume (ESTIMATED) — tahmin asla gercek diye gosterilmez. 20 gunluk oran: son gun / onceki 20 gecerli gun ortalamasi (son gun ortalamaya DAHIL DEGIL). Tatil/kaynak hatasi sifir eklenmez; gercek sifir ≠ eksik. 6 durum (NORMAL…REVIEW_REQUIRED). Anormal hacim tek basina sinyal uretmez (signal her zaman None — SignalLockError).</td></tr>
@@ -1091,7 +1488,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#8b5cf6"></span>C7 — KAP TOPLAMA <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#8b5cf6"></span>C7 — KAP TOPLAMA <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C7" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Merkezi KAP akisi taranir — 200 profil linki kontrolsuz acilmaz (detay calisma ici tek kez). 6 adim: yeni bildirim → XK100 eslestirme → detay → ek dosya meta → revizyon/iptal → stock_id baglama. 17 alanli kayit; ayni notification_id ikinci kez eklenmez. Duzeltilmis bildirim eskinin uzerine YAZILMAZ (SUPERSEDED/REVISED/CANCELLED zinciri). Profiller haftalik kontrol. KAP calismazsa fiyat taramasi durmaz (PARTIAL). Kritik bildirim tam metni yoksa hisse Favori surecine hazir sayilmaz. Olumlu/olumsuz puan HESAPLANMAZ.</td></tr>
@@ -1104,7 +1501,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#f97316"></span>C8 — HABER HAVUZU VE ESLESTIRME <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#f97316"></span>C8 — HABER HAVUZU VE ESLESTIRME <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C8" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>10 alanli haber kaydi. Eslestirme 9 varlikla (kod, tam unvan, kisa ad, eski ad, eski kod, marka, bagli ortaklik, istirak, yonetici). Sadece kod gecmesi kesin eslesme degil (max 70, confirmed=False); kelime ici eslesme yasak. Guven skoru 0-100; dusuk guven otomatik kesin haber yapilmaz (needs_review). 6 duplikasyon kanali; ajans kopyasi bagimsiz dogrulama sayilmaz. Reklam/sponsorlu/forum/otomatik fiyat tablosu ayri etiket. AI zorunlu degil — kapaliysa/hata verirse tarama durmaz. Ton/onem/etki puani HESAPLANMAZ.</td></tr>
@@ -1117,7 +1514,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#eab308"></span>C9 — KURUMSAL ISLEMLER VE TEDBIRLER <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#eab308"></span>C9 — KURUMSAL ISLEMLER VE TEDBIRLER <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C9" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>11 kurumsal islem tipi (temettu→kod degisikligi), 11 alanli kayit. 7 tedbir tipi (islem durdurma→pazar degisikligi), 7 alanli kayit. Duzeltilmis kayit eskinin uzerine yazilmaz (action-vN surum zinciri). Cift kayit engeli. Aktif TRADING_HALT: taramadan SILINMEZ, gecmis grafik KORUNUR, normal hisse gibi GOSTERILMEZ, scoring_ready=False; tedbir bitince otomatik True. Suresi biten tedbir otomatik pasif + arsiv. Ham+dogrulanmis olay verisi sonraki modullere frozen paketle aktarilir. Otomatik puan URETMEZ.</td></tr>
@@ -1130,7 +1527,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#14b8a6"></span>C10 — ZAMANLAMA VE GOREV DURUMLARI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#14b8a6"></span>C10 — ZAMANLAMA VE GOREV DURUMLARI <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C10" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>11 durum (WAITING, COLLECTING_PRICE/KAP/NEWS/ACTIONS/RESTRICTIONS, VALIDATING, READY, PARTIAL_DATA, FAILED, INACTIVE) + izinli gecis tablosu. Kaynak basina concurrency_limit/requests_per_minute/timeout/retry_count/backoff. Retry: hemen → +30sn → +90sn; asimda yedek kaynak gecisi loglanir (FALLBACK_SWITCHED). Ayni run_id iki kez baslatilamaz; bilincli yeniden tarama R2 olusturur. Systemd timer: islem gunleri 08:00 Europe/Istanbul.</td></tr>
@@ -1143,7 +1540,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#ec4899"></span>C11 — TARAMA VERI GUVENI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#ec4899"></span>C11 — TARAMA VERI GUVENI <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C11" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>0-100 Tarama Veri Guveni — <b>Hisse Skoru degil, yukselme ihtimali degil, alim tavsiyesi degil</b> (kilitli disclaimer: &#34;Bu oran verinin tamlik ve dogrulama seviyesidir, hissenin yukselme ihtimali degil.&#34;). 12 bilesen, agirliklar config+yonetici panelinden (toplam dogrulamali). Eksik alan sifir veri gibi kabul edilmez. 5 cikti: technical_ready, scoring_ready, favorite_eligible, data_confidence, missing_fields. Kritik eksikte favorite_eligible=false + KRITIK VERI EKSIK; aktif halt'ta scoring_ready=false.</td></tr>
@@ -1156,7 +1553,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#84cc16"></span>C12 — VERI TABANI VE API <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#84cc16"></span>C12 — VERI TABANI VE API <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C12" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td><b>DB:</b> 11 tablo + surumlu migration (ileri+geri alma, checksum korumali) + yedek/kayip kontrolu + bos DB'de test. Benzersizlik: run_id, run_id+stock_id, stock_id+trade_date+source+data_version, kap_notice_no. Ham/temiz/dogrulanmis ayri katmanlar. <b>API:</b> 10 musteri ucu + 7 yonetici ucu; 12 liste parametresi; her cevapta zarf (scan_run_id, report_version, last_updated_at, data_cutoff_at, status); run_id karistirilmaz; musteri yalnizca yayinlanabilir veri; yonetici X-Admin-Token; ham hata maskesi; OpenAPI 3.0.3.</td></tr>
@@ -1169,7 +1566,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 </div>
 
 <div class="card" style="border:1px solid rgba(148,163,184,.3)">
-<h3><span class="dot" style="background:#94a3b8"></span>C13 — TESTLER, VPS DEPLOYMENT VE TAMAMLANMA KRITERLERI <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#94a3b8"></span>C13 — TESTLER, VPS DEPLOYMENT VE TAMAMLANMA KRITERLERI <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="C13" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Her blok TAM 100 pytest testi ile teslim edilir; terminal kaniti olmadan hicbir kart TEST_GECTI/CANLI olamaz (sahte test sayisi veya sahte dosya adi YASAK). Modul toplami: <b>1100/1100</b> (blok6-16) + Bolum 1-2 (268) = 1368 test. VPS deployment: repo klonlanir, .env doldurulur (.env.example sablon), systemd servis+timer kurulur, pytest 1100/1100 dogrulanir. CANLI durumu ancak ilk gercek sabah taramasi basarili calistiktan sonra yazilir.</td></tr>
@@ -1184,7 +1581,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- BOLUM 3 - BLOK 17 KARTI -->
 <div class="card" style="border:1px solid rgba(139,92,246,.5);background:#0d0616">
-<h3><span class="dot" style="background:#a78bfa"></span>BLOK 17/22 TAMAMLANDI — YONETICI SISTEM SEMASI SAYFASI (docs.html OZET + C1-C13) <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#a78bfa"></span>BLOK 17/22 TAMAMLANDI — YONETICI SISTEM SEMASI SAYFASI (docs.html OZET + C1-C13) <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="BLOK-17" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Bu gizli sayfa (docs.html) sistemin <b>yonetici dokuman merkezidir</b>: BOLUM 3 OZET kutusu + C1-C13 kural kartlari + blok teslim kartlari burada toplanir. Kural: her blok tesliminde sayfa guncellenir (devamli guncelleme kurali); musteri sayfasinda metin detay gosterilmez, tum aciklama bu sayfadadir. Sayfa yalnizca direkt link ile erisilir.</td></tr>
@@ -1198,7 +1595,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- BOLUM 3 - BLOK 18 KARTI -->
 <div class="card" style="border:1px solid rgba(59,130,246,.4);background:#0a1128">
-<h3><span class="dot" style="background:#3b82f6"></span>BLOK 18/22 TAMAMLANDI — MUSTERI ANA SAYFASI (index.html) <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#3b82f6"></span>BLOK 18/22 TAMAMLANDI — MUSTERI ANA SAYFASI (index.html) <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="BLOK-18" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Musteri ana sayfasi: <b>XK100 Tarama Durumu karti</b> (8 alan: tarama durumu, taranan/tam/kismi/basarisiz sayilari, ortalama veri guveni, son guncelleme, scan_run_id) + <b>100 Hisse Ozeti tablosu</b> (17 sutun, 8 filtre, 3 siralama, sayfa bazli listeleme) + mobil tasma duzeni. DEMO rozet/bantlari zorunlu: sahte canli gorunum YOK. API cevaplari zarf dogrulamasindan gecmeden ekrana basilmaz; hata maskelenir.</td></tr>
@@ -1212,7 +1609,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- BOLUM 3 - BLOK 19 KARTI -->
 <div class="card" style="border:1px solid rgba(245,158,11,.4);background:#1a1204">
-<h3><span class="dot" style="background:#f59e0b"></span>BLOK 19/22 TAMAMLANDI — HISSE DETAY PANELI + HAM GRAFIKLER <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#f59e0b"></span>BLOK 19/22 TAMAMLANDI — HISSE DETAY PANELI + HAM GRAFIKLER <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="BLOK-19" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Tabloda bir hisseye tiklayinca <b>stk-detail paneli</b> acilir: 8 bolum (1 Sirket, 2 Fiyat Ozeti, 3 Tarama, 4 KAP, 5 Haber, 6 Kurumsal Islemler, 7 Tedbirler, 8 Ham Grafikler). Ham grafikler: sd-candles (mum) + sd-volume (hacim) canvas'lari; 6 aralik butonu (30/60/90/180/260/MAKSIMUM); HAM / DUZELTILMIS secimi — duzeltilmis seri henuz uretilmedigi icin DUZELTILMIS butonu DISABLED durur (sahte doldurma yok).</td></tr>
@@ -1226,7 +1623,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- BOLUM 3 - BLOK 20 KARTI -->
 <div class="card" style="border:1px solid rgba(236,72,153,.4);background:#16060f">
-<h3><span class="dot" style="background:#ec4899"></span>BLOK 20/22 TAMAMLANDI — MOBIL ENTEGRASYON (PWA + API SOZLESMESI) <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#ec4899"></span>BLOK 20/22 TAMAMLANDI — MOBIL ENTEGRASYON (PWA + API SOZLESMESI) <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="BLOK-20" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Mobil hazirlik katmani: <b>PWA manifest + service worker</b> (ana sayfa telefon ana ekranina eklenir, eski onbellek varsa offline-banner acilir), musteri <b>API sozlesmesi</b> (tek dosyada tum uclar + zarf + hata maskesi), dahili <b>olay bus</b> (events.py — 3 dahili olay; musteri bildirimi uretmez). Native mobil uygulama yazilmadi: sozlesme hazir, uygulama bekliyor (<b>HAZIR_BEKLIYOR</b>).</td></tr>
@@ -1240,7 +1637,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- BOLUM 3 - BLOK 21 KARTI -->
 <div class="card" style="border:1px solid rgba(239,68,68,.4);background:#160808">
-<h3><span class="dot" style="background:#ef4444"></span>BLOK 21/22 TAMAMLANDI — GUVENLIK, LOG, IZLEME VE YEDEKLEME <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#ef4444"></span>BLOK 21/22 TAMAMLANDI — GUVENLIK, LOG, IZLEME VE YEDEKLEME <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="BLOK-21" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Operasyon katmani: yonetici <b>rol eslemesi</b> (ADMIN/VIEWER), <b>ops log</b> (JSON-lines, her yonetici islemi kayitli), <b>kaynak saglik</b> kayitlari (art arda hata esigi), <b>disk izleme</b> (uyari/kritik yuzde), <b>yedekleme</b> (birincil SQLite; PostgreSQL secenegi hazir), <b>geri yukleme + retention</b> (14 yedek saklama), <b>secrets hijyeni</b> (gizli degerler loga dusmez).</td></tr>
@@ -1254,7 +1651,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- BOLUM 3 - BLOK 22 KARTI -->
 <div class="card" style="border:1px solid rgba(34,197,94,.4);background:#07130b">
-<h3><span class="dot" style="background:#22c55e"></span>BLOK 22/22 TAMAMLANDI — TEST, VPS DEPLOYMENT VE TAMAMLANMA <span class="pill py" style="margin-left:8px">TEST_GECTI</span></h3>
+<h3><span class="dot" style="background:#22c55e"></span>BLOK 22/22 TAMAMLANDI — TEST, VPS DEPLOYMENT VE TAMAMLANMA <span class="pill py" style="margin-left:8px">TEST_GECTI</span><span class="yd yd-ok" data-kod="BLOK-22" data-durum="yuklu" data-test="100/100" aria-label="SISTEMDE YUKLU">✓ SISTEMDE YUKLU</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Alan</th><th>Deger (kanitli)</th></tr>
 <tr><td style="font-weight:700">Kural aciklamasi</td><td>Kapanis blogu: <b>kabul testleri</b> (evren 100 kontrolu, staging, smoke, deployment artefakt dogrulama, tamamlanma kriterleri), <b>/health ucu</b> (canli saglik raporu), <b>VPS deployment paketi</b> (deploy.sh, nginx conf, certbot, logrotate). Tamamlanma kurali: her blok TAM 100 test + regresyon tam gecmeden TAMAMLANDI yazilmaz.</td></tr>
@@ -1568,7 +1965,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 4. HISSE SKORLAMA -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#22c55e">4</span>HISSE SKORLAMA — KURALLAR VE OTOMASYON DETAYI</h3>
+<h3><span class="bolum-no" style="background:#22c55e">4</span>HISSE SKORLAMA — KURALLAR VE OTOMASYON DETAYI<span class="yd yd-no" data-kod="BOLUM-4" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 <div class="sub" style="margin-bottom:10px">Her hisse 6 kategoride puanlanir; agirlikli toplam 0-100 arasi <b>Hisse Skoru</b>nu verir:</div>
 <table>
 <tbody><tr><th>Kategori</th><th>Renk</th><th>Neyle Beslenir?</th></tr>
@@ -1595,7 +1992,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 5. TEKNIK GOSTERGELER -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#f59e0b">5</span>TEKNIK GOSTERGE ANALIZI — KURALLAR VE OTOMASYON DETAYI</h3>
+<h3><span class="bolum-no" style="background:#f59e0b">5</span>TEKNIK GOSTERGE ANALIZI — KURALLAR VE OTOMASYON DETAYI<span class="yd yd-no" data-kod="BOLUM-5" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 <table>
 <tbody><tr><th>Gosterge</th><th>Ayar</th><th>Sinyal Kurali</th></tr>
 <tr><td class="o" style="font-weight:700">RSI</td><td>14</td><td><span class="r">&gt;70</span> Asiri alim (satim riski) · <span class="g">&lt;30</span> Asiri satim (alim firsati)</td></tr>
@@ -1619,7 +2016,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 6. SEVIYE HARITASI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#ef4444">6</span>SEVIYE HARITASI — KURALLAR VE OTOMASYON DETAYI</h3>
+<h3><span class="bolum-no" style="background:#ef4444">6</span>SEVIYE HARITASI — KURALLAR VE OTOMASYON DETAYI<span class="yd yd-no" data-kod="BOLUM-6" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 <table>
 <tbody><tr><th>Seviye</th><th>Tip</th><th>Olculenler</th></tr>
 <tr><td class="r" style="font-weight:800">R1 / R2 / R3</td><td>Direnc</td><td><b>Guc</b> (1-10) · <b>Gorulme</b> (kac kez test edildi) · <b>Kirilma %</b></td></tr>
@@ -1637,7 +2034,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 7. HABER ANALIZI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#0ea5e9">7</span>HABER ANALIZI SISTEMI — SISTEM HABERLERI NASIL ANALIZ EDER?</h3>
+<h3><span class="bolum-no" style="background:#0ea5e9">7</span>HABER ANALIZI SISTEMI — SISTEM HABERLERI NASIL ANALIZ EDER?<span class="yd yd-no" data-kod="BOLUM-7" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 <div class="sub" style="margin-bottom:14px">Her sabah tarama sirasinda tum haber kaynaklari gezilir, XK100 sirketleriyle ilgili haberler toplanir, analiz edilir ve puana donusturulur.</div>
 <div class="flow">
 <div class="step"><div class="ln"><div class="num" style="background:#7c2d12">a</div><div class="bar"></div></div>
@@ -1682,7 +2079,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 8. PORTFOY DAGILIMI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#64748b">8</span>PORTFOY DAGILIMI — KURALLAR VE OTOMASYON DETAYI</h3>
+<h3><span class="bolum-no" style="background:#64748b">8</span>PORTFOY DAGILIMI — KURALLAR VE OTOMASYON DETAYI<span class="yd yd-no" data-kod="BOLUM-8" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 <table>
 <tbody><tr><th>Kural</th><th>Aciklama</th></tr>
 <tr><td style="font-weight:700">Agirlik = Skor x Guven</td><td>Her hissenin portfoy agirligi, hisse skoru ile guven oraninin carpimina gore belirlenir — yuksek skor ama dusuk guven = sinirli agirlik</td></tr>
@@ -1695,7 +2092,7 @@ Asagidaki sema bu akisin 9 adimini gosterir; semanin altinda <b>her adimin tum k
 
 <!-- 9. RAPOR YAYINI -->
 <div class="card">
-<h3><span class="bolum-no" style="background:#22c55e">9</span>RAPOR YAYINI — KURALLAR VE OTOMASYON DETAYI</h3>
+<h3><span class="bolum-no" style="background:#22c55e">9</span>RAPOR YAYINI — KURALLAR VE OTOMASYON DETAYI<span class="yd yd-no" data-kod="BOLUM-9" data-durum="bos-yazi" data-test="yok" aria-label="BOS YAZI — sisteme yuklenmedi">✗ BOS YAZI</span></h3>
 <table>
 <tbody><tr><th style="width:26%">Kural</th><th>Aciklama</th></tr>
 <tr><td style="font-weight:700">Yayin saati</td><td>Her sabah <b>09:45</b> — borsa acilmadan once musteri raporu hazir bulur</td></tr>
